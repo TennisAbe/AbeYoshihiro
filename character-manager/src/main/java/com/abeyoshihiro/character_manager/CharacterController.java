@@ -3,6 +3,7 @@ package com.abeyoshihiro.character_manager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,10 +20,19 @@ public class CharacterController {
     }
 
     @GetMapping("/")
-    public String index(Model model) {
-        model.addAttribute("characters", repository.findAll());
-        model.addAttribute("character", new OriginalCharacter());
+    public String index(@RequestParam(name = "q", defaultValue = "") String query,
+                        Model model) {
+        String keyword = query.strip();
+        model.addAttribute("characters",
+                repository.findByNameContainingIgnoreCaseOrderByIdAsc(keyword));
+        model.addAttribute("query", keyword);
         return "index";
+    }
+
+    @GetMapping("/characters/new")
+    public String newCharacter(Model model) {
+        model.addAttribute("character", new OriginalCharacter());
+        return "character-form";
     }
 
     @PostMapping("/characters")
@@ -30,9 +40,14 @@ public class CharacterController {
             @ModelAttribute("character") OriginalCharacter character) {
         if (character.getName() != null
                 && !character.getName().isBlank()) {
-            repository.save(character);
+            OriginalCharacter saved = new OriginalCharacter();
+            saved.setName(character.getName().strip());
+            saved.setPersonality(character.getPersonality());
+            saved.setMemo(character.getMemo());
+            repository.save(saved);
+            return "redirect:/characters/" + saved.getId() + "/edit";
         }
-        return "redirect:/";
+        return "redirect:/characters/new";
     }
     
     @PostMapping("/characters/{id}/delete")
@@ -48,8 +63,7 @@ public class CharacterController {
                         new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         model.addAttribute("character", character);
-        model.addAttribute("characters", repository.findAll());
-        return "index";
+        return "character-form";
     }
 
     @PostMapping("/characters/{id}/update")
@@ -62,12 +76,12 @@ public class CharacterController {
                         new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         if (input.getName() != null && !input.getName().isBlank()) {
-            character.setName(input.getName());
+            character.setName(input.getName().strip());
             character.setPersonality(input.getPersonality());
             character.setMemo(input.getMemo());
             repository.save(character);
         }
 
-        return "redirect:/";
+        return "redirect:/characters/" + id + "/edit";
     }
 }

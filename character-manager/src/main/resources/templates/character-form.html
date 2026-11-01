@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="${character.id == null ? 'キャラクター登録' : 'キャラクター編集'}"></title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body><main>
+  <header class="header">
+    <h1 th:text="${character.id == null ? 'キャラクター登録' : 'キャラクター編集'}"></h1>
+    <a class="button secondary" th:href="@{/}">一覧に戻る</a>
+  </header>
+  <div class="editor">
+    <section class="panel">
+      <h2>基本設定</h2>
+      <form th:action="${character.id == null} ? @{/characters} : @{/characters/{id}/update(id=${character.id})}"
+            th:object="${character}" method="post">
+        <label>名前（必須）<input type="text" th:field="*{name}" maxlength="255" required></label>
+        <label>性格<textarea th:field="*{personality}" maxlength="255" rows="4"></textarea></label>
+        <label>設定メモ<textarea th:field="*{memo}" maxlength="255" rows="6"></textarea></label>
+        <div class="actions">
+          <button type="submit" th:text="${character.id == null ? '登録して編集を続ける' : '変更を保存する'}"></button>
+          <a th:href="@{/}">一覧に戻る</a>
+        </div>
+      </form>
+    </section>
+    <section class="panel">
+      <h2>キャラクター画像</h2>
+      <img class="preview" th:if="${character.imageRegistered}" th:src="@{/characters/{id}/image(id=${character.id})}" th:alt="${character.name + 'の画像'}">
+      <p class="muted" th:unless="${character.imageRegistered}">画像はまだ登録されていません。</p>
+      <p class="muted" th:if="${character.id == null}">基本設定を登録すると、画像を追加できます。</p>
+      <form th:if="${character.id != null}" th:action="@{/characters/{id}/image(id=${character.id})}"
+            method="post" enctype="multipart/form-data">
+        <label>画像を選択（5MBまで）<input type="file" name="image" accept="image/png,image/jpeg,image/gif" required></label>
+        <p class="muted">画像は基本設定とは別に保存します。</p>
+        <button type="submit">画像を登録・変更する</button>
+      </form>
+      <div class="delete-area" th:if="${character.id != null}">
+        <form th:action="@{/characters/{id}/delete(id=${character.id})}" method="post"
+              onsubmit="return confirm('このキャラクターを削除しますか？ この操作は取り消せません。');">
+          <button class="danger" type="submit">キャラクターを削除する</button>
+        </form>
+      </div>
+    </section>
+  </div>
+</main></body>
+</html>

@@ -3,110 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>キャラクター管理</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      background: #f5f3fa;
-      color: #333;
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 24px;
-    }
-    .card {
-      background: white;
-      padding: 24px;
-      border-radius: 12px;
-      margin-bottom: 20px;
-    }
-    label { display: block; margin-bottom: 16px; }
-    input, textarea {
-      display: block;
-      box-sizing: border-box;
-      width: 100%;
-      margin-top: 6px;
-      padding: 10px;
-      font: inherit;
-    }
-    button {
-      background: #6750a4;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      padding: 10px 24px;
-      cursor: pointer;
-    }
-    .text { white-space: pre-wrap; overflow-wrap: anywhere; }
-  </style>
+  <title>キャラクター一覧</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
 </head>
-<body>
-  <h1>キャラクター管理</h1>
-
-  <section class="card">
-    <h2 th:text="${character.id == null ? 'キャラクター登録' : 'キャラクター編集'}">
-  キャラクター登録
-</h2>
-    <form th:action="${character.id == null}
-        ? @{/characters}
-        : @{/characters/{id}/update(id=${character.id})}"
-      th:object="${character}" method="post">
-      <label>
-        名前
-        <input type="text" th:field="*{name}" maxlength="255" required>
-      </label>
-      <label>
-        性格
-        <textarea th:field="*{personality}" maxlength="255"></textarea>
-      </label>
-      <label>
-        設定メモ
-        <textarea th:field="*{memo}" maxlength="255"></textarea>
-      </label>
-      <button type="submit"
-        th:text="${character.id == null ? '登録する' : '更新する'}">
-  登録する
-</button>
-<a th:if="${character.id != null}" th:href="@{/}">キャンセル</a>
-    </form>
+<body><main>
+  <header class="header">
+    <div><h1>キャラクター管理</h1><p class="muted">キャラクターを選ぶと、専用の編集画面を開きます。</p></div>
+    <a class="button" th:href="@{/characters/new}">＋ 新規登録</a>
+  </header>
+  <form class="search" th:action="@{/}" method="get" role="search">
+    <input type="search" name="q" th:value="${query}" placeholder="キャラクター名で検索" aria-label="キャラクター名">
+    <button type="submit">検索</button>
+    <a th:if="${!#strings.isEmpty(query)}" th:href="@{/}">検索をクリア</a>
+  </form>
+  <p class="muted" th:text="${#lists.size(characters)} + '件のキャラクター'"></p>
+  <section class="panel empty" th:if="${#lists.isEmpty(characters)}">
+    <h2 th:text="${#strings.isEmpty(query) ? 'まだキャラクターがいません' : '該当するキャラクターが見つかりません'}"></h2>
+    <p th:text="${#strings.isEmpty(query) ? '「新規登録」から最初のキャラクターを追加しましょう。' : '別の名前で検索するか、検索をクリアしてください。'}"></p>
   </section>
-
-  <h2>キャラクター一覧</h2>
-  <p th:if="${#lists.isEmpty(characters)}">
-    まだキャラクターは登録されていません。
-  </p>
-
-  <article class="card" th:each="item : ${characters}">
-    <h3 th:text="${item.name}"></h3>
-    <img th:if="${item.imageRegistered}"
-     th:src="@{/characters/{id}/image(id=${item.id})}"
-     th:alt="${item.name + 'の画像'}"
-     style="display: block; max-width: 100%; max-height: 300px;
-            border-radius: 8px; margin-bottom: 16px;">
-
-<form th:action="@{/characters/{id}/image(id=${item.id})}"
-      method="post"
-      enctype="multipart/form-data"
-      style="margin-bottom: 20px;">
-  <label>
-    キャラクター画像（5MBまで）
-    <input type="file"
-           name="image"
-           accept="image/png,image/jpeg,image/gif"
-           required>
-  </label>
-  <button type="submit">画像を登録・変更する</button>
-</form>
-    <h4>性格</h4>
-    <p class="text" th:text="${item.personality}"></p>
-    <h4>設定メモ</h4>
-    <p class="text" th:text="${item.memo}"></p>
-    
-    <form th:action="@{/characters/{id}/delete(id=${item.id})}"
-      method="post"
-      onsubmit="return confirm('このキャラクターを削除しますか？');">
-  <button type="submit">削除する</button>
-</form>
-<a th:href="@{/characters/{id}/edit(id=${item.id})}">編集する</a>
-  </article>
-</body>
+  <section class="grid" aria-label="キャラクター一覧">
+    <a class="character-card" th:each="item : ${characters}"
+       th:href="@{/characters/{id}/edit(id=${item.id})}">
+      <div class="thumbnail">
+        <img th:if="${item.imageRegistered}" th:src="@{/characters/{id}/image(id=${item.id})}" alt="" loading="lazy">
+        <span th:unless="${item.imageRegistered}">画像未登録</span>
+      </div>
+      <h2 class="card-title" th:text="${item.name}"></h2>
+    </a>
+  </section>
+</main></body>
 </html>

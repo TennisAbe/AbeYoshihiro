@@ -67,7 +67,7 @@ public class CharacterImageController {
         character.setImageRegistered(true);
         repository.save(character);
 
-        return "redirect:/";
+        return "redirect:/characters/" + id + "/edit";
     }
 
     @GetMapping("/characters/{id}/image")
