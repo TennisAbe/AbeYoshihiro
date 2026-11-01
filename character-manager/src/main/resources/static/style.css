@@ -147,3 +147,6 @@ button.favorite-button.is-favorite { color: var(--gold); border-color: #b49358; 
 .preserve-text { white-space: pre-wrap; overflow-wrap: anywhere; }
 button.secondary { background: transparent; border-color: #65556f; color: var(--text); }
 @media (max-width: 500px) { .masthead { flex-wrap: wrap; padding-bottom: 12px; }.masthead-actions { gap: 14px; }.profile-grid { grid-template-columns: 1fr; }.gallery-item img { height: 130px; } }
+
+.profile-field { margin-bottom: 22px; }
+.profile-field > label { margin-bottom: 0; }

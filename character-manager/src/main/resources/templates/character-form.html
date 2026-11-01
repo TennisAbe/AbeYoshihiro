@@ -21,21 +21,20 @@
   </header>
   <div class="editor">
     <section class="panel" data-reveal>
-      <p class="eyebrow">01 / IDENTITY</p><h2>基本設定</h2>
+      <p class="eyebrow">01 / IDENTITY</p><h2>プロフィール</h2>
       <form th:action="${character.id == null} ? @{/characters} : @{/characters/{id}/update(id=${character.id})}"
             th:object="${character}" method="post">
         <div class="field-error" role="alert" th:if="${#fields.hasAnyErrors()}"><p th:each="message : ${#fields.allErrors()}" th:text="${message}"></p></div>
-        <label>名前（必須）<input type="text" th:field="*{name}" maxlength="255" required></label>
-        <div class="profile-grid">
-          <label>年齢<input type="text" th:field="*{age}" maxlength="40" placeholder="例：18歳 / 不詳"></label>
-          <label>誕生日<input type="text" th:field="*{birthday}" maxlength="40" placeholder="例：4月12日"></label>
-          <label>身長<input type="text" th:field="*{height}" maxlength="40" placeholder="例：165cm"></label>
-          <label>種族<input type="text" th:field="*{species}" maxlength="80" placeholder="例：人間 / エルフ"></label>
-        </div>
-        <label>所属<input type="text" th:field="*{affiliation}" maxlength="120"></label>
-        <label>能力・特技<textarea th:field="*{abilities}" maxlength="4000" rows="4"></textarea></label>
-        <label>性格<textarea th:field="*{personality}" maxlength="2000" rows="4"></textarea></label>
-        <label>設定メモ<textarea th:field="*{memo}" maxlength="8000" rows="6"></textarea></label>
+        <div class="profile-field"><label for="name">名前（必須）</label><input type="text" th:field="*{name}" maxlength="255" required></div>
+        <div class="profile-field"><label for="affiliation">所属</label><input type="text" th:field="*{affiliation}" maxlength="120"></div>
+        <div class="profile-field"><label for="basicSettings">基本設定</label><textarea th:field="*{basicSettings}" maxlength="12000" rows="8"></textarea></div>
+        <div class="profile-field"><label for="personality">性格</label><textarea th:field="*{personality}" maxlength="2000" rows="4"></textarea></div>
+        <div class="profile-field"><label for="speechStyle">口調</label><textarea th:field="*{speechStyle}" maxlength="2000" rows="4"></textarea></div>
+        <div class="profile-field"><label for="firstPerson">一人称</label><input type="text" th:field="*{firstPerson}" maxlength="120"></div>
+        <div class="profile-field"><label for="feelingsTowardMikado">ミカドへの思い</label><textarea th:field="*{feelingsTowardMikado}" maxlength="4000" rows="5"></textarea></div>
+        <div class="profile-field"><label for="likes">好き</label><textarea th:field="*{likes}" maxlength="2000" rows="4"></textarea></div>
+        <div class="profile-field"><label for="dislikes">嫌い</label><textarea th:field="*{dislikes}" maxlength="2000" rows="4"></textarea></div>
+        <div class="profile-field"><label for="abilities">能力</label><textarea th:field="*{abilities}" maxlength="4000" rows="5"></textarea></div>
         <label>タグ
           <input type="text" th:field="*{tagsInput}" aria-describedby="tags-help" placeholder="例：魔法使い, 主人公, 森の住人">
         </label>

@@ -53,7 +53,7 @@ public class BackupService {
     public byte[] exportArchive() throws Exception {
         synchronized (gallery) {
             Document doc = factory().newDocumentBuilder().newDocument();
-            Element root = doc.createElement("noctalith"); root.setAttribute("version", "1"); doc.appendChild(root);
+            Element root = doc.createElement("noctalith"); root.setAttribute("version", "2"); doc.appendChild(root);
             Element cs = append(doc, root, "characters", "");
             Map<String, Path> images = new LinkedHashMap<>(); long total = 0;
             List<OriginalCharacter> allCharacters = characters.findAll();
@@ -128,17 +128,20 @@ public class BackupService {
         Map<String, byte[]> zip = unpack(stream);
         Document doc = factory().newDocumentBuilder().parse(new ByteArrayInputStream(zip.get("manifest.xml")));
         Element root = doc.getDocumentElement();
-        if (!root.getTagName().equals("noctalith") || !root.getAttribute("version").equals("1")) throw new IllegalArgumentException("対応していないバックアップ形式です。");
+        String version = root.getAttribute("version");
+        if (!root.getTagName().equals("noctalith") || !Set.of("1", "2").contains(version)) throw new IllegalArgumentException("対応していないバックアップ形式です。");
         if (children(root, "characters").size() != 1 || children(root, "relations").size() != 1) throw new IllegalArgumentException("バックアップの構成が不正です。");
         Map<Long, CharacterData> cs = new LinkedHashMap<>(); Map<Long, PictureData> ps = new LinkedHashMap<>(); List<RelationData> rs = new ArrayList<>();
         for (Element ce : children(children(root, "characters").get(0), "character")) {
             long key = id(ce.getAttribute("id")); OriginalCharacter c = new OriginalCharacter(); Map<String, String> fields = new HashMap<>();
-            for (var field : ProfileFields.limits().entrySet()) {
+            Map<String, Integer> limits = version.equals("1") ? ProfileFields.legacyLimits() : ProfileFields.limits();
+            for (var field : limits.entrySet()) {
                 List<Element> values = children(ce, field.getKey());
                 if (values.size() != 1) throw new IllegalArgumentException("プロフィールが不足または重複しています。");
                 fields.put(field.getKey(), limited(values.get(0).getTextContent(), field.getValue()));
             }
-            ProfileFields.read(fields, c); ProfileFields.validate(c); c.setName(c.getName().strip());
+            if (version.equals("1")) ProfileFields.readLegacy(fields, c); else ProfileFields.read(fields, c);
+            ProfileFields.validate(c); c.setName(c.getName().strip());
             if (!Set.of("true", "false").contains(ce.getAttribute("favorite"))) throw new IllegalArgumentException("お気に入りの値が不正です。");
             c.setFavorite(Boolean.parseBoolean(ce.getAttribute("favorite")));
             if (children(ce, "tags").size() != 1) throw new IllegalArgumentException("タグの構成が不正です。");

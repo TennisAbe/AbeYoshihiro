@@ -48,7 +48,7 @@ class CharacterWorkflowTests {
         OriginalCharacter character = new OriginalCharacter();
         character.setName(name);
         character.setPersonality("穏やか");
-        character.setMemo("設定メモ");
+        character.setBasicSettings("基本設定の内容");
         return repository.save(character);
     }
 
@@ -78,7 +78,7 @@ class CharacterWorkflowTests {
         assertFalse(list.body().contains("textarea"));
         var edit = get("/characters/" + character.getId() + "/edit");
         assertEquals(200, edit.statusCode());
-        assertTrue(edit.body().contains("設定メモ"));
+        assertTrue(edit.body().contains("基本設定"));
         assertTrue(edit.body().contains("multipart/form-data"));
         var create = get("/characters/new");
         assertEquals(200, create.statusCode());
@@ -95,14 +95,14 @@ class CharacterWorkflowTests {
 
     @Test
     void createsUpdatesAndDeletesWithoutLosingImageFlag() throws Exception {
-        var created = post("/characters", "name=Alice&personality=kind&memo=story&imageRegistered=true");
+        var created = post("/characters", "name=Alice&personality=kind&basicSettings=story&imageRegistered=true");
         assertEquals(302, created.statusCode());
         var character = repository.findAll().get(0);
         assertFalse(character.isImageRegistered());
         assertEquals("/characters/" + character.getId() + "/edit", URI.create(created.headers().firstValue("location").orElseThrow()).getPath());
         character.setImageRegistered(true);
         repository.save(character);
-        var updated = post("/characters/" + character.getId() + "/update", "name=Alice2&personality=brave&memo=new");
+        var updated = post("/characters/" + character.getId() + "/update", "name=Alice2&personality=brave&basicSettings=new");
         assertEquals(302, updated.statusCode());
         var saved = repository.findById(character.getId()).orElseThrow();
         assertEquals("Alice2", saved.getName());

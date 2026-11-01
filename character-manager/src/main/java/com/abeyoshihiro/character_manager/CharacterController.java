@@ -26,7 +26,7 @@ public class CharacterController {
     }
     @InitBinder("character")
     public void bindCharacter(WebDataBinder binder) {
-        binder.setAllowedFields("name", "personality", "memo", "tagsInput", "age", "birthday", "height", "species", "affiliation", "abilities");
+        binder.setAllowedFields("name", "affiliation", "basicSettings", "personality", "speechStyle", "firstPerson", "feelingsTowardMikado", "likes", "dislikes", "abilities", "tagsInput");
     }
     @GetMapping("/")
     public String index(@RequestParam(name = "q", defaultValue = "") String query,

@@ -96,6 +96,7 @@ public class OriginalCharacter {
     public void setTagsInput(String tagsInput) {
         this.tagsInput = tagsInput;
     }
+    // Legacy fields are retained only for non-destructive migration and old ZIP imports.
     @Column(length = 40)
     private String age;
     public String getAge() { return age; }
@@ -132,4 +133,34 @@ public class OriginalCharacter {
     public void setFavorite(Boolean value) { favorite = value; }
     public Long getCoverImageId() { return coverImageId; }
     public void setCoverImageId(Long value) { coverImageId = value; }
+    @Column(length = 12000)
+    private String basicSettings;
+    public String getBasicSettings() { return basicSettings; }
+    public void setBasicSettings(String value) { basicSettings = value; }
+
+    @Column(length = 2000)
+    private String speechStyle;
+    public String getSpeechStyle() { return speechStyle; }
+    public void setSpeechStyle(String value) { speechStyle = value; }
+
+    @Column(length = 120)
+    private String firstPerson;
+    public String getFirstPerson() { return firstPerson; }
+    public void setFirstPerson(String value) { firstPerson = value; }
+
+    @Column(length = 4000)
+    private String feelingsTowardMikado;
+    public String getFeelingsTowardMikado() { return feelingsTowardMikado; }
+    public void setFeelingsTowardMikado(String value) { feelingsTowardMikado = value; }
+
+    @Column(length = 2000)
+    private String likes;
+    public String getLikes() { return likes; }
+    public void setLikes(String value) { likes = value; }
+
+    @Column(length = 2000)
+    private String dislikes;
+    public String getDislikes() { return dislikes; }
+    public void setDislikes(String value) { dislikes = value; }
+
 }
