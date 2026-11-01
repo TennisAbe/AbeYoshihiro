@@ -206,3 +206,13 @@ button.secondary { background: transparent; border-color: #65556f; color: var(--
 .history-panel form { margin-top: 24px; }.history-panel .checkbox-label { line-height: 1.9; align-items: flex-start; }.history-panel .checkbox-label input { margin-top: 4px; }
 @media (max-width: 760px) { .dossier-layout { grid-template-columns: 1fr; gap: 30px; }.dossier-portrait { position: static; max-width: 420px; width: 100%; margin: auto; }.portrait-frame img { max-height: 420px; } }
 @media (max-width: 500px) { .dossier-copy { font-size: 15px; line-height: 2.2; }.dossier-section h2 { font-size: 20px; }.diff-columns { grid-template-columns: 1fr; }.card-affiliation { margin-left: 12px; margin-right: 12px; font-size: 10px; }.dossier-header { margin-top: 30px; } }
+
+.character-pagination { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); gap: 20px; align-items: stretch; margin: 42px 0; padding-top: 26px; border-top: 1px solid #5d465c; }
+.character-page-link { display: flex; flex-direction: column; gap: 12px; min-width: 0; text-decoration: none; border: 1px solid #57405f; border-radius: 4px; padding: 22px; background: linear-gradient(145deg,#211527a6,#100c16); transition: border-color .25s, box-shadow .25s; }
+.character-page-link:hover { border-color: var(--gold); box-shadow: 0 0 24px #c19a601c; }
+.page-direction { color: #bca8cb; font-size: 11px; letter-spacing: .05em; }
+.character-page-link strong { font-family: "Noto Serif JP",serif; font-weight: 500; font-size: 19px; color: var(--gold); overflow-wrap: anywhere; }
+.nav-previous { grid-column: 1; grid-row: 1; }.nav-next { grid-column: 3; grid-row: 1; text-align: right; }
+.character-page-position { grid-column: 2; grid-row: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; color: var(--muted); font: 13px "Cinzel",serif; }
+.character-page-position a { font: 11px "Yu Gothic",sans-serif; }
+@media (max-width: 500px) { .character-pagination { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }.character-page-link { padding: 16px 12px; }.character-page-link strong { font-size: 16px; }.nav-next { grid-column: 2; }.character-page-position { grid-column: 1 / -1; grid-row: 2; flex-direction: row; gap: 20px; padding: 12px; }.page-direction { font-size: 10px; } }

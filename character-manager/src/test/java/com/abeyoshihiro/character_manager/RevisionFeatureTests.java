@@ -21,6 +21,7 @@ class RevisionFeatureTests {
     @Value("${local.server.port}") int port;
     @Autowired CharacterRepository characters;
     @Autowired RevisionService history;
+    @Autowired AffiliationOrderingService ordering;
     @MockitoSpyBean RevisionRepository revisions;
     @Autowired RelationRepository relations;
     @Autowired PictureRepository pictures;
@@ -121,5 +122,24 @@ class RevisionFeatureTests {
     }
     @Test void deletingCharacterAlsoRemovesRevisions() throws Exception {
         var c=save("Before");history.update(c.getId(),input("After"));assertEquals(1,revisions.count());assertEquals(302,post("/characters/"+c.getId()+"/delete","").statusCode());assertEquals(0,revisions.count());assertEquals(404,get("/characters/"+c.getId()).statusCode());
+    }
+    @Test void detailNavigationIsHiddenForOneCharacterAndWorksAtBothEnds() throws Exception {
+        var first=save("First");assertFalse(get("/characters/"+first.getId()).body().contains("character-pagination"));
+        var last=save("<Last>");String a=get("/characters/"+first.getId()).body(),b=get("/characters/"+last.getId()).body();
+        assertTrue(a.contains("rel=\"next\""));assertFalse(a.contains("rel=\"prev\""));assertTrue(a.contains("href=\"/characters/"+last.getId()+"\" rel=\"next\""));assertTrue(a.contains("&lt;Last&gt;"));assertTrue(a.contains("1 / 2"));
+        assertTrue(b.contains("rel=\"prev\""));assertFalse(b.contains("rel=\"next\""));assertTrue(b.contains("href=\"/characters/"+first.getId()+"\" rel=\"prev\""));assertTrue(b.contains("2 / 2"));
+        assertTrue(a.indexOf("class=\"character-pagination\"")>a.indexOf("id=\"history\""));
+        post("/characters/"+last.getId()+"/delete","");assertFalse(get("/characters/"+first.getId()).body().contains("character-pagination"));
+    }
+    @Test void detailNavigationFollowsWorldAndAffiliationOrderAcrossIdGaps() throws Exception {
+        var other=save("Other");var modern=save("Modern");modern.setWorld(CharacterWorld.MODERN_WORLD);characters.save(modern);
+        var b=save("B");b.setWorld(CharacterWorld.ALTER_PALACE);b.setAffiliation("B");characters.save(b);
+        var a=save("A");a.setWorld(CharacterWorld.ALTER_PALACE);a.setAffiliation("A");characters.save(a);
+        var blank=save("No affiliation");blank.setWorld(CharacterWorld.ALTER_PALACE);blank.setAffiliation("");characters.save(blank);
+        ordering.save(CharacterWorld.ALTER_PALACE,List.of("A","B"),List.of(1,2));
+        assertEquals(List.of(a.getId(),b.getId(),blank.getId(),other.getId(),modern.getId()),ordering.roster().stream().map(OriginalCharacter::getId).toList());
+        var middle=get("/characters/"+b.getId()).body();assertTrue(middle.contains("href=\"/characters/"+a.getId()+"\" rel=\"prev\""));assertTrue(middle.contains("href=\"/characters/"+blank.getId()+"\" rel=\"next\""));
+        var boundary=get("/characters/"+blank.getId()).body();assertTrue(boundary.contains("href=\"/characters/"+other.getId()+"\" rel=\"next\""));
+        post("/characters/"+a.getId()+"/delete","");var newFirst=get("/characters/"+b.getId()).body();assertFalse(newFirst.contains("rel=\"prev\""));assertTrue(newFirst.contains("1 / 4"));
     }
 }

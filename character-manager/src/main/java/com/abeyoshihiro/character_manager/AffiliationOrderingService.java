@@ -55,6 +55,16 @@ public class AffiliationOrderingService {
         for (int i = 0; i < values.size(); i++) ranks.put(values.get(i), i);
         return Comparator.comparingInt((OriginalCharacter c) -> ranks.getOrDefault(affiliation(c), Integer.MAX_VALUE)).thenComparing(withinAffiliation);
     }
+    /** Full roster in the default list order: world, affiliation rank, registration ID. */
+    public List<OriginalCharacter> roster() {
+        List<OriginalCharacter> all = characters.findAll();
+        List<OriginalCharacter> result = new ArrayList<>();
+        for (CharacterWorld world : CharacterWorld.values()) {
+            all.stream().filter(c -> c.getWorld() == world)
+                    .sorted(comparator(world, Comparator.comparing(OriginalCharacter::getId))).forEach(result::add);
+        }
+        return result;
+    }
     public static class WorldSection {
         private final CharacterWorld world;
         private final List<OriginalCharacter> characters;

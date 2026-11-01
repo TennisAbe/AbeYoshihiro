@@ -16,4 +16,9 @@
 <article class="history-entry" th:each="entry : ${history}"><header><time th:datetime="${entry.revision.savedAt}" th:text="${entry.revision.timestamp + ' JST'}"></time><span class="muted" th:text="${entry.revision.reasonLabel}"></span></header><p class="muted" th:if="${#lists.isEmpty(entry.differences)}">現在と同じ内容です。</p>
 <details th:unless="${#lists.isEmpty(entry.differences)}"><summary th:text="${'現在との差分：' + #lists.size(entry.differences) + '項目'}"></summary><div th:replace="~{fragments/revision-diff :: differences(${entry.differences})}"></div></details>
 <a class="button secondary" th:href="@{/characters/{id}/history/{revisionId}(id=${character.id},revisionId=${entry.revision.id})}">差分を確認して復元</a></article></section>
+<nav class="character-pagination" aria-label="キャラクターの前後移動" th:if="${hasCharacterNavigation}">
+  <a class="character-page-link nav-previous" th:if="${previousCharacter != null}" th:href="@{/characters/{id}(id=${previousCharacter.id})}" rel="prev"><span class="page-direction"><span aria-hidden="true">←</span> 前のキャラクター</span><strong th:text="${previousCharacter.name}"></strong></a>
+  <div class="character-page-position"><span th:text="${navigationPosition + ' / ' + navigationTotal}"></span><a th:href="@{/}">一覧へ戻る</a></div>
+  <a class="character-page-link nav-next" th:if="${nextCharacter != null}" th:href="@{/characters/{id}(id=${nextCharacter.id})}" rel="next"><span class="page-direction">次のキャラクター <span aria-hidden="true">→</span></span><strong th:text="${nextCharacter.name}"></strong></a>
+</nav>
 </main><footer th:replace="~{fragments/palace :: footer}"></footer></div></body></html>

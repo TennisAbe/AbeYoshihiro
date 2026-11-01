@@ -101,6 +101,14 @@ public class CharacterController {
                 .filter(e -> !java.util.Set.of("name", "affiliation").contains(e.getKey()))
                 .map(e -> new RevisionService.Difference(ProfileSnapshot.labels().get(e.getKey()), e.getValue(), "")).toList());
         model.addAttribute("history", revisions.entries(c));
+        List<OriginalCharacter> roster = ordering.roster();
+        int position = -1;
+        for (int i = 0; i < roster.size(); i++) if (roster.get(i).getId().equals(id)) { position = i; break; }
+        model.addAttribute("hasCharacterNavigation", position >= 0 && roster.size() > 1);
+        model.addAttribute("previousCharacter", position > 0 ? roster.get(position - 1) : null);
+        model.addAttribute("nextCharacter", position >= 0 && position + 1 < roster.size() ? roster.get(position + 1) : null);
+        model.addAttribute("navigationPosition", position + 1);
+        model.addAttribute("navigationTotal", roster.size());
         return "character-detail";
     }
     @GetMapping("/characters/{id}/edit")
