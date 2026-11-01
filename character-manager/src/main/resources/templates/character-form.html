@@ -12,6 +12,8 @@
 <div class="page-shell">
 <header th:replace="~{fragments/palace :: masthead}"></header>
 <main id="main-content">
+  <p class="notice" role="status" th:if="${notice}" th:text="${notice}"></p>
+  <p class="field-error" role="alert" th:if="${error}" th:text="${error}"></p>
   <header class="header editor-header" data-reveal>
     <div><p class="eyebrow">CHARACTER DOSSIER</p>
     <h1 th:text="${character.id == null ? 'キャラクター登録' : 'キャラクター編集'}"></h1>
@@ -22,9 +24,18 @@
       <p class="eyebrow">01 / IDENTITY</p><h2>基本設定</h2>
       <form th:action="${character.id == null} ? @{/characters} : @{/characters/{id}/update(id=${character.id})}"
             th:object="${character}" method="post">
+        <div class="field-error" role="alert" th:if="${#fields.hasAnyErrors()}"><p th:each="message : ${#fields.allErrors()}" th:text="${message}"></p></div>
         <label>名前（必須）<input type="text" th:field="*{name}" maxlength="255" required></label>
-        <label>性格<textarea th:field="*{personality}" maxlength="255" rows="4"></textarea></label>
-        <label>設定メモ<textarea th:field="*{memo}" maxlength="255" rows="6"></textarea></label>
+        <div class="profile-grid">
+          <label>年齢<input type="text" th:field="*{age}" maxlength="40" placeholder="例：18歳 / 不詳"></label>
+          <label>誕生日<input type="text" th:field="*{birthday}" maxlength="40" placeholder="例：4月12日"></label>
+          <label>身長<input type="text" th:field="*{height}" maxlength="40" placeholder="例：165cm"></label>
+          <label>種族<input type="text" th:field="*{species}" maxlength="80" placeholder="例：人間 / エルフ"></label>
+        </div>
+        <label>所属<input type="text" th:field="*{affiliation}" maxlength="120"></label>
+        <label>能力・特技<textarea th:field="*{abilities}" maxlength="4000" rows="4"></textarea></label>
+        <label>性格<textarea th:field="*{personality}" maxlength="2000" rows="4"></textarea></label>
+        <label>設定メモ<textarea th:field="*{memo}" maxlength="8000" rows="6"></textarea></label>
         <label>タグ
           <input type="text" th:field="*{tagsInput}" aria-describedby="tags-help" placeholder="例：魔法使い, 主人公, 森の住人">
         </label>
@@ -37,16 +48,28 @@
       </form>
     </section>
     <section class="panel" data-reveal>
-      <p class="eyebrow">02 / PORTRAIT</p><h2>キャラクター画像</h2>
+      <p class="eyebrow">02 / PORTRAIT</p><h2>キャラクター画像</h2><p class="muted">立ち絵・表情差分・衣装違いを最大20枚保存できます。代表画像を一覧に表示します。</p>
       <img class="preview" th:if="${character.imageRegistered}" th:src="@{/characters/{id}/image(id=${character.id})}" th:alt="${character.name + 'の画像'}">
       <p class="muted" th:unless="${character.imageRegistered}">画像はまだ登録されていません。</p>
       <p class="muted" th:if="${character.id == null}">基本設定を登録すると、画像を追加できます。</p>
       <form th:if="${character.id != null}" th:action="@{/characters/{id}/image(id=${character.id})}"
             method="post" enctype="multipart/form-data">
+        <label>画像の説明<input type="text" name="title" maxlength="100" placeholder="例：通常衣装・笑顔"></label>
         <label>画像を選択（5MBまで）<input type="file" name="image" accept="image/png,image/jpeg,image/gif" required></label>
         <p class="muted">画像は基本設定とは別に保存します。</p>
-        <button type="submit">画像を登録・変更する</button>
+        <button type="submit">画像を追加する</button>
       </form>
+      <div class="gallery" th:if="${character.id != null and !#lists.isEmpty(pictures)}">
+        <article class="gallery-item" th:each="picture : ${pictures}">
+          <a th:href="@{/characters/{id}/images/{pictureId}(id=${character.id},pictureId=${picture.id})}" target="_blank" rel="noopener" aria-label="画像を大きく表示">
+            <img th:src="@{/characters/{id}/images/{pictureId}(id=${character.id},pictureId=${picture.id})}" th:alt="${#strings.isEmpty(picture.title) ? 'キャラクター画像' : picture.title}" loading="lazy">
+          </a>
+          <p th:text="${#strings.isEmpty(picture.title) ? '無題' : picture.title}"></p>
+          <span class="cover-badge" th:if="${picture.id == character.coverImageId}">代表画像</span>
+          <form th:unless="${picture.id == character.coverImageId}" th:action="@{/characters/{id}/images/{pictureId}/cover(id=${character.id},pictureId=${picture.id})}" method="post"><button type="submit" class="secondary">代表にする</button></form>
+          <form th:action="@{/characters/{id}/images/{pictureId}/delete(id=${character.id},pictureId=${picture.id})}" method="post" onsubmit="return confirm('この画像を削除しますか？');"><button class="danger" type="submit">画像を削除</button></form>
+        </article>
+      </div>
       <div class="delete-area" th:if="${character.id != null}">
         <form th:action="@{/characters/{id}/delete(id=${character.id})}" method="post"
               onsubmit="return confirm('このキャラクターを削除しますか？ この操作は取り消せません。');">
@@ -55,6 +78,31 @@
       </div>
     </section>
   </div>
+  <section class="panel relations-panel" th:if="${character.id != null}" data-reveal>
+    <p class="eyebrow">03 / CONNECTIONS</p><h2>キャラクター同士の関係</h2>
+    <p class="muted">このキャラクターから見た相手との関係を記録します。相手の編集画面にも、受けた関係として表示されます。</p>
+    <form th:if="${!#lists.isEmpty(others)}" th:action="@{/characters/{id}/relations(id=${character.id})}" method="post">
+      <div class="profile-grid"><label>相手<select name="targetId" aria-label="相手" required><option value="">選択してください</option><option th:each="other : ${others}" th:value="${other.id}" th:text="${other.name}"></option></select></label>
+      <label>関係の種類<input type="text" name="relationType" list="relation-types" maxlength="60" required placeholder="例：友人 / 敵対 / 師匠"></label></div>
+      <datalist id="relation-types"><option value="家族"></option><option value="友人"></option><option value="敵対"></option><option value="師弟"></option><option value="恋人"></option><option value="仲間"></option></datalist>
+      <label>関係の説明<textarea name="description" maxlength="2000" rows="3"></textarea></label><button type="submit">関係を追加する</button>
+    </form>
+    <p class="muted" th:if="${#lists.isEmpty(others)}">別のキャラクターを登録すると、関係を追加できます。</p>
+    <h3>このキャラクターからの関係</h3>
+    <p class="muted" th:if="${#lists.isEmpty(outgoing)}">関係はまだ登録されていません。</p>
+    <article class="relation-item" th:each="relation : ${outgoing}">
+      <h4>→ <a th:href="@{/characters/{id}/edit(id=${relation.target.id})}" th:text="${relation.target.name}"></a></h4>
+      <form th:action="@{/characters/{id}/relations/{relationId}/update(id=${character.id},relationId=${relation.id})}" method="post">
+        <label>関係の種類<input type="text" name="relationType" th:value="${relation.relationType}" maxlength="60" required></label>
+        <label>関係の説明<textarea name="description" th:text="${relation.description}" maxlength="2000" rows="3"></textarea></label><button type="submit" class="secondary">関係を更新する</button>
+      </form>
+      <form th:action="@{/characters/{id}/relations/{relationId}/delete(id=${character.id},relationId=${relation.id})}" method="post" onsubmit="return confirm('この関係を削除しますか？');"><button type="submit" class="danger">関係を削除</button></form>
+    </article>
+    <h3>ほかのキャラクターからの関係</h3>
+    <p class="muted" th:if="${#lists.isEmpty(incoming)}">受けた関係はまだありません。</p>
+    <article class="relation-item" th:each="relation : ${incoming}"><h4><a th:href="@{/characters/{id}/edit(id=${relation.source.id})}" th:text="${relation.source.name}"></a> → <span th:text="${relation.relationType}"></span></h4><p class="preserve-text" th:text="${relation.description}"></p><a th:href="@{/characters/{id}/edit(id=${relation.source.id})}">相手の画面で編集する</a></article>
+  </section>
+
 </main>
 <footer th:replace="~{fragments/palace :: footer}"></footer>
 </div>

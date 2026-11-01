@@ -23,7 +23,9 @@ public class OriginalCharacter {
     private Long id;
 
     private String name;
+    @Column(length = 2000)
     private String personality;
+    @Column(length = 8000)
     private String memo;
 
     public Long getId() {
@@ -94,4 +96,40 @@ public class OriginalCharacter {
     public void setTagsInput(String tagsInput) {
         this.tagsInput = tagsInput;
     }
+    @Column(length = 40)
+    private String age;
+    public String getAge() { return age; }
+    public void setAge(String value) { age = value; }
+
+    @Column(length = 40)
+    private String birthday;
+    public String getBirthday() { return birthday; }
+    public void setBirthday(String value) { birthday = value; }
+
+    @Column(length = 40)
+    private String height;
+    public String getHeight() { return height; }
+    public void setHeight(String value) { height = value; }
+
+    @Column(length = 80)
+    private String species;
+    public String getSpecies() { return species; }
+    public void setSpecies(String value) { species = value; }
+
+    @Column(length = 120)
+    private String affiliation;
+    public String getAffiliation() { return affiliation; }
+    public void setAffiliation(String value) { affiliation = value; }
+
+    @Column(length = 4000)
+    private String abilities;
+    public String getAbilities() { return abilities; }
+    public void setAbilities(String value) { abilities = value; }
+
+    private Boolean favorite = false;
+    private Long coverImageId;
+    public boolean isFavorite() { return Boolean.TRUE.equals(favorite); }
+    public void setFavorite(Boolean value) { favorite = value; }
+    public Long getCoverImageId() { return coverImageId; }
+    public void setCoverImageId(Long value) { coverImageId = value; }
 }

@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>NOCTALITH | バックアップ・復元</title><link rel="stylesheet" th:href="@{/style.css}"><script th:src="@{/palace.js}" defer></script></head>
+<body><div th:replace="~{fragments/palace :: atmosphere}"></div><div class="page-shell"><header th:replace="~{fragments/palace :: masthead}"></header><main>
+<header class="header editor-header"><div><p class="eyebrow">ARCHIVE PRESERVATION</p><h1>バックアップ・復元</h1></div><a class="button secondary" th:href="@{/}">一覧に戻る</a></header>
+<p class="notice" role="status" th:if="${notice}" th:text="${notice}"></p><p class="field-error" role="alert" th:if="${error}" th:text="${error}"></p>
+<div class="editor"><section class="panel" data-reveal><p class="eyebrow">01 / EXPORT</p><h2>バックアップを保存</h2><p>プロフィール、タグ、お気に入り、画像ギャラリー、キャラクター同士の関係を1つのZIPにまとめます。</p><p class="muted">保存したZIPを安全な場所に保管してください。キャラクターの追加や編集をしていないときに作成してください。</p><a class="button" th:href="@{/backup/download}">ZIPをダウンロード</a></section>
+<section class="panel" data-reveal><p class="eyebrow">02 / RESTORE</p><h2>バックアップから追加復元</h2><p>現在のデータは残したまま、ZIP内のキャラクター・画像・関係を追加します。同じZIPを複数回復元すると重複して追加されます。</p>
+<form th:action="@{/backup/restore}" method="post" enctype="multipart/form-data" onsubmit="return confirm('現在のデータを残して、バックアップの内容を追加しますか？');"><label>バックアップZIP（100MBまで）<input type="file" name="archive" accept=".zip,application/zip" required></label><label class="checkbox-label"><input type="checkbox" name="confirmed" value="true" required> 現在のデータを残して追加することを確認しました</label><button type="submit">追加復元する</button></form></section></div>
+</main><footer th:replace="~{fragments/palace :: footer}"></footer></div></body></html>

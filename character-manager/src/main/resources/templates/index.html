@@ -12,6 +12,8 @@
 <div class="page-shell">
 <header th:replace="~{fragments/palace :: masthead}"></header>
 <main id="main-content">
+  <p class="notice" role="status" th:if="${notice}" th:text="${notice}"></p>
+  <p class="field-error" role="alert" th:if="${error}" th:text="${error}"></p>
   <section class="hero" aria-labelledby="page-title">
     <div class="hero-copy" data-reveal>
       <p class="eyebrow"><span></span> THE CHARACTER COLLECTION</p>
@@ -33,13 +35,20 @@
               th:value="${selectedTag}" th:text="${selectedTag}" selected></option>
       <option th:each="tag : ${tags}" th:value="${tag}" th:text="${tag}" th:selected="${tag == selectedTag}"></option>
     </select>
+    <select name="sort" aria-label="並び順">
+      <option value="oldest" th:selected="${sort == 'oldest'}">登録順（古い順）</option>
+      <option value="newest" th:selected="${sort == 'newest'}">登録順（新しい順）</option>
+      <option value="name" th:selected="${sort == 'name'}">名前順</option>
+      <option value="favorite" th:selected="${sort == 'favorite'}">お気に入り優先</option>
+    </select>
+    <label class="checkbox-label"><input type="checkbox" name="favorites" value="true" th:checked="${favorites}"> お気に入りのみ</label>
     <button type="submit">検索</button>
-    <a th:if="${!#strings.isEmpty(query) or !#strings.isEmpty(selectedTag)}" th:href="@{/}">検索をクリア</a>
+    <a th:if="${!#strings.isEmpty(query) or !#strings.isEmpty(selectedTag) or favorites or sort != 'oldest'}" th:href="@{/}">検索をクリア</a>
   </form>
 
   <section class="panel empty" data-reveal th:if="${#lists.isEmpty(characters)}">
-    <h2 th:text="${#strings.isEmpty(query) and #strings.isEmpty(selectedTag) ? 'まだキャラクターがいません' : '該当するキャラクターが見つかりません'}"></h2>
-    <p th:text="${#strings.isEmpty(query) and #strings.isEmpty(selectedTag) ? '「新規登録」から最初のキャラクターを追加しましょう。' : '名前やタグを変更するか、検索をクリアしてください。'}"></p>
+    <h2 th:text="${#strings.isEmpty(query) and #strings.isEmpty(selectedTag) and !favorites ? 'まだキャラクターがいません' : '該当するキャラクターが見つかりません'}"></h2>
+    <p th:text="${#strings.isEmpty(query) and #strings.isEmpty(selectedTag) and !favorites ? '「新規登録」から最初のキャラクターを追加しましょう。' : '名前・タグ・お気に入り条件を変更するか、検索をクリアしてください。'}"></p>
   </section>
   <section class="grid" aria-label="キャラクター一覧">
     <article class="character-card" data-reveal th:each="item : ${characters}" th:style="'--card-index: ' + ${itemStat.index}">
@@ -53,8 +62,13 @@
     </a>
     <div class="tags" th:if="${!#sets.isEmpty(item.tags)}" aria-label="タグ">
       <a class="tag" th:each="tag : ${item.tags}" th:text="${tag}"
-         th:href="@{/(q=${query},tag=${tag})}"></a>
+         th:href="@{/(q=${query},tag=${tag},sort=${sort},favorites=${favorites})}"></a>
     </div>
+    <form class="favorite-form" th:action="@{/characters/{id}/favorite(id=${item.id})}" method="post">
+      <input type="hidden" name="q" th:value="${query}"><input type="hidden" name="tag" th:value="${selectedTag}">
+      <input type="hidden" name="sort" th:value="${sort}"><input type="hidden" name="favorites" th:value="${favorites}">
+      <button type="submit" class="favorite-button" th:classappend="${item.favorite ? 'is-favorite' : ''}" th:attr="aria-pressed=${item.favorite}" th:text="${item.favorite ? '★ お気に入り解除' : '☆ お気に入り'}"></button>
+    </form>
     </article>
   </section>
 </main>
