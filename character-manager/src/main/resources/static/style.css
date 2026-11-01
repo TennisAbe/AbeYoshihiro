@@ -75,7 +75,6 @@ body.motion-on .character-card:hover .thumbnail img { transform: scale(1.07); }
 .portrait-placeholder { display: flex; flex-direction: column; gap: 15px; align-items: center; font-size: 11px; letter-spacing: .12em; color: #bba88b; }
 .portrait-placeholder b { font-family: serif; font-size: 66px; font-weight: 400; color: #9b7ea9; }
 .card-meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 17px 17px 6px; color: #bda780; font-family: "Cinzel", serif; font-size: 9px; letter-spacing: .08em; }
-.card-meta > span:last-child { font-size: 18px; }
 .card-title { margin: 0; padding: 0 17px 17px; font-size: 18px; font-weight: 500; overflow-wrap: anywhere; }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 17px 18px; margin-top: auto; }
 .tag { position: relative; z-index: 1; background: #241c2e; border: 1px solid #594267; color: #decaee; padding: 4px 9px; border-radius: 2px; font-size: 10px; text-decoration: none; overflow-wrap: anywhere; max-width: 100%; transition: background .2s, border-color .2s; }
@@ -216,3 +215,11 @@ button.secondary { background: transparent; border-color: #65556f; color: var(--
 .character-page-position { grid-column: 2; grid-row: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 12px; color: var(--muted); font: 13px "Cinzel",serif; }
 .character-page-position a { font: 11px "Yu Gothic",sans-serif; }
 @media (max-width: 500px) { .character-pagination { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }.character-page-link { padding: 16px 12px; }.character-page-link strong { font-size: 16px; }.nav-next { grid-column: 2; }.character-page-position { grid-column: 1 / -1; grid-row: 2; flex-direction: row; gap: 20px; padding: 12px; }.page-direction { font-size: 10px; } }
+
+.card-title-link { display: block; color: inherit; text-decoration: none; }
+.card-shortcuts { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.card-action { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; flex-shrink: 0; border: 1px solid #65513f; border-radius: 3px; color: var(--gold); text-decoration: none; transition: border-color .2s, background .2s; }
+.card-action:hover { background: #34253c; border-color: var(--gold); }
+.card-view span { font-size: 20px; line-height: 1; }
+.card-edit svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 500px) { .card-meta { gap: 4px; }.card-shortcuts { gap: 3px; }.card-action { width: 28px; height: 28px; }.card-view span { font-size: 18px; }.card-edit svg { width: 15px; height: 15px; } }

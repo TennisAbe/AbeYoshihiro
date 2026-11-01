@@ -57,12 +57,17 @@
     <p class="muted world-empty" th:if="${#lists.isEmpty(group.characters)}">表示する人物はいません。</p>
   <div class="grid" th:attr="aria-label=${group.world.label + 'の人物'}">
     <article class="character-card" data-reveal th:each="item : ${group.characters}" th:style="'--card-index: ' + ${itemStat.index}">
-    <a class="card-link" th:href="@{/characters/{id}(id=${item.id})}">
+    <a class="card-link" th:href="@{/characters/{id}(id=${item.id})}" th:attr="aria-label=${item.name + 'の詳細を見る'}">
       <div class="thumbnail">
         <img th:if="${item.imageRegistered}" th:src="@{/characters/{id}/image(id=${item.id})}" alt="" loading="lazy">
         <span class="portrait-placeholder" th:unless="${item.imageRegistered}"><b aria-hidden="true">✧</b><span>画像未登録</span></span>
       </div>
-      <div class="card-meta"><span th:text="'NO. ' + ${#numbers.formatInteger(group.offset + itemStat.count, 3)}"></span><span aria-hidden="true">↗</span></div>
+    </a>
+      <div class="card-meta"><span th:text="'NO. ' + ${#numbers.formatInteger(group.offset + itemStat.count, 3)}"></span><div class="card-shortcuts">
+        <a class="card-action card-view" th:href="@{/characters/{id}(id=${item.id})}" title="詳細を見る" th:attr="aria-label=${item.name + 'の詳細を見る'}"><span aria-hidden="true">↗</span></a>
+        <a class="card-action card-edit" th:href="@{/characters/{id}/edit(id=${item.id})}" title="編集する" th:attr="aria-label=${item.name + 'を編集する'}"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m16 3 5 5-12 12-6 2 2-6Z"/><path d="m14 5 5 5"/></svg></a>
+      </div></div>
+    <a class="card-title-link" th:href="@{/characters/{id}(id=${item.id})}">
       <h2 class="card-title" th:text="${item.name}"></h2>
       <p class="card-affiliation"><span>所属</span><span th:text="${#strings.isEmpty(item.affiliation) ? '未所属' : item.affiliation}"></span></p>
     </a>
