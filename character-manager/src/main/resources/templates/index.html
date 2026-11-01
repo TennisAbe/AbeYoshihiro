@@ -48,7 +48,7 @@
         <img th:if="${item.imageRegistered}" th:src="@{/characters/{id}/image(id=${item.id})}" alt="" loading="lazy">
         <span class="portrait-placeholder" th:unless="${item.imageRegistered}"><b aria-hidden="true">✧</b><span>画像未登録</span></span>
       </div>
-      <div class="card-meta"><span th:text="'NO. ' + ${#numbers.formatInteger(item.id, 3)}"></span><span aria-hidden="true">↗</span></div>
+      <div class="card-meta"><span th:text="'NO. ' + ${#numbers.formatInteger(itemStat.count, 3)}"></span><span aria-hidden="true">↗</span></div>
       <h2 class="card-title" th:text="${item.name}"></h2>
     </a>
     <div class="tags" th:if="${!#sets.isEmpty(item.tags)}" aria-label="タグ">

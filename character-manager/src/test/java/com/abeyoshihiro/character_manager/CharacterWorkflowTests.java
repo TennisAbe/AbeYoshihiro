@@ -179,4 +179,35 @@ class CharacterWorkflowTests {
         assertEquals(java.util.Set.of("新規"), saved.getTags());
         assertEquals(1, repository.count());
     }
+    java.util.List<String> displayNumbers(String html) {
+        return java.util.regex.Pattern.compile(">NO\\. (\\d+)</span>")
+                .matcher(html).results().map(match -> match.group(1)).toList();
+    }
+
+    @Test
+    void displayNumbersStayConsecutiveAfterDeletionAndFilteringWithoutChangingIds() throws Exception {
+        var first = save("Number first");
+        var second = save("Number second");
+        var third = save("Number third");
+        var fourth = save("Number fourth");
+        fourth.setImageRegistered(true);
+        fourth.replaceTags(TagParser.parse("選択"));
+        repository.save(fourth);
+        assertEquals(java.util.List.of("001", "002", "003", "004"), displayNumbers(get("/").body()));
+
+        assertEquals(302, post("/characters/" + second.getId() + "/delete", "").statusCode());
+        assertEquals(java.util.List.of("001", "002", "003"), displayNumbers(get("/").body()));
+        assertEquals(302, post("/characters/" + first.getId() + "/delete", "").statusCode());
+        var remaining = get("/").body();
+        assertEquals(java.util.List.of("001", "002"), displayNumbers(remaining));
+        assertTrue(remaining.contains("/characters/" + third.getId() + "/edit"));
+        assertTrue(remaining.contains("/characters/" + fourth.getId() + "/image"));
+        assertEquals(java.util.List.of(third.getId(), fourth.getId()),
+                repository.findByNameContainingIgnoreCaseOrderByIdAsc("").stream()
+                        .map(OriginalCharacter::getId).toList());
+        assertTrue(repository.findById(fourth.getId()).orElseThrow().isImageRegistered());
+        assertEquals(java.util.List.of("001"), displayNumbers(get("/?q=fourth").body()));
+        assertEquals(java.util.List.of("001"), displayNumbers(get("/?tag=" + encode("選択")).body()));
+        assertTrue(displayNumbers(get("/?q=missing").body()).isEmpty());
+    }
 }
