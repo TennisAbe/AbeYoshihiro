@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>NOCTALITH | 漫画制作向けに全キャラ共有</title><link rel="icon" type="image/png" th:href="@{/images/noctalith-mark.png}"><link rel="stylesheet" th:href="@{/style.css}"><script th:src="@{/palace.js}" defer></script><script th:src="@{/comic-share.js}" defer></script></head>
+<body><div th:replace="~{fragments/palace :: atmosphere}"></div><div class="page-shell"><header th:replace="~{fragments/palace :: masthead}"></header><main>
+<header class="editor-header"><div><p class="eyebrow">COMIC REFERENCE PACK</p><h1>漫画制作向けに全キャラ共有</h1></div><a class="button secondary" th:href="@{/}">一覧へ戻る</a></header>
+<p class="field-error" role="alert" th:if="${error}" th:text="${error}"></p>
+<section class="panel share-overview" data-reveal><p class="eyebrow">01 / ALL CHARACTERS, ONE PACK</p><h2>今のキャラクターを、まとめて資料に。</h2>
+<p>全員の見た目・口調・一人称・設定・関係を、漫画制作の参照資料として1つのZIPにまとめます。</p><p class="share-count"><strong th:text="${characterCount}"></strong> 人のキャラクター <span>／</span> <strong th:text="${pictureCount}"></strong> 枚の登録画像</p>
+<ul class="share-includes"><li>全キャラの最新プロフィールと世界・所属・タグ</li><li>代表画像と全ギャラリー画像、その説明とキャラ名の対応</li><li>キャラ同士の関係、会話で参照する口調・一人称など</li><li>ChatGPTへの依頼文と、全体・個別の読みやすい設定ファイル</li></ul>
+<a class="button" th:if="${characterCount > 0}" th:href="@{/share/download}">全キャラ共有ZIPを保存</a><p class="muted" th:if="${characterCount == 0}">キャラクターを登録すると共有パックを作成できます。</p><p class="muted">ZIPは100MB以内、展開後250MB以内です。編集を終えてから作成してください。古い修正履歴は含めず、現在の設定だけをまとめます。</p></section>
+<section class="panel share-instructions" data-reveal><p class="eyebrow">02 / SHARE WITH CHATGPT</p><h2>ChatGPTへ共有する手順</h2>
+<ol><li>上のボタンで共有ZIPを保存します。</li><li>ChatGPTの会話にZIPを添付します。</li><li>下の依頼文をコピーして送信し、読み込めたキャラ・画像を確認します。</li><li>登場人物・場面・使いたい衣装などを指定して、漫画制作を相談します。</li></ol>
+<label for="share-prompt">添付するときの依頼文</label><textarea id="share-prompt" readonly rows="13" th:text="${sharePrompt}"></textarea><div class="actions"><button class="share-copy" type="button">依頼文をコピー</button><span id="share-copy-status" class="muted" role="status" aria-live="polite"></span></div>
+<p class="muted">ZIP内の画像をChatGPTが確認できない場合は、同梱の画像対応表を使い、必要な画像を展開して直接添付してください。ファイルの大きさや画像の扱いは利用環境によって異なります。</p><p class="muted">共有資料は見た目や口調を参照しやすくするものです。生成結果の完全な固定を保証するものではありません。設定・画像を更新したら、新しいZIPを共有し直してください。</p><p class="muted">このZIPは漫画向けの参照資料です。アプリへ戻すための保存は「バックアップ」を利用してください。</p></section>
+</main><footer th:replace="~{fragments/palace :: footer}"></footer></div></body></html>

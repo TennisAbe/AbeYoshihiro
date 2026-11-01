@@ -223,3 +223,12 @@ button.secondary { background: transparent; border-color: #65556f; color: var(--
 .card-view span { font-size: 20px; line-height: 1; }
 .card-edit svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 @media (max-width: 500px) { .card-meta { gap: 4px; }.card-shortcuts { gap: 3px; }.card-action { width: 28px; height: 28px; }.card-view span { font-size: 18px; }.card-edit svg { width: 15px; height: 15px; } }
+
+.masthead-actions { min-width: 0; flex-wrap: wrap; justify-content: flex-end; gap: 12px 20px; }
+.share-overview, .share-instructions { margin-bottom: 32px; }
+.share-count { color: var(--gold); font-size: 15px; }.share-count strong { font: 28px "Cinzel",serif; }.share-count span { margin: 0 12px; color: var(--muted); }
+.share-includes { padding-left: 20px; line-height: 2; color: #d4c7dc; margin-bottom: 24px; font-size: 13px; }
+.share-instructions ol { line-height: 2.2; padding-left: 22px; font-size: 14px; }
+#share-prompt { font-size: 13px; line-height: 1.9; }
+.share-copy { display: none !important; }.js .share-copy { display: inline-flex !important; }
+@media (max-width: 500px) { .share-overview h2, .share-instructions h2 { font-size: 19px; }.share-count { font-size: 12px; }.share-count strong { font-size: 23px; } }
