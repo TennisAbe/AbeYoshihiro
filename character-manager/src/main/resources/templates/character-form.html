@@ -18,7 +18,7 @@
   <header class="header editor-header" data-reveal>
     <div><p class="eyebrow">CHARACTER DOSSIER</p>
     <h1 th:text="${character.id == null ? 'キャラクター登録' : 'キャラクター編集'}"></h1>
-    </div><a class="button secondary" th:href="@{/}">一覧に戻る</a>
+    </div><div class="actions"><a class="button secondary" th:if="${character.id != null}" th:href="@{/characters/{id}(id=${character.id})}">詳細画面へ</a><a th:if="${character.id != null}" th:href="@{/characters/{id}(id=${character.id})} + '#history'">修正履歴へ</a><a class="button secondary" th:href="@{/}">一覧に戻る</a></div>
   </header>
   <div class="editor">
     <section class="panel" data-reveal>
@@ -27,7 +27,7 @@
             th:object="${character}" method="post">
         <div class="field-error" role="alert" th:if="${#fields.hasAnyErrors()}"><p th:each="message : ${#fields.allErrors()}" th:text="${message}"></p></div>
         <div class="profile-field"><label for="name">名前（必須）</label><input type="text" th:field="*{name}" maxlength="255" required></div>
-        <div class="profile-field"><label for="world">特大分類（世界）</label><select th:field="*{world}" required><option th:each="world : ${worlds}" th:value="${world}" th:text="${world.label}"></option></select></div>
+        <div class="profile-field"><label for="world">世界</label><select th:field="*{world}" required><option th:each="world : ${worlds}" th:value="${world}" th:text="${world.label}"></option></select></div>
         <div class="profile-field"><label for="affiliation">所属</label><input type="text" th:field="*{affiliation}" maxlength="120"></div>
         <div class="profile-field"><label for="basicSettings">基本設定</label><textarea th:field="*{basicSettings}" maxlength="12000" rows="8"></textarea></div>
         <div class="profile-field"><label for="personality">性格</label><textarea th:field="*{personality}" maxlength="2000" rows="4"></textarea></div>

@@ -23,9 +23,10 @@ public class BackupService {
     private final GalleryService gallery;
     private final TransactionTemplate transactions;
     private final AffiliationOrderingService ordering;
+    private final RevisionRepository revisions;
     public BackupService(CharacterRepository characters, PictureRepository pictures, RelationRepository relations,
-                         GalleryService gallery, TransactionTemplate transactions, AffiliationOrderingService ordering) {
-        this.ordering = ordering; this.characters = characters; this.pictures = pictures; this.relations = relations; this.gallery = gallery; this.transactions = transactions;
+                         GalleryService gallery, TransactionTemplate transactions, AffiliationOrderingService ordering, RevisionRepository revisions) {
+        this.revisions = revisions; this.ordering = ordering; this.characters = characters; this.pictures = pictures; this.relations = relations; this.gallery = gallery; this.transactions = transactions;
     }
     private static DocumentBuilderFactory factory() throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -54,7 +55,7 @@ public class BackupService {
     public byte[] exportArchive() throws Exception {
         synchronized (gallery) {
             Document doc = factory().newDocumentBuilder().newDocument();
-            Element root = doc.createElement("noctalith"); root.setAttribute("version", "3"); doc.appendChild(root);
+            Element root = doc.createElement("noctalith"); root.setAttribute("version", "4"); doc.appendChild(root);
             Element cs = append(doc, root, "characters", "");
             Map<String, Path> images = new LinkedHashMap<>(); long total = 0;
             List<OriginalCharacter> allCharacters = characters.findAll();
@@ -67,6 +68,11 @@ public class BackupService {
                 if (c.getCoverImageId() != null) ce.setAttribute("cover", c.getCoverImageId().toString());
                 ProfileFields.values(c).forEach((key, value) -> append(doc, ce, key, value));
                 Element tags = append(doc, ce, "tags", ""); for (String tag : c.getTags()) append(doc, tags, "tag", tag);
+                Element history = append(doc, ce, "history", "");
+                for (CharacterRevision revision : revisions.findByCharacterIdOrderBySavedAtDescIdDesc(c.getId())) {
+                    Element re = append(doc, history, "revision", ""); re.setAttribute("at", revision.getSavedAt().toString()); re.setAttribute("reason", revision.getReason());
+                    revision.getFields().forEach((key, value) -> { Element field = append(doc, re, "field", value); field.setAttribute("name", key); });
+                }
                 List<CharacterPicture> items = gallery.list(c.getId());
                 if (c.isImageRegistered() && items.isEmpty()) throw new IllegalArgumentException("画像ファイルが見つからないキャラクターがあります。保存先を確認してください。");
                 for (CharacterPicture p : items) {
@@ -100,6 +106,7 @@ public class BackupService {
             Transformer transformer = tf.newTransformer(); transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
             ByteArrayOutputStream manifest = new ByteArrayOutputStream(); transformer.transform(new DOMSource(doc), new StreamResult(manifest));
             if (manifest.size() > 5 * 1024 * 1024) throw new IllegalArgumentException("バックアップの登録件数が多すぎます。");
+            if (total + manifest.size() > MAX_TOTAL) throw new IllegalArgumentException("バックアップ全体のサイズが上限を超えています。");
             ByteArrayOutputStream output = new ByteArrayOutputStream();
             try (ZipOutputStream zip = new ZipOutputStream(output)) {
                 zip.putNextEntry(new ZipEntry("manifest.xml")); zip.write(manifest.toByteArray()); zip.closeEntry();
@@ -131,6 +138,7 @@ public class BackupService {
         return entries;
     }
     private record CharacterData(long id, OriginalCharacter value, Long cover) { }
+    private record RevisionData(java.time.Instant at, String reason, Map<String, String> fields) { }
     private record PictureData(long id, long owner, String title, byte[] bytes) { }
     private record RelationData(long source, long target, String type, String description) { }
 
@@ -139,8 +147,9 @@ public class BackupService {
         Document doc = factory().newDocumentBuilder().parse(new ByteArrayInputStream(zip.get("manifest.xml")));
         Element root = doc.getDocumentElement();
         String version = root.getAttribute("version");
-        if (!root.getTagName().equals("noctalith") || !Set.of("1", "2", "3").contains(version)) throw new IllegalArgumentException("対応していないバックアップ形式です。");
+        if (!root.getTagName().equals("noctalith") || !Set.of("1", "2", "3", "4").contains(version)) throw new IllegalArgumentException("対応していないバックアップ形式です。");
         if (children(root, "characters").size() != 1 || children(root, "relations").size() != 1) throw new IllegalArgumentException("バックアップの構成が不正です。");
+        Map<Long, List<RevisionData>> histories = new LinkedHashMap<>();
         Map<Long, CharacterData> cs = new LinkedHashMap<>(); Map<Long, PictureData> ps = new LinkedHashMap<>(); List<RelationData> rs = new ArrayList<>();
         for (Element ce : children(children(root, "characters").get(0), "character")) {
             long key = id(ce.getAttribute("id")); OriginalCharacter c = new OriginalCharacter(); Map<String, String> fields = new HashMap<>();
@@ -152,7 +161,7 @@ public class BackupService {
             }
             if (version.equals("1")) ProfileFields.readLegacy(fields, c); else ProfileFields.read(fields, c);
             ProfileFields.validate(c); c.setName(c.getName().strip());
-            c.setWorld(version.equals("3") ? CharacterWorld.parse(ce.getAttribute("world")) : CharacterWorld.ALTER_PALACE);
+            c.setWorld(Set.of("3", "4").contains(version) ? CharacterWorld.parse(ce.getAttribute("world")) : CharacterWorld.ALTER_PALACE);
             if (!Set.of("true", "false").contains(ce.getAttribute("favorite"))) throw new IllegalArgumentException("お気に入りの値が不正です。");
             c.setFavorite(Boolean.parseBoolean(ce.getAttribute("favorite")));
             if (children(ce, "tags").size() != 1) throw new IllegalArgumentException("タグの構成が不正です。");
@@ -166,6 +175,7 @@ public class BackupService {
             c.replaceTags(tags);
             Long cover = ce.hasAttribute("cover") ? id(ce.getAttribute("cover")) : null;
             if (cs.putIfAbsent(key, new CharacterData(key, c, cover)) != null || cs.size() > 5000) throw new IllegalArgumentException("キャラクターIDが重複、または件数上限超過です。");
+            histories.put(key, readHistory(ce, version));
             List<Element> items = children(ce, "picture");
             if (items.size() > GalleryService.MAX_IMAGES) throw new IllegalArgumentException("画像の枚数が上限を超えています。");
             for (Element pe : items) {
@@ -204,6 +214,13 @@ public class BackupService {
                     for (CharacterData c : cs.values()) {
                         OriginalCharacter saved = mapped.get(c.id); saved.setCoverImageId(c.cover == null ? null : imageIds.get(c.cover)); saved.setImageRegistered(c.cover != null); characters.save(saved);
                     }
+                    for (var entry : histories.entrySet()) {
+                        List<RevisionData> history = new ArrayList<>(entry.getValue()); Collections.reverse(history);
+                        for (RevisionData old : history) {
+                            CharacterRevision revision = new CharacterRevision(); revision.setCharacter(mapped.get(entry.getKey()));
+                            revision.setSavedAt(old.at); revision.setReason(old.reason); revision.setFields(old.fields); revisions.save(revision);
+                        }
+                    }
                     ordering.merge(previousOrders, importedOrders);
                     for (RelationData r : rs) {
                         CharacterRelation relation = new CharacterRelation(); relation.setSource(mapped.get(r.source)); relation.setTarget(mapped.get(r.target));
@@ -217,6 +234,29 @@ public class BackupService {
         }
         return cs.size();
     }
+    private List<RevisionData> readHistory(Element character, String version) {
+        if (!version.equals("4")) return List.of();
+        List<Element> roots = children(character, "history");
+        if (roots.size() != 1) throw new IllegalArgumentException("修正履歴が不足または重複しています。");
+        List<Element> rows = children(roots.get(0), "revision");
+        if (rows.size() > 3) throw new IllegalArgumentException("修正履歴は3件までです。");
+        List<RevisionData> result = new ArrayList<>();
+        for (Element row : rows) {
+            java.time.Instant at;
+            try { at = java.time.Instant.parse(row.getAttribute("at")); }
+            catch (java.time.format.DateTimeParseException exception) { throw new IllegalArgumentException("履歴の更新日時が不正です。", exception); }
+            if (at.isBefore(java.time.Instant.EPOCH) || at.isAfter(java.time.Instant.parse("9999-12-31T23:59:59Z"))) throw new IllegalArgumentException("履歴の日時が範囲外です。");
+            String reason = row.getAttribute("reason");
+            if (!Set.of("UPDATE", "RESTORE").contains(reason)) throw new IllegalArgumentException("履歴の種別が不正です。");
+            Map<String, String> fields = new LinkedHashMap<>();
+            for (Element field : children(row, "field")) {
+                String key = field.getAttribute("name"); String value = limited(field.getTextContent(), 12000);
+                if (fields.putIfAbsent(key, value) != null) throw new IllegalArgumentException("履歴の項目が重複しています。");
+            }
+            ProfileSnapshot.validate(fields); result.add(new RevisionData(at, reason, fields));
+        }
+        return result;
+    }
     private Map<CharacterWorld, List<String>> readOrders(Element root, String version, Map<Long, CharacterData> characters) {
         Map<CharacterWorld, List<String>> result = new EnumMap<>(CharacterWorld.class);
         for (CharacterWorld world : CharacterWorld.values()) {
@@ -225,7 +265,7 @@ public class BackupService {
                     .filter(c -> c.value.getWorld() == world).map(c -> AffiliationOrderingService.affiliation(c.value)).filter(s -> !s.isEmpty()).forEach(used::add);
             result.put(world, new ArrayList<>(used));
         }
-        if (!version.equals("3")) return result;
+        if (!Set.of("3", "4").contains(version)) return result;
         List<Element> roots = children(root, "affiliationOrders");
         if (roots.size() != 1) throw new IllegalArgumentException("所属の表示順が不足または重複しています。");
         Map<CharacterWorld, SortedMap<Integer, String>> sorted = new EnumMap<>(CharacterWorld.class);

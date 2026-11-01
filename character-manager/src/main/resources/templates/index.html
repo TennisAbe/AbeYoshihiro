@@ -57,13 +57,14 @@
     <p class="muted world-empty" th:if="${#lists.isEmpty(group.characters)}">表示する人物はいません。</p>
   <div class="grid" th:attr="aria-label=${group.world.label + 'の人物'}">
     <article class="character-card" data-reveal th:each="item : ${group.characters}" th:style="'--card-index: ' + ${itemStat.index}">
-    <a class="card-link" th:href="@{/characters/{id}/edit(id=${item.id})}">
+    <a class="card-link" th:href="@{/characters/{id}(id=${item.id})}">
       <div class="thumbnail">
         <img th:if="${item.imageRegistered}" th:src="@{/characters/{id}/image(id=${item.id})}" alt="" loading="lazy">
         <span class="portrait-placeholder" th:unless="${item.imageRegistered}"><b aria-hidden="true">✧</b><span>画像未登録</span></span>
       </div>
       <div class="card-meta"><span th:text="'NO. ' + ${#numbers.formatInteger(group.offset + itemStat.count, 3)}"></span><span aria-hidden="true">↗</span></div>
       <h2 class="card-title" th:text="${item.name}"></h2>
+      <p class="card-affiliation"><span>所属</span><span th:text="${#strings.isEmpty(item.affiliation) ? '未所属' : item.affiliation}"></span></p>
     </a>
     <div class="tags" th:if="${!#sets.isEmpty(item.tags)}" aria-label="タグ">
       <a class="tag" th:each="tag : ${item.tags}" th:text="${tag}"

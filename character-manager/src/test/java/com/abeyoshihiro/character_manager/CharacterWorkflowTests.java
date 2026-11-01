@@ -74,7 +74,7 @@ class CharacterWorkflowTests {
         var list = get("/");
         assertEquals(200, list.statusCode());
         assertTrue(list.body().contains("&lt;テスト&gt;"));
-        assertTrue(list.body().contains("/characters/" + character.getId() + "/edit"));
+        assertTrue(list.body().contains("/characters/" + character.getId() + "\""));
         assertFalse(list.body().contains("textarea"));
         var edit = get("/characters/" + character.getId() + "/edit");
         assertEquals(200, edit.statusCode());
@@ -202,7 +202,7 @@ class CharacterWorkflowTests {
         assertEquals(302, post("/characters/" + first.getId() + "/delete", "").statusCode());
         var remaining = get("/").body();
         assertEquals(java.util.List.of("001", "002"), displayNumbers(remaining));
-        assertTrue(remaining.contains("/characters/" + third.getId() + "/edit"));
+        assertTrue(remaining.contains("/characters/" + third.getId() + "\""));
         assertTrue(remaining.contains("/characters/" + fourth.getId() + "/image"));
         assertEquals(java.util.List.of(third.getId(), fourth.getId()),
                 repository.findByNameContainingIgnoreCaseOrderByIdAsc("").stream()

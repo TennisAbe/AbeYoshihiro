@@ -16,14 +16,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class CharacterController {
     private final CharacterRepository repository;
+    private final RevisionService revisions;
+    private final RevisionRepository revisionRepository;
     private final AffiliationOrderingService ordering;
     private final GalleryService gallery;
     private final PictureRepository pictures;
     private final RelationRepository relations;
     private final TransactionTemplate transactions;
     public CharacterController(CharacterRepository repository, GalleryService gallery, PictureRepository pictures,
-                               RelationRepository relations, TransactionTemplate transactions, AffiliationOrderingService ordering) {
-        this.ordering = ordering; this.repository = repository; this.gallery = gallery; this.pictures = pictures; this.relations = relations; this.transactions = transactions;
+                               RelationRepository relations, TransactionTemplate transactions, AffiliationOrderingService ordering, RevisionService revisions, RevisionRepository revisionRepository) {
+        this.revisions = revisions; this.revisionRepository = revisionRepository; this.ordering = ordering; this.repository = repository; this.gallery = gallery; this.pictures = pictures; this.relations = relations; this.transactions = transactions;
     }
     @InitBinder("character")
     public void bindCharacter(WebDataBinder binder) {
@@ -86,11 +88,20 @@ public class CharacterController {
             List<String> files = new ArrayList<>(gallery.list(id).stream().map(CharacterPicture::getStorageName).toList());
             files.add(id + ".png");
             transactions.executeWithoutResult(status -> {
-                relations.deleteBySourceIdOrTargetId(id, id); pictures.deleteAll(gallery.list(id)); pictures.flush(); repository.deleteById(id);
+                revisionRepository.deleteByCharacterId(id); relations.deleteBySourceIdOrTargetId(id, id); pictures.deleteAll(gallery.list(id)); pictures.flush(); repository.deleteById(id);
             });
             for (String file : new HashSet<>(files)) Files.deleteIfExists(gallery.path(file));
         }
         return "redirect:/";
+    }
+    @GetMapping("/characters/{id}")
+    public String detail(@PathVariable("id") Long id, Model model) {
+        OriginalCharacter c = gallery.character(id); model.addAttribute("character", c); populate(c, model);
+        model.addAttribute("profileSections", ProfileFields.values(c).entrySet().stream()
+                .filter(e -> !java.util.Set.of("name", "affiliation").contains(e.getKey()))
+                .map(e -> new RevisionService.Difference(ProfileSnapshot.labels().get(e.getKey()), e.getValue(), "")).toList());
+        model.addAttribute("history", revisions.entries(c));
+        return "character-detail";
     }
     @GetMapping("/characters/{id}/edit")
     public String edit(@PathVariable("id") Long id, Model model) {
@@ -99,12 +110,12 @@ public class CharacterController {
     @PostMapping("/characters/{id}/update")
     public String update(@PathVariable("id") Long id, @ModelAttribute("character") OriginalCharacter input,
                          BindingResult binding, Model model) {
-        OriginalCharacter c = gallery.character(id);
         if (!validate(input, binding)) {
+            OriginalCharacter c = gallery.character(id);
             input.setId(id); input.setImageRegistered(c.isImageRegistered()); input.setCoverImageId(c.getCoverImageId()); input.setFavorite(c.isFavorite());
             populate(input, model); return "character-form";
         }
-        ProfileFields.copy(input, c); repository.save(c); return "redirect:/characters/" + id + "/edit";
+        revisions.update(id, input); return "redirect:/characters/" + id;
     }
     @PostMapping("/characters/{id}/favorite")
     public String favorite(@PathVariable("id") Long id, @RequestParam(defaultValue = "") String q,

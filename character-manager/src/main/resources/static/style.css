@@ -169,3 +169,40 @@ button.secondary { background: transparent; border-color: #65556f; color: var(--
 @media (max-width: 500px) { .world-heading h2 { font-size: 20px; }.order-row { gap: 8px; }.order-position input { width: 64px; }.order-panel { padding: 18px; } }
 
 .order-move:disabled { opacity: .35; cursor: default; }
+
+.card-affiliation { display: flex; align-items: baseline; gap: 8px; margin: -5px 17px 18px; font-size: 11px; line-height: 1.7; color: #d1bdde; overflow-wrap: anywhere; }
+.card-affiliation > span:first-child { color: var(--gold); flex-shrink: 0; font-size: 9px; letter-spacing: .08em; }
+.dossier-header { margin: 48px 0 36px; border-bottom: 1px solid #5d465c; padding-bottom: 30px; }
+.dossier-header h1 { font-size: clamp(28px, 4vw, 48px); letter-spacing: .12em; overflow-wrap: anywhere; color: #f0dfbf; }
+.dossier-meta { display: flex; flex-wrap: wrap; gap: 12px 28px; margin-top: 18px; color: var(--muted); font-size: 11px; }
+.dossier-meta b { font-weight: 400; font-size: 13px; margin-left: 8px; color: #dfcfb7; overflow-wrap: anywhere; }
+.dossier-layout { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.5fr); gap: 48px; align-items: start; margin-bottom: 48px; }
+.dossier-portrait { position: sticky; top: 24px; min-width: 0; }
+.portrait-frame { min-height: 330px; display: flex; align-items: center; justify-content: center; background: radial-gradient(ellipse at 50% 55%, #34203d, #100c17 80%); border: 1px solid #60475f; padding: 20px; border-radius: 90px 90px 3px 3px; overflow: hidden; box-shadow: 0 0 50px #92624f0a; }
+.portrait-frame img { width: 100%; max-height: 530px; object-fit: contain; }
+.dossier-tags { padding: 20px 0 6px; }
+.dossier-gallery { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin-top: 14px; }
+.dossier-gallery img { width: 100%; height: 110px; object-fit: contain; background: #14101b; border: 1px solid var(--line); }
+.dossier-content { min-width: 0; }
+.dossier-section { margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid #352939; }
+.dossier-section header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.dossier-section h2 { margin: 0; color: #ddc79f; font-size: 22px; letter-spacing: .12em; }
+.dossier-section-number { font: 14px "Cinzel",serif; color: #b695cb; }
+.dossier-copy { font-family: "Noto Serif JP", "Yu Mincho", serif; font-size: 16px; font-weight: 400; line-height: 2.35; letter-spacing: .065em; color: #e3dbe7; white-space: pre-wrap; overflow-wrap: anywhere; margin: 0; font-feature-settings: "palt"; }
+.dossier-copy.is-empty { color: #a194ab; font-size: 13px; }
+.dossier-connections { margin-bottom: 36px; }
+.dossier-connections h3 { font-size: 15px; color: var(--gold); }.dossier-connections .dossier-copy { font-size: 14px; }
+.history-panel { margin-bottom: 40px; scroll-margin-top: 24px; }
+.history-entry { padding: 22px 0; border-top: 1px solid var(--line); }
+.history-entry header { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 15px; }
+.history-entry time { font-size: 14px; color: var(--gold); }
+.history-entry details { margin-bottom: 18px; }.history-entry summary { cursor: pointer; color: #d9c4e9; font-size: 13px; }
+.revision-difference { padding: 18px 0; border-bottom: 1px solid var(--line); }
+.revision-difference h3 { color: var(--gold); font-size: 15px; }
+.diff-columns { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+.diff-columns > div { min-width: 0; background: #100d16; border: 1px solid #392d43; padding: 15px; }
+.diff-columns h4 { font-size: 11px; color: #bba6c8; margin: 0 0 12px; }
+.diff-columns p { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 13px; margin: 0; }
+.history-panel form { margin-top: 24px; }.history-panel .checkbox-label { line-height: 1.9; align-items: flex-start; }.history-panel .checkbox-label input { margin-top: 4px; }
+@media (max-width: 760px) { .dossier-layout { grid-template-columns: 1fr; gap: 30px; }.dossier-portrait { position: static; max-width: 420px; width: 100%; margin: auto; }.portrait-frame img { max-height: 420px; } }
+@media (max-width: 500px) { .dossier-copy { font-size: 15px; line-height: 2.2; }.dossier-section h2 { font-size: 20px; }.diff-columns { grid-template-columns: 1fr; }.card-affiliation { margin-left: 12px; margin-right: 12px; font-size: 10px; }.dossier-header { margin-top: 30px; } }
