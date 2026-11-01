@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="atmosphere" class="atmosphere" aria-hidden="true">
+  <div class="ambient-orb orb-one"></div><div class="ambient-orb orb-two"></div>
+  <div class="cursor-glow"></div><canvas id="palace-particles"></canvas>
+</div>
+<header th:fragment="masthead" class="masthead">
+  <a class="brand" th:href="@{/}" aria-label="NOCTALITH キャラクター一覧">
+    <img class="brand-logo" th:src="@{/images/noctalith-logo.png}" alt="NOCTALITH">
+    <span class="brand-subtitle">CHARACTER ARCHIVE</span>
+  </a>
+  <div class="masthead-actions"><span class="archive-status"><i></i> ARCHIVE ONLINE</span>
+    <button type="button" class="motion-toggle" aria-pressed="true">演出：ON</button>
+  </div>
+</header>
+<footer th:fragment="footer" class="footer"><span>ORIGINAL CHARACTER ARCHIVE</span><span>NOCTALITH <b aria-hidden="true">✦</b> あなたの物語を記録する場所</span></footer>
+</body>
+</html>

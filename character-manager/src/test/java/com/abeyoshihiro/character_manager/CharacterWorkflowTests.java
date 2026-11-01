@@ -83,6 +83,12 @@ class CharacterWorkflowTests {
         assertTrue(create.body().contains("登録して編集を続ける"));
         assertFalse(create.body().contains("multipart/form-data"));
         assertEquals(200, get("/style.css").statusCode());
+        assertTrue(list.body().contains("NOCTALITH"));
+        assertTrue(list.body().contains("/palace.js"));
+        assertEquals(200, get("/palace.js").statusCode());
+        assertEquals(200, get("/images/noctalith-logo.png").statusCode());
+        assertEquals(200, get("/fonts/cinzel.woff2").statusCode());
+        assertEquals(200, get("/fonts/noto-serif-jp.woff2").statusCode());
     }
 
     @Test

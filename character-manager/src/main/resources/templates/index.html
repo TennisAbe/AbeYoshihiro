@@ -3,15 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>キャラクター一覧</title>
+  <title>NOCTALITH | キャラクター一覧</title>
   <link rel="stylesheet" th:href="@{/style.css}">
+  <script th:src="@{/palace.js}" defer></script>
 </head>
-<body><main>
-  <header class="header">
-    <div><h1>キャラクター管理</h1><p class="muted">キャラクターを選ぶと、専用の編集画面を開きます。</p></div>
-    <a class="button" th:href="@{/characters/new}">＋ 新規登録</a>
-  </header>
-  <form class="search" th:action="@{/}" method="get" role="search">
+<body>
+<div th:replace="~{fragments/palace :: atmosphere}"></div>
+<div class="page-shell">
+<header th:replace="~{fragments/palace :: masthead}"></header>
+<main id="main-content">
+  <section class="hero" aria-labelledby="page-title">
+    <div class="hero-copy" data-reveal>
+      <p class="eyebrow"><span></span> THE CHARACTER COLLECTION</p>
+      <h1 id="page-title">物語を宿す、<br><em>魂の記録。</em></h1>
+      <p class="hero-description">姿、個性、そして秘めた物語。<br>あなただけのキャラクターを、この宮殿に。</p>
+      <a class="button" th:href="@{/characters/new}"><span aria-hidden="true">＋</span> 新規登録 <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="hero-art" aria-hidden="true"><div class="seal-ring ring-outer"></div><div class="seal-ring ring-inner"></div><div class="seal-diamond"></div><span class="seal-star">✧</span><span class="seal-caption">EVERY SOUL HAS A STORY</span></div>
+    <div class="hero-number" aria-hidden="true">01 <span>/ COLLECTION</span></div>
+  </section>
+  <div class="section-heading" data-reveal><div><p class="eyebrow">THE ARCHIVE</p><h2>キャラクター名鑑</h2></div>
+    <p class="collection-count"><strong th:text="${#lists.size(characters)}">0</strong><span>CHARACTERS</span></p>
+  </div>
+  <form class="search" data-reveal th:action="@{/}" method="get" role="search">
     <input type="search" name="q" th:value="${query}" placeholder="キャラクター名で検索" aria-label="キャラクター名">
     <select name="tag" aria-label="タグで絞り込み">
       <option value="">すべてのタグ</option>
@@ -22,18 +36,19 @@
     <button type="submit">検索</button>
     <a th:if="${!#strings.isEmpty(query) or !#strings.isEmpty(selectedTag)}" th:href="@{/}">検索をクリア</a>
   </form>
-  <p class="muted" th:text="${#lists.size(characters)} + '件のキャラクター'"></p>
-  <section class="panel empty" th:if="${#lists.isEmpty(characters)}">
+
+  <section class="panel empty" data-reveal th:if="${#lists.isEmpty(characters)}">
     <h2 th:text="${#strings.isEmpty(query) and #strings.isEmpty(selectedTag) ? 'まだキャラクターがいません' : '該当するキャラクターが見つかりません'}"></h2>
     <p th:text="${#strings.isEmpty(query) and #strings.isEmpty(selectedTag) ? '「新規登録」から最初のキャラクターを追加しましょう。' : '名前やタグを変更するか、検索をクリアしてください。'}"></p>
   </section>
   <section class="grid" aria-label="キャラクター一覧">
-    <article class="character-card" th:each="item : ${characters}">
+    <article class="character-card" data-reveal th:each="item : ${characters}" th:style="'--card-index: ' + ${itemStat.index}">
     <a class="card-link" th:href="@{/characters/{id}/edit(id=${item.id})}">
       <div class="thumbnail">
         <img th:if="${item.imageRegistered}" th:src="@{/characters/{id}/image(id=${item.id})}" alt="" loading="lazy">
-        <span th:unless="${item.imageRegistered}">画像未登録</span>
+        <span class="portrait-placeholder" th:unless="${item.imageRegistered}"><b aria-hidden="true">✧</b><span>画像未登録</span></span>
       </div>
+      <div class="card-meta"><span th:text="'NO. ' + ${#numbers.formatInteger(item.id, 3)}"></span><span aria-hidden="true">↗</span></div>
       <h2 class="card-title" th:text="${item.name}"></h2>
     </a>
     <div class="tags" th:if="${!#sets.isEmpty(item.tags)}" aria-label="タグ">
@@ -42,5 +57,8 @@
     </div>
     </article>
   </section>
-</main></body>
+</main>
+<footer th:replace="~{fragments/palace :: footer}"></footer>
+</div>
+</body>
 </html>

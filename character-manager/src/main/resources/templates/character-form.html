@@ -3,17 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title th:text="${character.id == null ? 'キャラクター登録' : 'キャラクター編集'}"></title>
+  <title th:text="${character.id == null ? 'NOCTALITH | キャラクター登録' : 'NOCTALITH | キャラクター編集'}"></title>
   <link rel="stylesheet" th:href="@{/style.css}">
+  <script th:src="@{/palace.js}" defer></script>
 </head>
-<body><main>
-  <header class="header">
+<body>
+<div th:replace="~{fragments/palace :: atmosphere}"></div>
+<div class="page-shell">
+<header th:replace="~{fragments/palace :: masthead}"></header>
+<main id="main-content">
+  <header class="header editor-header" data-reveal>
+    <div><p class="eyebrow">CHARACTER DOSSIER</p>
     <h1 th:text="${character.id == null ? 'キャラクター登録' : 'キャラクター編集'}"></h1>
-    <a class="button secondary" th:href="@{/}">一覧に戻る</a>
+    </div><a class="button secondary" th:href="@{/}">一覧に戻る</a>
   </header>
   <div class="editor">
-    <section class="panel">
-      <h2>基本設定</h2>
+    <section class="panel" data-reveal>
+      <p class="eyebrow">01 / IDENTITY</p><h2>基本設定</h2>
       <form th:action="${character.id == null} ? @{/characters} : @{/characters/{id}/update(id=${character.id})}"
             th:object="${character}" method="post">
         <label>名前（必須）<input type="text" th:field="*{name}" maxlength="255" required></label>
@@ -30,8 +36,8 @@
         </div>
       </form>
     </section>
-    <section class="panel">
-      <h2>キャラクター画像</h2>
+    <section class="panel" data-reveal>
+      <p class="eyebrow">02 / PORTRAIT</p><h2>キャラクター画像</h2>
       <img class="preview" th:if="${character.imageRegistered}" th:src="@{/characters/{id}/image(id=${character.id})}" th:alt="${character.name + 'の画像'}">
       <p class="muted" th:unless="${character.imageRegistered}">画像はまだ登録されていません。</p>
       <p class="muted" th:if="${character.id == null}">基本設定を登録すると、画像を追加できます。</p>
@@ -49,5 +55,8 @@
       </div>
     </section>
   </div>
-</main></body>
+</main>
+<footer th:replace="~{fragments/palace :: footer}"></footer>
+</div>
+</body>
 </html>
