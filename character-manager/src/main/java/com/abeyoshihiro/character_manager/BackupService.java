@@ -22,9 +22,10 @@ public class BackupService {
     private final RelationRepository relations;
     private final GalleryService gallery;
     private final TransactionTemplate transactions;
+    private final AffiliationOrderingService ordering;
     public BackupService(CharacterRepository characters, PictureRepository pictures, RelationRepository relations,
-                         GalleryService gallery, TransactionTemplate transactions) {
-        this.characters = characters; this.pictures = pictures; this.relations = relations; this.gallery = gallery; this.transactions = transactions;
+                         GalleryService gallery, TransactionTemplate transactions, AffiliationOrderingService ordering) {
+        this.ordering = ordering; this.characters = characters; this.pictures = pictures; this.relations = relations; this.gallery = gallery; this.transactions = transactions;
     }
     private static DocumentBuilderFactory factory() throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -53,7 +54,7 @@ public class BackupService {
     public byte[] exportArchive() throws Exception {
         synchronized (gallery) {
             Document doc = factory().newDocumentBuilder().newDocument();
-            Element root = doc.createElement("noctalith"); root.setAttribute("version", "2"); doc.appendChild(root);
+            Element root = doc.createElement("noctalith"); root.setAttribute("version", "3"); doc.appendChild(root);
             Element cs = append(doc, root, "characters", "");
             Map<String, Path> images = new LinkedHashMap<>(); long total = 0;
             List<OriginalCharacter> allCharacters = characters.findAll();
@@ -62,6 +63,7 @@ public class BackupService {
             for (OriginalCharacter c : allCharacters) {
                 Element ce = append(doc, cs, "character", ""); ce.setAttribute("id", c.getId().toString());
                 ce.setAttribute("favorite", Boolean.toString(c.isFavorite()));
+                ce.setAttribute("world", c.getWorld().name());
                 if (c.getCoverImageId() != null) ce.setAttribute("cover", c.getCoverImageId().toString());
                 ProfileFields.values(c).forEach((key, value) -> append(doc, ce, key, value));
                 Element tags = append(doc, ce, "tags", ""); for (String tag : c.getTags()) append(doc, tags, "tag", tag);
@@ -85,6 +87,14 @@ public class BackupService {
             for (CharacterRelation r : allRelations) {
                 Element re = append(doc, rs, "relation", r.getDescription());
                 re.setAttribute("source", r.getSource().getId().toString()); re.setAttribute("target", r.getTarget().getId().toString()); re.setAttribute("type", r.getRelationType());
+            }
+            Element affiliations = append(doc, root, "affiliationOrders", "");
+            for (CharacterWorld world : CharacterWorld.values()) {
+                List<String> names = ordering.current(world);
+                for (int i = 0; i < names.size(); i++) {
+                    Element entry = append(doc, affiliations, "order", "");
+                    entry.setAttribute("world", world.name()); entry.setAttribute("affiliation", names.get(i)); entry.setAttribute("position", Integer.toString(i + 1));
+                }
             }
             TransformerFactory tf = TransformerFactory.newInstance(); tf.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, ""); tf.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
             Transformer transformer = tf.newTransformer(); transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
@@ -129,7 +139,7 @@ public class BackupService {
         Document doc = factory().newDocumentBuilder().parse(new ByteArrayInputStream(zip.get("manifest.xml")));
         Element root = doc.getDocumentElement();
         String version = root.getAttribute("version");
-        if (!root.getTagName().equals("noctalith") || !Set.of("1", "2").contains(version)) throw new IllegalArgumentException("対応していないバックアップ形式です。");
+        if (!root.getTagName().equals("noctalith") || !Set.of("1", "2", "3").contains(version)) throw new IllegalArgumentException("対応していないバックアップ形式です。");
         if (children(root, "characters").size() != 1 || children(root, "relations").size() != 1) throw new IllegalArgumentException("バックアップの構成が不正です。");
         Map<Long, CharacterData> cs = new LinkedHashMap<>(); Map<Long, PictureData> ps = new LinkedHashMap<>(); List<RelationData> rs = new ArrayList<>();
         for (Element ce : children(children(root, "characters").get(0), "character")) {
@@ -142,6 +152,7 @@ public class BackupService {
             }
             if (version.equals("1")) ProfileFields.readLegacy(fields, c); else ProfileFields.read(fields, c);
             ProfileFields.validate(c); c.setName(c.getName().strip());
+            c.setWorld(version.equals("3") ? CharacterWorld.parse(ce.getAttribute("world")) : CharacterWorld.ALTER_PALACE);
             if (!Set.of("true", "false").contains(ce.getAttribute("favorite"))) throw new IllegalArgumentException("お気に入りの値が不正です。");
             c.setFavorite(Boolean.parseBoolean(ce.getAttribute("favorite")));
             if (children(ce, "tags").size() != 1) throw new IllegalArgumentException("タグの構成が不正です。");
@@ -176,7 +187,9 @@ public class BackupService {
             if (source == target || !cs.containsKey(source) || !cs.containsKey(target) || type.isBlank() || rs.size() >= 20000) throw new IllegalArgumentException("関係の参照が不正です。");
             rs.add(new RelationData(source, target, type, description));
         }
+        Map<CharacterWorld, List<String>> importedOrders = readOrders(root, version, cs);
         synchronized (gallery) {
+            Map<CharacterWorld, List<String>> previousOrders = ordering.snapshot();
             Files.createDirectories(gallery.directory()); List<Path> createdFiles = new ArrayList<>();
             try {
                 transactions.executeWithoutResult(status -> {
@@ -191,6 +204,7 @@ public class BackupService {
                     for (CharacterData c : cs.values()) {
                         OriginalCharacter saved = mapped.get(c.id); saved.setCoverImageId(c.cover == null ? null : imageIds.get(c.cover)); saved.setImageRegistered(c.cover != null); characters.save(saved);
                     }
+                    ordering.merge(previousOrders, importedOrders);
                     for (RelationData r : rs) {
                         CharacterRelation relation = new CharacterRelation(); relation.setSource(mapped.get(r.source)); relation.setTarget(mapped.get(r.target));
                         relation.setRelationType(r.type); relation.setDescription(r.description); relations.save(relation);
@@ -202,5 +216,33 @@ public class BackupService {
             }
         }
         return cs.size();
+    }
+    private Map<CharacterWorld, List<String>> readOrders(Element root, String version, Map<Long, CharacterData> characters) {
+        Map<CharacterWorld, List<String>> result = new EnumMap<>(CharacterWorld.class);
+        for (CharacterWorld world : CharacterWorld.values()) {
+            LinkedHashSet<String> used = new LinkedHashSet<>();
+            characters.entrySet().stream().sorted(Map.Entry.comparingByKey()).map(Map.Entry::getValue)
+                    .filter(c -> c.value.getWorld() == world).map(c -> AffiliationOrderingService.affiliation(c.value)).filter(s -> !s.isEmpty()).forEach(used::add);
+            result.put(world, new ArrayList<>(used));
+        }
+        if (!version.equals("3")) return result;
+        List<Element> roots = children(root, "affiliationOrders");
+        if (roots.size() != 1) throw new IllegalArgumentException("所属の表示順が不足または重複しています。");
+        Map<CharacterWorld, SortedMap<Integer, String>> sorted = new EnumMap<>(CharacterWorld.class);
+        for (CharacterWorld world : CharacterWorld.values()) sorted.put(world, new TreeMap<>());
+        for (Element entry : children(roots.get(0), "order")) {
+            CharacterWorld world = CharacterWorld.parse(entry.getAttribute("world"));
+            String name = limited(entry.getAttribute("affiliation"), 120); long position = id(entry.getAttribute("position"));
+            if (position > 5000 || !result.get(world).contains(name) || sorted.get(world).containsValue(name)
+                    || sorted.get(world).putIfAbsent((int) position, name) != null)
+                throw new IllegalArgumentException("所属の表示順が不正です。");
+        }
+        for (CharacterWorld world : CharacterWorld.values()) {
+            SortedMap<Integer, String> values = sorted.get(world);
+            if (values.size() != result.get(world).size() || (!values.isEmpty() && (values.firstKey() != 1 || values.lastKey() != values.size())))
+                throw new IllegalArgumentException("所属の表示順が不足しています。");
+            result.put(world, new ArrayList<>(values.values()));
+        }
+        return result;
     }
 }

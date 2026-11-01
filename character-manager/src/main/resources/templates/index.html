@@ -27,6 +27,7 @@
   <div class="section-heading" data-reveal><div><p class="eyebrow">THE ARCHIVE</p><h2>キャラクター名鑑</h2></div>
     <p class="collection-count"><strong th:text="${#lists.size(characters)}">0</strong><span>CHARACTERS</span></p>
   </div>
+  <p class="classification-guide"><a th:href="@{/affiliations/order}">所属の表示順を設定</a><span class="muted">世界と所属の順番を優先し、並び替えは同じ所属の中で適用します。</span></p>
   <form class="search" data-reveal th:action="@{/}" method="get" role="search">
     <input type="search" name="q" th:value="${query}" placeholder="キャラクター名で検索" aria-label="キャラクター名">
     <select name="tag" aria-label="タグで絞り込み">
@@ -50,14 +51,17 @@
     <h2 th:text="${#strings.isEmpty(query) and #strings.isEmpty(selectedTag) and !favorites ? 'まだキャラクターがいません' : '該当するキャラクターが見つかりません'}"></h2>
     <p th:text="${#strings.isEmpty(query) and #strings.isEmpty(selectedTag) and !favorites ? '「新規登録」から最初のキャラクターを追加しましょう。' : '名前・タグ・お気に入り条件を変更するか、検索をクリアしてください。'}"></p>
   </section>
-  <section class="grid" aria-label="キャラクター一覧">
-    <article class="character-card" data-reveal th:each="item : ${characters}" th:style="'--card-index: ' + ${itemStat.index}">
+  <section class="world-section" th:each="group : ${worldGroups}" th:attr="data-world=${group.world}">
+    <header class="world-heading"><h2 th:text="${group.world.label + 'の人物'}"></h2><span class="muted" th:text="${#lists.size(group.characters)} + '人'"></span></header>
+    <p class="muted world-empty" th:if="${#lists.isEmpty(group.characters)}">表示する人物はいません。</p>
+  <div class="grid" th:attr="aria-label=${group.world.label + 'の人物'}">
+    <article class="character-card" data-reveal th:each="item : ${group.characters}" th:style="'--card-index: ' + ${itemStat.index}">
     <a class="card-link" th:href="@{/characters/{id}/edit(id=${item.id})}">
       <div class="thumbnail">
         <img th:if="${item.imageRegistered}" th:src="@{/characters/{id}/image(id=${item.id})}" alt="" loading="lazy">
         <span class="portrait-placeholder" th:unless="${item.imageRegistered}"><b aria-hidden="true">✧</b><span>画像未登録</span></span>
       </div>
-      <div class="card-meta"><span th:text="'NO. ' + ${#numbers.formatInteger(itemStat.count, 3)}"></span><span aria-hidden="true">↗</span></div>
+      <div class="card-meta"><span th:text="'NO. ' + ${#numbers.formatInteger(group.offset + itemStat.count, 3)}"></span><span aria-hidden="true">↗</span></div>
       <h2 class="card-title" th:text="${item.name}"></h2>
     </a>
     <div class="tags" th:if="${!#sets.isEmpty(item.tags)}" aria-label="タグ">
@@ -70,6 +74,7 @@
       <button type="submit" class="favorite-button" th:classappend="${item.favorite ? 'is-favorite' : ''}" th:attr="aria-pressed=${item.favorite}" th:text="${item.favorite ? '★ お気に入り解除' : '☆ お気に入り'}"></button>
     </form>
     </article>
+  </div>
   </section>
 </main>
 <footer th:replace="~{fragments/palace :: footer}"></footer>

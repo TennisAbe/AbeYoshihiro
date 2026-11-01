@@ -23,6 +23,8 @@ final class ProfileFields {
     }
     static void copy(OriginalCharacter from, OriginalCharacter to) {
         read(values(from), to); to.setName(to.getName().strip());
+        to.setWorld(from.getWorld());
+        if (to.getAffiliation() != null) to.setAffiliation(to.getAffiliation().strip());
         to.replaceTags(TagParser.parse(from.getTagsInput()));
     }
     static void read(Map<String, String> v, OriginalCharacter c) {

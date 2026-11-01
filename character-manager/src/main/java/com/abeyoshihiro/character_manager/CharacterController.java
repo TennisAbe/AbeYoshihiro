@@ -16,17 +16,18 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class CharacterController {
     private final CharacterRepository repository;
+    private final AffiliationOrderingService ordering;
     private final GalleryService gallery;
     private final PictureRepository pictures;
     private final RelationRepository relations;
     private final TransactionTemplate transactions;
     public CharacterController(CharacterRepository repository, GalleryService gallery, PictureRepository pictures,
-                               RelationRepository relations, TransactionTemplate transactions) {
-        this.repository = repository; this.gallery = gallery; this.pictures = pictures; this.relations = relations; this.transactions = transactions;
+                               RelationRepository relations, TransactionTemplate transactions, AffiliationOrderingService ordering) {
+        this.ordering = ordering; this.repository = repository; this.gallery = gallery; this.pictures = pictures; this.relations = relations; this.transactions = transactions;
     }
     @InitBinder("character")
     public void bindCharacter(WebDataBinder binder) {
-        binder.setAllowedFields("name", "affiliation", "basicSettings", "personality", "speechStyle", "firstPerson", "feelingsTowardMikado", "likes", "dislikes", "abilities", "tagsInput");
+        binder.setAllowedFields("world", "name", "affiliation", "basicSettings", "personality", "speechStyle", "firstPerson", "feelingsTowardMikado", "likes", "dislikes", "abilities", "tagsInput");
     }
     @GetMapping("/")
     public String index(@RequestParam(name = "q", defaultValue = "") String query,
@@ -43,12 +44,22 @@ public class CharacterController {
                 "name", Comparator.comparing(OriginalCharacter::getName, String.CASE_INSENSITIVE_ORDER).thenComparing(OriginalCharacter::getId),
                 "favorite", Comparator.comparing(OriginalCharacter::isFavorite).reversed().thenComparing(OriginalCharacter::getId));
         String selectedSort = sorts.containsKey(sort) ? sort : "oldest";
-        model.addAttribute("characters", found.stream().filter(c -> !favorites || c.isFavorite()).sorted(sorts.get(selectedSort)).toList());
+        List<OriginalCharacter> displayed = new ArrayList<>();
+        List<AffiliationOrderingService.WorldSection> groups = new ArrayList<>();
+        for (CharacterWorld world : CharacterWorld.values()) {
+            List<OriginalCharacter> items = found.stream().filter(c -> c.getWorld() == world && (!favorites || c.isFavorite()))
+                    .sorted(ordering.comparator(world, sorts.get(selectedSort))).toList();
+            groups.add(new AffiliationOrderingService.WorldSection(world, items, displayed.size(), List.of()));
+            displayed.addAll(items);
+        }
+        model.addAttribute("characters", displayed);
+        model.addAttribute("worldGroups", groups);
         model.addAttribute("selectedTag", selectedTag); model.addAttribute("tags", repository.findAllTags());
         model.addAttribute("query", keyword); model.addAttribute("sort", selectedSort); model.addAttribute("favorites", favorites);
         return "index";
     }
     private void populate(OriginalCharacter c, Model model) {
+        model.addAttribute("worlds", CharacterWorld.values());
         model.addAttribute("pictures", c.getId() == null ? List.of() : gallery.list(c.getId()));
         model.addAttribute("outgoing", c.getId() == null ? List.of() : relations.findBySourceIdOrderByIdAsc(c.getId()));
         model.addAttribute("incoming", c.getId() == null ? List.of() : relations.findByTargetIdOrderByIdAsc(c.getId()));

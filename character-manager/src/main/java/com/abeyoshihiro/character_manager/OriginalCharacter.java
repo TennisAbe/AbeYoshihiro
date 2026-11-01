@@ -163,4 +163,13 @@ public class OriginalCharacter {
     public String getDislikes() { return dislikes; }
     public void setDislikes(String value) { dislikes = value; }
 
+    @jakarta.persistence.Enumerated(jakarta.persistence.EnumType.STRING)
+    @Column(length = 24)
+    private CharacterWorld world;
+    public CharacterWorld getWorld() { return world == null ? CharacterWorld.ALTER_PALACE : world; }
+    public void setWorld(CharacterWorld value) { world = value; }
+    public boolean initializeWorld() {
+        if (world != null) return false;
+        world = CharacterWorld.ALTER_PALACE; return true;
+    }
 }

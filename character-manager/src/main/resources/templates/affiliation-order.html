@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>NOCTALITH | 所属の表示順</title><link rel="stylesheet" th:href="@{/style.css}"><script th:src="@{/palace.js}" defer></script><script th:src="@{/affiliation-order.js}" defer></script></head>
+<body><div th:replace="~{fragments/palace :: atmosphere}"></div><div class="page-shell"><header th:replace="~{fragments/palace :: masthead}"></header><main>
+<header class="header editor-header"><div><p class="eyebrow">AFFILIATION ORDER</p><h1>所属の表示順</h1></div><a class="button secondary" th:href="@{/}">一覧に戻る</a></header>
+<p class="notice" role="status" th:if="${notice}" th:text="${notice}"></p><p class="field-error" role="alert" th:if="${error}" th:text="${error}"></p>
+<p class="muted">世界の順番は「オルタパレス → 異世界 → 現代世界」で固定です。世界ごとに、現在使われている所属の順番を設定できます。一覧に所属の見出しは表示しません。</p><p class="muted">上下ボタン、または重複しない順番の数字で並び替え、「この世界の順番を保存」を押してください。新しい所属は設定済みの所属の後ろ、所属が空欄の人物は各世界の末尾に並びます。</p>
+<section class="panel order-panel" th:each="section : ${sections}" th:attr="data-world=${section.world}">
+<h2 th:text="${section.world.label}"></h2><p class="muted" th:if="${#lists.isEmpty(section.affiliations)}">この世界には、所属を設定したキャラクターがまだいません。</p>
+<form th:if="${!#lists.isEmpty(section.affiliations)}" th:action="@{/affiliations/order/{world}(world=${section.world})}" method="post">
+<ol class="order-list"><li class="order-row" th:each="affiliation : ${section.affiliations}"><strong th:text="${affiliation}"></strong><input type="hidden" name="affiliations" th:value="${affiliation}">
+<label class="order-position">表示順<input type="number" name="positions" th:value="${affiliationStat.count}" min="1" th:max="${#lists.size(section.affiliations)}" th:attr="aria-label=${affiliation + 'の表示順'}" required></label>
+<button class="secondary order-move" type="button" data-move="-1" aria-label="上へ">↑</button><button class="secondary order-move" type="button" data-move="1" aria-label="下へ">↓</button></li></ol>
+<button type="submit">この世界の順番を保存</button></form></section>
+</main><footer th:replace="~{fragments/palace :: footer}"></footer></div></body></html>

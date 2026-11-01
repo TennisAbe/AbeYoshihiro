@@ -18,7 +18,9 @@ public class LegacyProfileMigration implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         transactions.executeWithoutResult(status -> {
             for (OriginalCharacter c : characters.findAll()) {
-                if (ProfileFields.migrateLegacy(c)) characters.save(c);
+                boolean profileChanged = ProfileFields.migrateLegacy(c);
+                boolean worldChanged = c.initializeWorld();
+                if (profileChanged || worldChanged) characters.save(c);
             }
         });
     }
