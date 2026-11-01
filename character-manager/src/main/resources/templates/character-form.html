@@ -19,6 +19,11 @@
         <label>名前（必須）<input type="text" th:field="*{name}" maxlength="255" required></label>
         <label>性格<textarea th:field="*{personality}" maxlength="255" rows="4"></textarea></label>
         <label>設定メモ<textarea th:field="*{memo}" maxlength="255" rows="6"></textarea></label>
+        <label>タグ
+          <input type="text" th:field="*{tagsInput}" aria-describedby="tags-help" placeholder="例：魔法使い, 主人公, 森の住人">
+        </label>
+        <p id="tags-help" class="muted">カンマ「,」「、」で区切って入力。1個30文字・最大20個。空欄で保存するとタグをすべて外します。</p>
+        <p class="field-error" role="alert" th:if="${#fields.hasErrors('tagsInput')}" th:errors="*{tagsInput}"></p>
         <div class="actions">
           <button type="submit" th:text="${character.id == null ? '登録して編集を続ける' : '変更を保存する'}"></button>
           <a th:href="@{/}">一覧に戻る</a>

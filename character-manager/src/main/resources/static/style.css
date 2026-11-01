@@ -28,3 +28,11 @@ label { display: block; margin-bottom: 20px; }
 .preview { display: block; width: 100%; max-height: 400px; object-fit: contain; margin-bottom: 20px; }
 .delete-area { margin-top: 24px; padding-top: 20px; border-top: 1px solid #e7e0ef; }
 @media (max-width: 640px) { main { margin-top: 20px; padding: 0 16px 24px; } .editor { grid-template-columns: 1fr; } .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } .panel { padding: 18px; } }
+
+.card-link { display: block; color: inherit; text-decoration: none; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 16px; }
+.tag { background: #eee7fa; color: #513b88; padding: 4px 9px; border-radius: 14px; font-size: 12px; text-decoration: none; overflow-wrap: anywhere; max-width: 100%; }
+.tag:hover { background: #ded0f4; }
+.search select { padding: 12px; border: 1px solid #bcb3c9; border-radius: 8px; background: white; font: inherit; max-width: 100%; }
+select:focus-visible { outline: 3px solid #9473d7; outline-offset: 3px; }
+.field-error { color: #a52b48; }

@@ -13,23 +13,34 @@
   </header>
   <form class="search" th:action="@{/}" method="get" role="search">
     <input type="search" name="q" th:value="${query}" placeholder="キャラクター名で検索" aria-label="キャラクター名">
+    <select name="tag" aria-label="タグで絞り込み">
+      <option value="">すべてのタグ</option>
+      <option th:if="${!#strings.isEmpty(selectedTag) and !#lists.contains(tags, selectedTag)}"
+              th:value="${selectedTag}" th:text="${selectedTag}" selected></option>
+      <option th:each="tag : ${tags}" th:value="${tag}" th:text="${tag}" th:selected="${tag == selectedTag}"></option>
+    </select>
     <button type="submit">検索</button>
-    <a th:if="${!#strings.isEmpty(query)}" th:href="@{/}">検索をクリア</a>
+    <a th:if="${!#strings.isEmpty(query) or !#strings.isEmpty(selectedTag)}" th:href="@{/}">検索をクリア</a>
   </form>
   <p class="muted" th:text="${#lists.size(characters)} + '件のキャラクター'"></p>
   <section class="panel empty" th:if="${#lists.isEmpty(characters)}">
-    <h2 th:text="${#strings.isEmpty(query) ? 'まだキャラクターがいません' : '該当するキャラクターが見つかりません'}"></h2>
-    <p th:text="${#strings.isEmpty(query) ? '「新規登録」から最初のキャラクターを追加しましょう。' : '別の名前で検索するか、検索をクリアしてください。'}"></p>
+    <h2 th:text="${#strings.isEmpty(query) and #strings.isEmpty(selectedTag) ? 'まだキャラクターがいません' : '該当するキャラクターが見つかりません'}"></h2>
+    <p th:text="${#strings.isEmpty(query) and #strings.isEmpty(selectedTag) ? '「新規登録」から最初のキャラクターを追加しましょう。' : '名前やタグを変更するか、検索をクリアしてください。'}"></p>
   </section>
   <section class="grid" aria-label="キャラクター一覧">
-    <a class="character-card" th:each="item : ${characters}"
-       th:href="@{/characters/{id}/edit(id=${item.id})}">
+    <article class="character-card" th:each="item : ${characters}">
+    <a class="card-link" th:href="@{/characters/{id}/edit(id=${item.id})}">
       <div class="thumbnail">
         <img th:if="${item.imageRegistered}" th:src="@{/characters/{id}/image(id=${item.id})}" alt="" loading="lazy">
         <span th:unless="${item.imageRegistered}">画像未登録</span>
       </div>
       <h2 class="card-title" th:text="${item.name}"></h2>
     </a>
+    <div class="tags" th:if="${!#sets.isEmpty(item.tags)}" aria-label="タグ">
+      <a class="tag" th:each="tag : ${item.tags}" th:text="${tag}"
+         th:href="@{/(q=${query},tag=${tag})}"></a>
+    </div>
+    </article>
   </section>
 </main></body>
 </html>

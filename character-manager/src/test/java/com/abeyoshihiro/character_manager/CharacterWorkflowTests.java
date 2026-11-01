@@ -113,4 +113,64 @@ class CharacterWorkflowTests {
         assertEquals(404, get("/characters/999999/edit").statusCode());
         assertEquals(404, post("/characters/999999/update", "name=Alice").statusCode());
     }
+    String encode(String text) {
+        return URLEncoder.encode(text, StandardCharsets.UTF_8);
+    }
+
+    @Test
+    void savesTagsSearchesExactlyAndCombinesWithName() throws Exception {
+        var response = post("/characters", "name=Alice&tagsInput=" + encode(" 魔法, 主人公、魔法 "));
+        assertEquals(302, response.statusCode());
+        var alice = repository.findAll().get(0);
+        assertEquals(java.util.Set.of("魔法", "主人公"), alice.getTags());
+        var bob = save("Bob");
+        bob.replaceTags(TagParser.parse("魔法使い"));
+        repository.save(bob);
+        var list = get("/?tag=" + encode("魔法"));
+        assertEquals(200, list.statusCode());
+        assertTrue(list.body().contains("Alice"));
+        assertFalse(list.body().contains("Bob"));
+        assertTrue(list.body().contains("class=\"tag\""));
+        assertTrue(get("/?q=ali&tag=" + encode("魔法")).body().contains("Alice"));
+        assertTrue(get("/?q=Bob&tag=" + encode("魔法")).body().contains("該当するキャラクターが見つかりません"));
+        assertTrue(get("/?tag=unknown").body().contains("該当するキャラクターが見つかりません"));
+        var edit = get("/characters/" + alice.getId() + "/edit");
+        assertEquals(200, edit.statusCode());
+        assertTrue(edit.body().contains("主人公"));
+        assertTrue(edit.body().contains("name=\"tagsInput\""));
+        assertEquals(302, post("/characters/" + alice.getId() + "/update", "name=Alice&tagsInput=").statusCode());
+        assertTrue(repository.findById(alice.getId()).orElseThrow().getTags().isEmpty());
+        assertEquals(java.util.List.of("魔法使い"), repository.findAllTags());
+        post("/characters/" + bob.getId() + "/delete", "");
+        assertTrue(repository.findAllTags().isEmpty());
+    }
+
+    @Test
+    void invalidTagsKeepInputAndDoNotChangeStoredData() throws Exception {
+        String tooLong = "あ".repeat(31);
+        var create = post("/characters", "name=Alice&tagsInput=" + encode(tooLong));
+        assertEquals(200, create.statusCode());
+        assertTrue(create.body().contains("タグは1個30文字以内"));
+        assertEquals(0, repository.count());
+        var alice = save("Alice");
+        alice.replaceTags(TagParser.parse("既存"));
+        alice.setImageRegistered(true);
+        repository.save(alice);
+        var update = post("/characters/" + alice.getId() + "/update",
+                "name=Changed&tagsInput=" + encode(tooLong));
+        assertEquals(200, update.statusCode());
+        assertTrue(update.body().contains("/characters/" + alice.getId() + "/update"));
+        assertTrue(update.body().contains("Changed"));
+        assertTrue(update.body().contains(tooLong));
+        var unchanged = repository.findById(alice.getId()).orElseThrow();
+        assertEquals("Alice", unchanged.getName());
+        assertEquals(java.util.Set.of("既存"), unchanged.getTags());
+        var valid = post("/characters/" + alice.getId() + "/update",
+                "name=Alice2&tagsInput=" + encode("新規,新規") + "&imageRegistered=false&id=9999");
+        assertEquals(302, valid.statusCode());
+        var saved = repository.findById(alice.getId()).orElseThrow();
+        assertTrue(saved.isImageRegistered());
+        assertEquals(java.util.Set.of("新規"), saved.getTags());
+        assertEquals(1, repository.count());
+    }
 }
