@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>NOCTALITH | 所属の表示順</title><link rel="stylesheet" th:href="@{/style.css}"><script th:src="@{/palace.js}" defer></script><script th:src="@{/affiliation-order.js}" defer></script></head>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>NOCTALITH | 所属の表示順</title>
+  <link rel="icon" type="image/png" th:href="@{/images/noctalith-mark.png}"><link rel="stylesheet" th:href="@{/style.css}"><script th:src="@{/palace.js}" defer></script><script th:src="@{/affiliation-order.js}" defer></script></head>
 <body><div th:replace="~{fragments/palace :: atmosphere}"></div><div class="page-shell"><header th:replace="~{fragments/palace :: masthead}"></header><main>
 <header class="header editor-header"><div><p class="eyebrow">AFFILIATION ORDER</p><h1>所属の表示順</h1></div><a class="button secondary" th:href="@{/}">一覧に戻る</a></header>
 <p class="notice" role="status" th:if="${notice}" th:text="${notice}"></p><p class="field-error" role="alert" th:if="${error}" th:text="${error}"></p>
