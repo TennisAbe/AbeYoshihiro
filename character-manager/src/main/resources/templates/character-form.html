@@ -56,7 +56,6 @@
       </form>
     </section>
     <section class="panel" data-reveal>
-      <div th:unless="${character.protagonist}">
       <p class="eyebrow">02 / PORTRAIT</p><h2>キャラクター画像</h2><p class="muted">立ち絵・表情差分・衣装違いを最大20枚保存できます。代表画像を一覧に表示します。</p>
       <img class="preview" th:if="${character.imageRegistered}" th:src="@{/characters/{id}/image(id=${character.id})}" th:alt="${character.name + 'の画像'}">
       <p class="muted" th:unless="${character.imageRegistered}">画像はまだ登録されていません。</p>
@@ -78,7 +77,6 @@
           <form th:unless="${picture.id == character.coverImageId}" th:action="@{/characters/{id}/images/{pictureId}/cover(id=${character.id},pictureId=${picture.id})}" method="post"><button type="submit" class="secondary">代表にする</button></form>
           <form th:action="@{/characters/{id}/images/{pictureId}/delete(id=${character.id},pictureId=${picture.id})}" method="post" onsubmit="return confirm('この画像を削除しますか？');"><button class="danger" type="submit">画像を削除</button></form>
         </article>
-      </div>
       </div>
       <div class="delete-area" th:if="${character.id != null}">
         <form th:action="@{/characters/{id}/delete(id=${character.id})}" method="post"

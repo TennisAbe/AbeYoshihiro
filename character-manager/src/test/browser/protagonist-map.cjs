@@ -20,6 +20,28 @@ const assert = require('node:assert/strict');
     await page.locator('#name').fill('ミカド');await page.locator('#gender').selectOption('男');await page.locator('#heightCm').fill('175');await page.locator('#basicSettings').fill('3つの世界を巡る物語の主人公。');
     await page.getByRole('button',{name:'登録して編集を続ける'}).click();await page.waitForURL(/\/characters\/\d+\/edit$/);
     const hero = page.url().match(/characters\/(\d+)/)[1];
+    const heroEdit=page.url();
+    for(const color of ['red','blue']) {
+      const data=await page.evaluate(color=>{const canvas=document.createElement('canvas');canvas.width=4;canvas.height=4;const context=canvas.getContext('2d');context.fillStyle=color;context.fillRect(0,0,4,4);return canvas.toDataURL('image/png').split(',')[1];},color);
+      await page.locator('input[name=title]').fill(`主人公画像-${color}`);
+      await page.locator('input[name=image]').setInputFiles({name:`${color}.png`,mimeType:'image/png',buffer:Buffer.from(data,'base64')});
+      await page.getByRole('button',{name:'画像を追加する'}).click();await page.waitForURL(url=>url.pathname.split(';')[0]===new URL(heroEdit).pathname);
+      await page.getByText(`主人公画像-${color}`,{exact:true}).waitFor();
+    }
+    assert.equal(await page.locator('.gallery-item').count(),2);
+    await page.getByRole('button',{name:'代表にする',exact:true}).click();
+    await page.locator('.gallery-item').filter({hasText:'主人公画像-blue'}).locator('.cover-badge').waitFor();
+    await page.goto(base);
+    await page.waitForFunction(()=>document.querySelector('[data-world=PROTAGONIST] .thumbnail img')?.naturalWidth>0);
+    await page.goto(`${base}/characters/${hero}`);
+    await page.waitForFunction(()=>document.querySelector('.portrait-frame img')?.naturalWidth>0);
+    assert.equal(await page.locator('.dossier-gallery img').count(),2);
+    await page.goto(heroEdit);
+    page.once('dialog',dialog=>dialog.accept());
+    await page.locator('.gallery-item').filter({hasText:'主人公画像-red'}).getByRole('button',{name:'画像を削除',exact:true}).click();
+    await page.waitForFunction(()=>document.querySelectorAll('.gallery-item').length===1);
+    assert.equal(await page.locator('.gallery-item').filter({hasText:'主人公画像-blue'}).locator('.cover-badge').count(),1);
+
     const names=['キルク','シュネカ','メイ','セイラ','クク','バラム','ライ','ノノハ','ルディア','ライナ','ユラ','ソルバル','ヒカリ','太臣','セネ','シノ','アヤメ','ユミト','メディ','セナ'];
     const ids=[];
     for(let i=0;i<names.length;i++) ids.push(await create(names[i],i<10?'ALTER_PALACE':i<15?'OTHER_WORLD':'MODERN_WORLD'));
@@ -50,6 +72,6 @@ const assert = require('node:assert/strict');
     await page.screenshot({path:'/tmp/noctalith-world-map-selected.png',fullPage:true});
     await page.getByRole('link',{name:'全員を表示',exact:true}).click();await page.waitForURL(`${base}/relationships`);assert.equal(await page.locator('input[name=ids]:checked').count(),0);
     await page.setViewportSize({width:390,height:844});assert.ok(await page.locator('.diagram-choices').isVisible());assert.ok(await page.locator('.relationship-diagram').isVisible());
-    console.log('PASS: protagonist fields and list order, silent favorites, bust label, dark world frames, multi-select, SVG download, selection links, mobile view');
+    console.log('PASS: protagonist image upload, cover, list/detail display, delete, protagonist fields and list order, silent favorites, bust label, dark world frames, multi-select, SVG download, selection links, mobile view');
   } finally { await browser.close(); }
 })().catch(e=>{console.error(e);process.exitCode=1;});

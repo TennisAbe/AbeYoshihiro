@@ -32,6 +32,7 @@ class ExpandedFeatureTests {
     @Autowired RelationRepository relations;
     @Autowired GalleryService gallery;
     @Autowired BackupService backup;
+    @Autowired ComicShareService share;
     @Autowired LegacyProfileMigration profileMigration;
     HttpClient client;
     @BeforeEach void reset() throws IOException {
@@ -191,4 +192,36 @@ class ExpandedFeatureTests {
             var unchanged=characters.findById(c.getId()).orElseThrow();assertEquals("Boundary",unchanged.getName());assertEquals(valid,ProfileFields.values(unchanged).get(field.getKey()));
         }
     }
+    @Test void protagonistGallerySupportsUploadCoverDisplayBackupSharingAndDelete() throws Exception {
+        var hero=save("Hero");hero.setWorld(CharacterWorld.PROTAGONIST);hero.setBasicSettings("Story");characters.save(hero);
+        String base="/characters/"+hero.getId();byte[] red=png(0xff0000),blue=png(0x0000ff);
+        String edit=text(get(base+"/edit"));assertTrue(edit.contains("name=\"image\""));assertTrue(edit.contains("画像を追加する"));
+        assertFalse(edit.contains("name=\"bustCm\""));assertFalse(edit.contains("name=\"personality\""));
+        assertEquals(302,multipart(base+"/image","image",red,Map.of("title","主人公の立ち絵")).statusCode());
+        assertEquals(302,multipart(base+"/image","image",blue,Map.of("title","主人公の別衣装")).statusCode());
+        var images=gallery.list(hero.getId());assertEquals(2,images.size());assertArrayEquals(red,get(base+"/image").body());
+        assertEquals(302,post(base+"/images/"+images.get(1).getId()+"/cover","").statusCode());assertArrayEquals(blue,get(base+"/image").body());
+        assertTrue(text(get("/")).contains("src=\""+base+"/image\""));assertTrue(text(get(base)).contains("src=\""+base+"/image\""));
+        assertTrue(text(get(base+"/edit")).contains("主人公の別衣装"));
+        var shared=unzip(share.exportAll());String reference=String.format(java.util.Locale.ROOT,"C%06d",hero.getId());
+        assertTrue(shared.containsKey("images/"+reference+"/"+String.format(java.util.Locale.ROOT,"I%06d",images.get(0).getId())+".png"));
+        assertTrue(shared.containsKey("images/"+reference+"/"+String.format(java.util.Locale.ROOT,"I%06d",images.get(1).getId())+".png"));
+        assertTrue(new String(shared.get("01_ALL_CHARACTERS.md"),StandardCharsets.UTF_8).contains("主人公の別衣装"));
+        byte[] archive=backup.exportArchive();assertEquals(1,backup.restore(new ByteArrayInputStream(archive)));
+        var restored=characters.findAll().stream().filter(c->!c.getId().equals(hero.getId())).findFirst().orElseThrow();
+        assertTrue(restored.isProtagonist());assertEquals("Story",restored.getBasicSettings());assertEquals(2,gallery.list(restored.getId()).size());
+        assertArrayEquals(blue,get("/characters/"+restored.getId()+"/image").body());
+        Path cover=gallery.path(images.get(1).getStorageName());assertEquals(302,post(base+"/images/"+images.get(1).getId()+"/delete","").statusCode());
+        assertFalse(Files.exists(cover));assertArrayEquals(red,get(base+"/image").body());
+        assertEquals(302,post(base+"/images/"+images.get(0).getId()+"/delete","").statusCode());assertEquals(404,get(base+"/image").statusCode());
+        assertFalse(characters.findById(hero.getId()).orElseThrow().isImageRegistered());
+    }
+    @Test void protagonistRejectsInvalidImagesWithoutLosingExistingCover() throws Exception {
+        var hero=save("Hero");hero.setWorld(CharacterWorld.PROTAGONIST);characters.save(hero);byte[] image=png(0xff0000);
+        gallery.upload(hero.getId(),new MockMultipartFile("image",image),"Cover");
+        assertEquals(302,multipart("/characters/"+hero.getId()+"/image","image","not an image".getBytes(StandardCharsets.UTF_8),Map.of()).statusCode());
+        assertEquals(1,gallery.list(hero.getId()).size());assertArrayEquals(image,get("/characters/"+hero.getId()+"/image").body());
+        assertTrue(text(get("/characters/"+hero.getId()+"/edit")).contains("PNG・JPEG・GIF画像を選択してください。"));
+    }
+
 }
