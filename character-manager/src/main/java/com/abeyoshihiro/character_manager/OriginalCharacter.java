@@ -131,7 +131,7 @@ public class OriginalCharacter {
     private String gender;
     @Column(length = 8)
     private String heightCm;
-    @Column(length = 8)
+    @Column(length = 120)
     private String bustCm;
     public String getGender() { return gender == null || gender.isEmpty() ? null : gender; }
     public void setGender(String value) { gender = value; }
@@ -139,6 +139,16 @@ public class OriginalCharacter {
     public void setHeightCm(String value) { heightCm = value; }
     public String getBustCm() { return "女".equals(gender) ? (bustCm == null || bustCm.isEmpty() ? null : bustCm) : null; }
     public void setBustCm(String value) { bustCm = value; }
+
+    @Column(length = 7)
+    private String cardColor;
+    public String getCardColor() { return cardColor; }
+    public void setCardColor(String value) { cardColor = CardColors.normalize(value); }
+    public String getCardRgb() { return CardColors.rgb(cardColor); }
+    private int cardChannel(int offset) { return Integer.parseInt((cardColor == null ? "#33213e" : cardColor).substring(offset, offset + 2), 16); }
+    public int getCardRed() { return cardChannel(1); }
+    public int getCardGreen() { return cardChannel(3); }
+    public int getCardBlue() { return cardChannel(5); }
 
     private Boolean favorite = false;
     private Long coverImageId;

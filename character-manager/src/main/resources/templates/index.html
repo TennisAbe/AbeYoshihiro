@@ -8,6 +8,7 @@
   <link rel="stylesheet" th:href="@{/style.css}">
   <script th:src="@{/palace.js}" defer></script>
   <script th:src="@{/favorites.js}" defer></script>
+  <script th:src="@{/card-colors.js}" defer></script>
 </head>
 <body>
 <div th:replace="~{fragments/palace :: atmosphere}"></div>
@@ -58,7 +59,7 @@
     <header class="world-heading"><h2 th:text="${group.world.name() == 'PROTAGONIST' ? '主人公' : group.world.label + 'の人物'}"></h2><span class="muted" th:text="${#lists.size(group.characters)} + '人'"></span></header>
     <p class="muted world-empty" th:if="${#lists.isEmpty(group.characters)}">表示する人物はいません。</p>
   <div class="grid" th:attr="aria-label=${group.world.name() == 'PROTAGONIST' ? '主人公' : group.world.label + 'の人物'}">
-    <article class="character-card" data-reveal th:each="item : ${group.characters}" th:style="'--card-index: ' + ${itemStat.index}">
+    <article class="character-card" data-reveal th:each="item : ${group.characters}" th:classappend="${item.cardColor != null ? 'has-custom-color' : ''}" th:style="${'--card-index: ' + itemStat.index + ';' + (item.cardRgb != null ? '--card-rgb: ' + item.cardRgb + ';' : '')}">
     <a class="card-link" th:href="@{/characters/{id}(id=${item.id})}" th:attr="aria-label=${item.name + 'の詳細を見る'}">
       <div class="thumbnail">
         <img th:if="${item.imageRegistered}" th:src="@{/characters/{id}/image(id=${item.id})}" alt="" loading="lazy">
@@ -82,6 +83,16 @@
       <input type="hidden" name="sort" th:value="${sort}"><input type="hidden" name="favorites" th:value="${favorites}">
       <button type="submit" class="favorite-button" th:classappend="${item.favorite ? 'is-favorite' : ''}" th:attr="aria-pressed=${item.favorite}" th:text="${item.favorite ? '★ お気に入り解除' : '☆ お気に入り'}"></button>
     </form>
+    <details class="card-color-editor"><summary>背景色を設定</summary>
+      <form class="card-color-form" th:action="@{/characters/{id}/card-color(id=${item.id})}" method="post" th:attr="data-saved-color=${item.cardColor ?: ''}">
+        <p class="muted">RGBでグラデーションの色を選べます。</p>
+        <label>色を選択<input type="color" class="color-picker" th:value="${item.cardColor ?: '#33213e'}"></label>
+        <div class="rgb-fields"><label>R<input type="number" name="red" min="0" max="255" step="1" required th:value="${item.cardRed}"></label><label>G<input type="number" name="green" min="0" max="255" step="1" required th:value="${item.cardGreen}"></label><label>B<input type="number" name="blue" min="0" max="255" step="1" required th:value="${item.cardBlue}"></label></div>
+        <input type="hidden" name="q" th:value="${query}"><input type="hidden" name="tag" th:value="${selectedTag}"><input type="hidden" name="sort" th:value="${sort}"><input type="hidden" name="favorites" th:value="${favorites}">
+        <div class="color-actions"><button type="submit">色を保存</button><button type="submit" name="reset" value="true" formnovalidate>標準に戻す</button></div>
+        <p class="color-status" role="status" aria-live="polite"></p>
+      </form>
+    </details>
     </article>
   </div>
   </section>

@@ -55,7 +55,7 @@ public class BackupService {
     public byte[] exportArchive() throws Exception {
         synchronized (gallery) {
             Document doc = factory().newDocumentBuilder().newDocument();
-            Element root = doc.createElement("noctalith"); root.setAttribute("version", "6"); doc.appendChild(root);
+            Element root = doc.createElement("noctalith"); root.setAttribute("version", "7"); doc.appendChild(root);
             Element cs = append(doc, root, "characters", "");
             Map<String, Path> images = new LinkedHashMap<>(); long total = 0;
             List<OriginalCharacter> allCharacters = characters.findAll();
@@ -65,6 +65,7 @@ public class BackupService {
                 Element ce = append(doc, cs, "character", ""); ce.setAttribute("id", c.getId().toString());
                 ce.setAttribute("favorite", Boolean.toString(c.isFavorite()));
                 ce.setAttribute("world", c.getWorld().name());
+                ce.setAttribute("cardColor", c.getCardColor() == null ? "" : c.getCardColor());
                 if (c.getCoverImageId() != null) ce.setAttribute("cover", c.getCoverImageId().toString());
                 ProfileFields.values(c).forEach((key, value) -> append(doc, ce, key, value));
                 Element tags = append(doc, ce, "tags", ""); for (String tag : c.getTags()) append(doc, tags, "tag", tag);
@@ -147,7 +148,7 @@ public class BackupService {
         Document doc = factory().newDocumentBuilder().parse(new ByteArrayInputStream(zip.get("manifest.xml")));
         Element root = doc.getDocumentElement();
         String version = root.getAttribute("version");
-        if (!root.getTagName().equals("noctalith") || !Set.of("1", "2", "3", "4", "5", "6").contains(version)) throw new IllegalArgumentException("対応していないバックアップ形式です。");
+        if (!root.getTagName().equals("noctalith") || !Set.of("1", "2", "3", "4", "5", "6", "7").contains(version)) throw new IllegalArgumentException("対応していないバックアップ形式です。");
         if (children(root, "characters").size() != 1 || children(root, "relations").size() != 1) throw new IllegalArgumentException("バックアップの構成が不正です。");
         Map<Long, List<RevisionData>> histories = new LinkedHashMap<>();
         Map<Long, CharacterData> cs = new LinkedHashMap<>(); Map<Long, PictureData> ps = new LinkedHashMap<>(); List<RelationData> rs = new ArrayList<>();
@@ -156,13 +157,14 @@ public class BackupService {
             Map<String, Integer> limits = version.equals("1") ? ProfileFields.legacyLimits() : ProfileFields.limits();
             for (var field : limits.entrySet()) {
                 List<Element> values = children(ce, field.getKey());
-                if (values.isEmpty() && !Set.of("5", "6").contains(version) && Set.of("gender", "heightCm", "bustCm").contains(field.getKey())) { fields.put(field.getKey(), ""); continue; }
+                if (values.isEmpty() && !Set.of("5", "6", "7").contains(version) && Set.of("gender", "heightCm", "bustCm").contains(field.getKey())) { fields.put(field.getKey(), ""); continue; }
                 if (values.size() != 1) throw new IllegalArgumentException("プロフィールが不足または重複しています。");
                 fields.put(field.getKey(), limited(values.get(0).getTextContent(), field.getValue()));
             }
             if (version.equals("1")) ProfileFields.readLegacy(fields, c); else ProfileFields.read(fields, c);
             ProfileFields.validate(c); c.setName(c.getName().strip());
-            c.setWorld(Set.of("3", "4", "5", "6").contains(version) ? CharacterWorld.parse(ce.getAttribute("world")) : CharacterWorld.ALTER_PALACE);
+            c.setCardColor(ce.getAttribute("cardColor"));
+            c.setWorld(Set.of("3", "4", "5", "6", "7").contains(version) ? CharacterWorld.parse(ce.getAttribute("world")) : CharacterWorld.ALTER_PALACE);
             if (!Set.of("true", "false").contains(ce.getAttribute("favorite"))) throw new IllegalArgumentException("お気に入りの値が不正です。");
             c.setFavorite(Boolean.parseBoolean(ce.getAttribute("favorite")));
             if (children(ce, "tags").size() != 1) throw new IllegalArgumentException("タグの構成が不正です。");
@@ -236,7 +238,7 @@ public class BackupService {
         return cs.size();
     }
     private List<RevisionData> readHistory(Element character, String version) {
-        if (!Set.of("4", "5", "6").contains(version)) return List.of();
+        if (!Set.of("4", "5", "6", "7").contains(version)) return List.of();
         List<Element> roots = children(character, "history");
         if (roots.size() != 1) throw new IllegalArgumentException("修正履歴が不足または重複しています。");
         List<Element> rows = children(roots.get(0), "revision");
@@ -266,7 +268,7 @@ public class BackupService {
                     .filter(c -> c.value.getWorld() == world).map(c -> AffiliationOrderingService.affiliation(c.value)).filter(s -> !s.isEmpty()).forEach(used::add);
             result.put(world, new ArrayList<>(used));
         }
-        if (!Set.of("3", "4", "5", "6").contains(version)) return result;
+        if (!Set.of("3", "4", "5", "6", "7").contains(version)) return result;
         List<Element> roots = children(root, "affiliationOrders");
         if (roots.size() != 1) throw new IllegalArgumentException("所属の表示順が不足または重複しています。");
         Map<CharacterWorld, SortedMap<Integer, String>> sorted = new EnumMap<>(CharacterWorld.class);

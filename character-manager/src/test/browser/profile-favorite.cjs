@@ -52,7 +52,7 @@ const assert = require('node:assert/strict');
     assert.equal(await page.locator('#bust-field').isVisible(),false);
     await page.getByRole('button',{name:'変更を保存する'}).click();
     await page.waitForURL(/\/characters\/\d+$/);
-    assert.equal(await page.locator('.dossier-content').getByText('胸囲（cm）',{exact:true}).count(),0);
+    assert.equal(await page.locator('.dossier-content').getByText('胸囲',{exact:true}).count(),0);
     await page.goto(editUrl);
     await page.locator('#gender').selectOption('女');
     assert.equal(await page.locator('#bustCm').inputValue(),'');

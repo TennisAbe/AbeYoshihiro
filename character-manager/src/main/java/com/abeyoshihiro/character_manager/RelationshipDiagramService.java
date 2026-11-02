@@ -43,29 +43,62 @@ public class RelationshipDiagramService {
         return s.codePointCount(0, s.length()) <= length ? s : s.substring(0, s.offsetByCodePoints(0, length - 1)) + "…";
     }
     private record Point(double x, double y) { }
-    private static int frameHeight(int count) { return Math.max(220, 112 + ((count + 1) / 2) * 104); }
+    public static int validateSpacing(int spacing) {
+        if (spacing < 100 || spacing > 250) throw new IllegalArgumentException("配置の広さは100〜250%で指定してください。");
+        return spacing;
+    }
+    private record Layout(int columns, int columnGap, int rowGap, int width, int height) { }
+    private static Layout layout(int count, int spacing, int degree) {
+        int columns = Math.max(2, Math.min(6, (int) Math.ceil(Math.sqrt(count))));
+        int rows = Math.max(1, (count + columns - 1) / columns);
+        double scale = spacing / 100.0;
+        int columnGap = (int) Math.round((88 + Math.min(80, degree * 4)) * scale);
+        int rowGap = (int) Math.round((76 + Math.min(80, degree * 4)) * scale);
+        return new Layout(columns, columnGap, rowGap, 80 + columns * 208 + (columns - 1) * columnGap,
+                180 + rows * 72 + (rows - 1) * rowGap);
+    }
 
     public String render(List<OriginalCharacter> roster, List<CharacterRelation> connections) {
+        return render(roster, connections, 100);
+    }
+    public String render(List<OriginalCharacter> roster, List<CharacterRelation> connections, int spacing) {
+        validateSpacing(spacing);
         Map<CharacterWorld, List<OriginalCharacter>> groups = new EnumMap<>(CharacterWorld.class);
-        for (CharacterWorld world : CharacterWorld.values()) groups.put(world, roster.stream().filter(c -> c.getWorld() == world).toList());
-        int palaceHeight = frameHeight(groups.get(CharacterWorld.ALTER_PALACE).size());
-        int otherHeight = frameHeight(groups.get(CharacterWorld.OTHER_WORLD).size());
-        int modernHeight = frameHeight(groups.get(CharacterWorld.MODERN_WORLD).size());
-        int heroHeight = frameHeight(groups.get(CharacterWorld.PROTAGONIST).size());
-        int middleHeight = heroHeight + 44 + modernHeight;
-        int sideHeight = Math.max(640, Math.max(palaceHeight, otherHeight));
-        int middleY = 170 + Math.max(0, (sideHeight - middleHeight) / 2);
-        int height = Math.max(170 + sideHeight, middleY + middleHeight) + 100;
-        StringBuilder svg = new StringBuilder("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"1600\" height=\"" + height + "\" viewBox=\"0 0 1600 " + height + "\" role=\"img\" aria-labelledby=\"title desc\">");
+        Map<Long, Integer> degrees = new HashMap<>();
+        for (var r : connections) {
+            degrees.merge(r.getSource().getId(), 1, Integer::sum);
+            degrees.merge(r.getTarget().getId(), 1, Integer::sum);
+        }
+        Map<CharacterWorld, Layout> layouts = new EnumMap<>(CharacterWorld.class);
+        for (CharacterWorld world : CharacterWorld.values()) {
+            List<OriginalCharacter> members = roster.stream().filter(c -> c.getWorld() == world).toList();
+            groups.put(world, members);
+            int degree = members.stream().mapToInt(c -> degrees.getOrDefault(c.getId(), 0)).max().orElse(0);
+            layouts.put(world, layout(members.size(), spacing, degree));
+        }
+        Layout palace = layouts.get(CharacterWorld.ALTER_PALACE), other = layouts.get(CharacterWorld.OTHER_WORLD);
+        Layout hero = layouts.get(CharacterWorld.PROTAGONIST), modern = layouts.get(CharacterWorld.MODERN_WORLD);
+        int channel = (int) Math.round(180 * spacing / 100.0);
+        int middleWidth = Math.max(hero.width(), modern.width());
+        int middleX = 48 + palace.width() + channel;
+        int rightX = middleX + middleWidth + channel;
+        int width = rightX + other.width() + 48;
+        int middleGap = (int) Math.round(96 * spacing / 100.0);
+        int middleHeight = hero.height() + middleGap + modern.height();
+        int sideHeight = Math.max(720, Math.max(palace.height(), other.height()));
+        int middleY = 190 + Math.max(0, (sideHeight - middleHeight) / 2);
+        int height = Math.max(190 + sideHeight, middleY + middleHeight) + 100;
+        int center = width / 2;
+        StringBuilder svg = new StringBuilder("<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"" + width + "\" height=\"" + height + "\" viewBox=\"0 0 " + width + " " + height + "\" role=\"img\" aria-labelledby=\"title desc\">");
         svg.append("<title id=\"title\">NOCTALITH キャラクター相関図</title><desc id=\"desc\">主人公を中心にオルタパレス・異世界・現代世界の枠に人物を配置。矢印は登録した関係の向きです。</desc>")
            .append("<defs><radialGradient id=\"night\"><stop stop-color=\"#28203f\"/><stop offset=\"1\" stop-color=\"#0c0b13\"/></radialGradient><linearGradient id=\"card\" x2=\"1\" y2=\"1\"><stop stop-color=\"#30263f\"/><stop offset=\"1\" stop-color=\"#171421\"/></linearGradient><pattern id=\"stars\" width=\"60\" height=\"60\" patternUnits=\"userSpaceOnUse\"><circle cx=\"10\" cy=\"12\" r=\".7\" fill=\"#bca477\" opacity=\".23\"/></pattern><marker id=\"arrow\" viewBox=\"0 0 10 10\" refX=\"9\" refY=\"5\" markerWidth=\"7\" markerHeight=\"7\" orient=\"auto\"><path d=\"M 0 0 L 10 5 L 0 10 z\" fill=\"#d1b785\"/></marker></defs>")
-           .append("<rect width=\"100%\" height=\"100%\" fill=\"url(#night)\"/><rect width=\"100%\" height=\"100%\" fill=\"url(#stars)\"/><g font-family=\"serif\" fill=\"#f2e8d6\"><text x=\"800\" y=\"55\" font-size=\"15\" letter-spacing=\"7\" text-anchor=\"middle\" fill=\"#c5a876\">NOCTALITH · CONNECTIONS</text><text x=\"800\" y=\"100\" font-size=\"30\" letter-spacing=\"5\" text-anchor=\"middle\">魂を結ぶ、物語の軌跡</text><path d=\"M 600 126 H 1000\" stroke=\"#806641\"/><text x=\"800\" y=\"151\" text-anchor=\"middle\" font-size=\"13\" fill=\"#b4a8c4\">矢印は関係の向き · ").append(roster.size()).append("人 / ").append(connections.size()).append("件の関係</text>");
+           .append("<rect width=\"100%\" height=\"100%\" fill=\"url(#night)\"/><rect width=\"100%\" height=\"100%\" fill=\"url(#stars)\"/><g font-family=\"serif\" fill=\"#f2e8d6\"><text x=\"" + center + "\" y=\"55\" font-size=\"15\" letter-spacing=\"7\" text-anchor=\"middle\" fill=\"#c5a876\">NOCTALITH · CONNECTIONS</text><text x=\"" + center + "\" y=\"100\" font-size=\"30\" letter-spacing=\"5\" text-anchor=\"middle\">魂を結ぶ、物語の軌跡</text><path d=\"M " + (center - 200) + " 126 H " + (center + 200) + "\" stroke=\"#806641\"/><text x=\"" + center + "\" y=\"151\" text-anchor=\"middle\" font-size=\"13\" fill=\"#b4a8c4\">矢印は関係の向き · ").append(roster.size()).append("人 / ").append(connections.size()).append("件の関係</text>");
         Map<Long, Point> positions = new HashMap<>();
-        frame(svg, positions, groups.get(CharacterWorld.ALTER_PALACE), 32, 170, palaceHeight, "オルタパレス", "ALTER PALACE", "#ad91d8");
-        frame(svg, positions, groups.get(CharacterWorld.OTHER_WORLD), 1088, 170, otherHeight, "異世界", "OTHER WORLD", "#81b8c9");
-        frame(svg, positions, groups.get(CharacterWorld.PROTAGONIST), 560, middleY, heroHeight, "主人公", "THE PROTAGONIST", "#dfbd7a");
-        frame(svg, positions, groups.get(CharacterWorld.MODERN_WORLD), 560, middleY + heroHeight + 44, modernHeight, "現代世界", "MODERN WORLD", "#94ab99");
-        if (connections.isEmpty()) svg.append("<text x=\"800\" y=\"").append(height - 42).append("\" text-anchor=\"middle\" fill=\"#b4a8c4\" font-size=\"15\">関係はまだ登録されていません。</text>");
+        frame(svg, positions, groups.get(CharacterWorld.ALTER_PALACE), 48, 190, palace, "オルタパレス", "ALTER PALACE", "#ad91d8");
+        frame(svg, positions, groups.get(CharacterWorld.OTHER_WORLD), rightX, 190, other, "異世界", "OTHER WORLD", "#81b8c9");
+        frame(svg, positions, groups.get(CharacterWorld.PROTAGONIST), middleX + (middleWidth - hero.width()) / 2, middleY, hero, "主人公", "THE PROTAGONIST", "#dfbd7a");
+        frame(svg, positions, groups.get(CharacterWorld.MODERN_WORLD), middleX + (middleWidth - modern.width()) / 2, middleY + hero.height() + middleGap, modern, "現代世界", "MODERN WORLD", "#94ab99");
+        if (connections.isEmpty()) svg.append("<text x=\"" + center + "\" y=\"").append(height - 42).append("\" text-anchor=\"middle\" fill=\"#b4a8c4\" font-size=\"15\">関係はまだ登録されていません。</text>");
         Map<String, Integer> lanes = new HashMap<>();
         for (CharacterRelation r : connections.stream().sorted(Comparator.comparing(CharacterRelation::getId, Comparator.nullsLast(Comparator.naturalOrder()))).toList()) {
             Point a = positions.get(r.getSource().getId()), b = positions.get(r.getTarget().getId());
@@ -82,17 +115,20 @@ public class RelationshipDiagramService {
         for (OriginalCharacter c : roster) node(svg, c, positions.get(c.getId()));
         return svg.append("</g></svg>").toString();
     }
-    private static void frame(StringBuilder svg, Map<Long, Point> positions, List<OriginalCharacter> members, int x, int y, int height, String label, String english, String accent) {
-        svg.append("<g><rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"480\" height=\"").append(height).append("\" rx=\"18\" fill=\"#14111e\" fill-opacity=\".84\" stroke=\"").append(accent).append("\" stroke-opacity=\".6\"/><path d=\"M ").append(x + 22).append(" ").append(y + 74).append(" h 436\" stroke=\"").append(accent).append("\" stroke-opacity=\".3\"/><text x=\"").append(x + 24).append("\" y=\"").append(y + 32).append("\" font-size=\"12\" letter-spacing=\"3\" fill=\"").append(accent).append("\">").append(english).append("</text><text x=\"").append(x + 24).append("\" y=\"").append(y + 59).append("\" font-size=\"23\">").append(label).append("</text></g>");
-        if (members.isEmpty()) svg.append("<text x=\"").append(x + 240).append("\" y=\"").append(y + 140).append("\" text-anchor=\"middle\" font-size=\"14\" fill=\"#85788f\">登録された人物はいません</text>");
+    private static void frame(StringBuilder svg, Map<Long, Point> positions, List<OriginalCharacter> members, int x, int y, Layout layout, String label, String english, String accent) {
+        svg.append("<g class=\"world-frame\"><rect x=\"").append(x).append("\" y=\"").append(y).append("\" width=\"").append(layout.width()).append("\" height=\"").append(layout.height()).append("\" rx=\"18\" fill=\"#14111e\" fill-opacity=\".84\" stroke=\"").append(accent).append("\" stroke-opacity=\".6\"/><path d=\"M ").append(x + 22).append(" ").append(y + 74).append(" h ").append(layout.width() - 44).append("\" stroke=\"").append(accent).append("\" stroke-opacity=\".3\"/><text x=\"").append(x + 24).append("\" y=\"").append(y + 32).append("\" font-size=\"12\" letter-spacing=\"3\" fill=\"").append(accent).append("\">").append(english).append("</text><text x=\"").append(x + 24).append("\" y=\"").append(y + 59).append("\" font-size=\"23\">").append(label).append("</text></g>");
+        if (members.isEmpty()) svg.append("<text x=\"").append(x + layout.width() / 2).append("\" y=\"").append(y + 150).append("\" text-anchor=\"middle\" font-size=\"14\" fill=\"#85788f\">登録された人物はいません</text>");
         for (int i = 0; i < members.size(); i++) {
-            double px = members.size() == 1 ? x + 240 : x + 128 + (i % 2) * 224;
-            positions.put(members.get(i).getId(), new Point(px, y + 132 + (i / 2) * 104));
+            int row = i / layout.columns(), column = i % layout.columns();
+            int rowCount = Math.min(layout.columns(), members.size() - row * layout.columns());
+            int rowWidth = rowCount * 208 + (rowCount - 1) * layout.columnGap();
+            double px = x + (layout.width() - rowWidth) / 2.0 + 104 + column * (208 + layout.columnGap());
+            positions.put(members.get(i).getId(), new Point(px, y + 136 + row * (72 + layout.rowGap())));
         }
     }
     private static void node(StringBuilder svg, OriginalCharacter c, Point point) {
         String accent = c.isProtagonist() ? "#dfbd7a" : "#8f7d9f";
-        svg.append("<g><title>").append(xml(c.getName())).append("</title><rect x=\"").append(number(point.x - 104)).append("\" y=\"").append(number(point.y - 36)).append("\" width=\"208\" height=\"72\" rx=\"10\" fill=\"url(#card)\" stroke=\"").append(accent).append("\"/><path d=\"M ").append(number(point.x - 91)).append(" ").append(number(point.y - 23)).append(" v 46\" stroke=\"").append(accent).append("\" stroke-width=\"2\"/>");
+        svg.append("<g class=\"character-node\"><title>").append(xml(c.getName())).append("</title><rect x=\"").append(number(point.x - 104)).append("\" y=\"").append(number(point.y - 36)).append("\" width=\"208\" height=\"72\" rx=\"10\" fill=\"url(#card)\" stroke=\"").append(accent).append("\"/><path d=\"M ").append(number(point.x - 91)).append(" ").append(number(point.y - 23)).append(" v 46\" stroke=\"").append(accent).append("\" stroke-width=\"2\"/>");
         String name = c.getName() == null ? "" : c.getName(); int[] points = name.codePoints().toArray();
         for (int line = 0; line < Math.min(2, (points.length + 9) / 10); line++) {
             String part = new String(points, line * 10, Math.min(10, points.length - line * 10));

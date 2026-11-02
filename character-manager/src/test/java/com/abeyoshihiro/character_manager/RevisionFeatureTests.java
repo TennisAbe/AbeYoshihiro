@@ -107,14 +107,14 @@ class RevisionFeatureTests {
     byte[] zip(String xml) throws IOException {ByteArrayOutputStream out=new ByteArrayOutputStream();try(ZipOutputStream zip=new ZipOutputStream(out)){zip.putNextEntry(new ZipEntry("manifest.xml"));zip.write(xml.getBytes(StandardCharsets.UTF_8));zip.closeEntry();}return out.toByteArray();}
     @Test void backupRestoresHistoryWithTimestampsAndNewOwnerIds() throws Exception {
         var c=save("V0");history.update(c.getId(),input("V1"));history.update(c.getId(),input("V2"));
-        var before=history.list(c.getId());byte[] archive=backup.exportArchive();assertTrue(manifest(archive).contains("version=\"6\""));assertEquals(1,backup.restore(new ByteArrayInputStream(archive)));
+        var before=history.list(c.getId());byte[] archive=backup.exportArchive();assertTrue(manifest(archive).contains("version=\"7\""));assertEquals(1,backup.restore(new ByteArrayInputStream(archive)));
         var imported=characters.findAll().stream().filter(x->!x.getId().equals(c.getId())).findFirst().orElseThrow();var restored=history.list(imported.getId());assertEquals(2,restored.size());
         for(int i=0;i<2;i++){assertEquals(before.get(i).getFields(),restored.get(i).getFields());assertEquals(before.get(i).getSavedAt(),restored.get(i).getSavedAt());}
         assertTrue(history.restore(imported.getId(),restored.get(1).getId(),fingerprint(imported.getId())));assertEquals("V0",characters.findById(imported.getId()).orElseThrow().getName());assertEquals("V2",characters.findById(c.getId()).orElseThrow().getName());
     }
     @Test void oldArchivesRestoreWithoutInventingHistoryAndInvalidHistoryIsRejected() throws Exception {
         var c=save("Before");history.update(c.getId(),input("After"));String xml=manifest(backup.exportArchive());
-        String old=xml.replace("version=\"6\"","version=\"3\"").replaceAll("<history>.*?</history>","");assertEquals(1,backup.restore(new ByteArrayInputStream(zip(old))));
+        String old=xml.replace("version=\"7\"","version=\"3\"").replaceAll("<history>.*?</history>","");assertEquals(1,backup.restore(new ByteArrayInputStream(zip(old))));
         var imported=characters.findAll().stream().filter(x->!x.getId().equals(c.getId())).findFirst().orElseThrow();assertTrue(history.list(imported.getId()).isEmpty());
         String row=java.util.regex.Pattern.compile("<revision .*?</revision>").matcher(xml).results().findFirst().orElseThrow().group();
         List<String> invalid=List.of(xml.replaceAll("<history>.*?</history>",""),xml.replace("</history>",row.repeat(3)+"</history>"),xml.replaceFirst("at=\"[^\"]+\"","at=\"bad-time\""),xml.replace("reason=\"UPDATE\"","reason=\"INVALID\""),xml.replace("name=\"likes\"","name=\"unknown\""),xml.replace("<field name=\"world\">OTHER_WORLD</field>","<field name=\"world\">INVALID</field>"));

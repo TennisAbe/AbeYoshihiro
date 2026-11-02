@@ -86,14 +86,14 @@ class WorldClassificationTests {
     String manifest(byte[] bytes) throws IOException { try(ZipInputStream zip=new ZipInputStream(new ByteArrayInputStream(bytes))){ZipEntry e;while((e=zip.getNextEntry())!=null)if(e.getName().equals("manifest.xml"))return new String(zip.readAllBytes(),StandardCharsets.UTF_8);}throw new IOException("missing manifest"); }
     void seedBackup() { save("A",CharacterWorld.ALTER_PALACE,"A");save("B",CharacterWorld.ALTER_PALACE,"B");save("Other",CharacterWorld.OTHER_WORLD,"X");save("Modern",CharacterWorld.MODERN_WORLD,"Y");ordering.save(CharacterWorld.ALTER_PALACE,List.of("B","A"),List.of(1,2)); }
     @Test void restoresWorldsAndAffiliationOrdersAndPreservesExistingPreferences() throws Exception {
-        seedBackup();byte[] archive=backup.exportArchive();assertTrue(manifest(archive).contains("version=\"6\""));characters.deleteAll();orders.deleteAll();
+        seedBackup();byte[] archive=backup.exportArchive();assertTrue(manifest(archive).contains("version=\"7\""));characters.deleteAll();orders.deleteAll();
         assertEquals(4,backup.restore(new ByteArrayInputStream(archive)));assertEquals(List.of("B","A"),ordering.current(CharacterWorld.ALTER_PALACE));assertEquals(List.of("X"),ordering.current(CharacterWorld.OTHER_WORLD));assertEquals(List.of("Y"),ordering.current(CharacterWorld.MODERN_WORLD));
         var found=characters.findAll();assertEquals(CharacterWorld.MODERN_WORLD,found.stream().filter(c->c.getName().equals("Modern")).findFirst().orElseThrow().getWorld());
         ordering.save(CharacterWorld.ALTER_PALACE,List.of("A","B"),List.of(1,2));assertEquals(4,backup.restore(new ByteArrayInputStream(archive)));assertEquals(8,characters.count());assertEquals(List.of("A","B"),ordering.current(CharacterWorld.ALTER_PALACE));
     }
     @Test void restoresVersionTwoCharactersIntoDefaultWorldWithoutLosingProfiles() throws Exception {
         var c=save("Old v2",CharacterWorld.MODERN_WORLD,"旧所属");c.setSpeechStyle("丁寧");c.setBasicSettings("基本設定");characters.save(c);
-        String xml=manifest(backup.exportArchive()).replace("version=\"6\"","version=\"2\"").replaceAll(" world=\"[A-Z_]+\"","").replaceAll("<affiliationOrders>.*?</affiliationOrders>","");
+        String xml=manifest(backup.exportArchive()).replace("version=\"7\"","version=\"2\"").replaceAll(" world=\"[A-Z_]+\"","").replaceAll("<affiliationOrders>.*?</affiliationOrders>","");
         assertEquals(1,backup.restore(new ByteArrayInputStream(zip(xml))));
         var restored=characters.findAll().stream().filter(x->!x.getId().equals(c.getId())).findFirst().orElseThrow();assertEquals(CharacterWorld.ALTER_PALACE,restored.getWorld());assertEquals("旧所属",restored.getAffiliation());assertEquals("丁寧",restored.getSpeechStyle());
     }

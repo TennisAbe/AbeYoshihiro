@@ -15,7 +15,7 @@ final class ProfileSnapshot {
     }
     static Map<String, String> labels() {
         Map<String, String> result = new LinkedHashMap<>();
-        result.put("gender", "性別"); result.put("heightCm", "身長（cm）"); result.put("bustCm", "胸囲（cm）");
+        result.put("gender", "性別"); result.put("heightCm", "身長（cm）"); result.put("bustCm", "胸囲");
         result.put("name", "名前"); result.put("world", "世界"); result.put("affiliation", "所属");
         result.put("basicSettings", "基本設定"); result.put("personality", "性格"); result.put("speechStyle", "口調");
         result.put("firstPerson", "一人称"); result.put("feelingsTowardMikado", "ミカドへの思い");

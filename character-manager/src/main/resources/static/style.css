@@ -254,3 +254,28 @@ button.secondary { background: transparent; border-color: #65556f; color: var(--
 .relationship-diagram { background: #0c0b13; border: 1px solid #594666; border-radius: 18px; box-shadow: 0 15px 65px #0007; }
 .relationship-diagram img { min-width: 1150px; }
 .favorite-form [role="status"]:empty { display: none; }
+
+/* Chosen RGB remains a shaded gradient so labels retain contrast. */
+.character-card.has-custom-color { background: linear-gradient(155deg, rgba(var(--card-rgb), .36), rgba(var(--card-rgb), .06) 75%), #0e0c13; }
+.has-custom-color .thumbnail { background: radial-gradient(ellipse at 50% 65%, rgba(var(--card-rgb), .62), rgba(var(--card-rgb), .1) 80%), #14101c; }
+.card-color-editor { margin: 0 14px 16px; border-top: 1px solid #51425c; padding-top: 10px; }
+.card-color-editor summary { cursor: pointer; color: #d7c8e1; font-size: 12px; }
+.card-color-form { padding-top: 12px; }
+.card-color-form label { margin-bottom: 10px; font-size: 11px; }
+.color-picker { padding: 3px; height: 36px; cursor: pointer; }
+.rgb-fields { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.rgb-fields input { min-width: 0; padding: 8px 3px; margin-top: 4px; font-size: 12px; }
+.color-actions { display: flex; flex-wrap: wrap; gap: 6px; }
+.color-actions button { padding: 8px 7px; gap: 0; font-size: 10px; }
+.color-status { font-size: 11px; color: #e5d3f3; overflow-wrap: anywhere; }
+.color-status:empty { display: none; }
+.diagram-spacing { max-width: 480px; margin: 1rem 0; }
+.diagram-spacing input { padding: 0; accent-color: #c5a876; }
+.diagram-spacing output { display: block; margin-top: .5rem; }
+.diagram-zoom { display: flex; align-items: center; flex-wrap: wrap; gap: .8rem; }
+.diagram-zoom label { margin: 0; }
+.diagram-zoom input { width: 180px; margin: 0; padding: 0; accent-color: #c5a876; }
+.diagram-zoom button { padding: 8px 14px; }
+.relationship-diagram { max-height: 75vh; overscroll-behavior: contain; }
+.relationship-diagram img { width: auto; min-width: 0; max-width: none; height: auto; }
+.relationship-diagram:focus-visible { outline: 2px solid #c5a876; outline-offset: 4px; }

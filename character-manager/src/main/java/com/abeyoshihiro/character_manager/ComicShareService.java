@@ -78,7 +78,10 @@ public class ComicShareService {
     @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
     public byte[] exportAll() throws IOException { return exportAll(List.of()); }
     @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
-    public byte[] exportAll(List<Long> ids) throws IOException {
+    public byte[] exportAll(List<Long> ids) throws IOException { return exportAll(ids, 100); }
+    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
+    public byte[] exportAll(List<Long> ids, int spacing) throws IOException {
+        RelationshipDiagramService.validateSpacing(spacing);
         synchronized (gallery) {
             List<OriginalCharacter> roster = ordering.roster();
             if (roster.isEmpty()) throw new IllegalArgumentException("共有するキャラクターがまだいません。");
@@ -146,6 +149,7 @@ public class ComicShareService {
                     - images/：登録された実際のPNG画像。画像を実際に開いて確認してください。
                     - 04_RELATIONSHIPS.svg：方向付き相関図。ブラウザーで開いて確認できます。
                     - 03_CHATGPT_PROMPT.txt：資料を読み込む際の依頼文。
+                    - 05_DISPLAY_COLORS.csv：一覧カードの背景色（アプリの表示設定です。人物の身体・衣装の色を表す設定ではありません）。
 
                     ## 漫画制作で参照する項目
                     見た目は実画像、衣装・表情の使い分けは画像説明を参照します。口調・一人称・性格・ミカドへの思い・好き嫌い・能力・関係は登録文章を参照します。
@@ -159,7 +163,10 @@ public class ComicShareService {
                 total = text(zip, "01_ALL_CHARACTERS.md", all.toString(), total);
                 total = text(zip, "02_IMAGE_INDEX.csv", index.toString(), total);
                 total = text(zip, "03_CHATGPT_PROMPT.txt", PROMPT, total);
-                total = text(zip, "04_RELATIONSHIPS.svg", diagrams.render(diagram.characters(), diagram.relations()), total);
+                total = text(zip, "04_RELATIONSHIPS.svg", diagrams.render(diagram.characters(), diagram.relations(), spacing), total);
+                StringBuilder colors = new StringBuilder("character_ref,character_name,card_color_rgb_hex\r\n");
+                for (OriginalCharacter c : roster) colors.append(String.join(",", csv(ref(c.getId())), csv(c.getName()), csv(c.getCardColor()))).append("\r\n");
+                total = text(zip, "05_DISPLAY_COLORS.csv", colors.toString(), total);
                 for (var entry : perCharacter.entrySet()) total = text(zip, entry.getKey(), entry.getValue(), total);
                 for (List<ImageReference> references : images.values()) for (ImageReference image : references) { zip.putNextEntry(new ZipEntry(image.path)); Files.copy(image.source, zip); zip.closeEntry(); }
             }

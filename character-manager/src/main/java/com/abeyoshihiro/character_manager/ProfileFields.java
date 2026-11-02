@@ -9,7 +9,7 @@ final class ProfileFields {
     private ProfileFields() { }
     static Map<String, Integer> limits() {
         Map<String, Integer> fields = new LinkedHashMap<>();
-        fields.put("gender", 8); fields.put("heightCm", 8); fields.put("bustCm", 8);
+        fields.put("gender", 8); fields.put("heightCm", 8); fields.put("bustCm", 120);
         fields.put("name", 255); fields.put("affiliation", 120); fields.put("basicSettings", 12000);
         fields.put("personality", 2000); fields.put("speechStyle", 2000); fields.put("firstPerson", 120);
         fields.put("feelingsTowardMikado", 4000); fields.put("likes", 2000); fields.put("dislikes", 2000); fields.put("abilities", 4000);
@@ -67,7 +67,7 @@ final class ProfileFields {
         Map<String, String> errors = new LinkedHashMap<>();
         if (c.getGender() != null && !c.getGender().isEmpty() && !java.util.Set.of("男", "女", "その他").contains(c.getGender()))
             errors.put("gender", "性別は男・女・その他から選択してください。");
-        for (var entry : Map.of("heightCm", c.getHeightCm() == null ? "" : c.getHeightCm(), "bustCm", c.getBustCm() == null ? "" : c.getBustCm()).entrySet()) {
+        for (var entry : Map.of("heightCm", c.getHeightCm() == null ? "" : c.getHeightCm()).entrySet()) {
             String value = entry.getValue();
             if (!value.isEmpty() && (!value.matches("[0-9]{1,5}(\\.[0-9]{1,2})?") || new java.math.BigDecimal(value).signum() <= 0 || new java.math.BigDecimal(value).compareTo(new java.math.BigDecimal("10000")) > 0))
                 errors.put(entry.getKey(), "cmは0より大きく10000以下、小数第2位までの数値で入力してください。");
