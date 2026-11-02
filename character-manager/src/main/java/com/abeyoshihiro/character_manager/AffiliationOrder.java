@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 public class AffiliationOrder {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    // Match OriginalCharacter: upgrade legacy H2 ENUM columns when categories expand.
+    @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.VARCHAR)
     @Enumerated(EnumType.STRING) @Column(nullable = false, length = 24)
     private CharacterWorld world;
     @Column(nullable = false, length = 120)
