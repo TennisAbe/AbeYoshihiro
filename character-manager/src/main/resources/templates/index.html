@@ -26,6 +26,7 @@
     <div class="hero-art" aria-hidden="true"><div class="seal-ring ring-outer"></div><div class="seal-ring ring-inner"></div><div class="seal-diamond"></div><span class="seal-star">✧</span><span class="seal-caption">EVERY SOUL HAS A STORY</span></div>
     <div class="hero-number" aria-hidden="true">01 <span>/ COLLECTION</span></div>
   </section>
+  <p class="protagonist-add"><a class="button secondary" th:href="@{/protagonists/new}">＋ 主人公を追加</a></p>
   <div class="section-heading" data-reveal><div><p class="eyebrow">THE ARCHIVE</p><h2>キャラクター名鑑</h2></div>
     <p class="collection-count"><strong th:text="${#lists.size(characters)}">0</strong><span>CHARACTERS</span></p>
   </div>
@@ -54,9 +55,9 @@
     <p th:text="${#strings.isEmpty(query) and #strings.isEmpty(selectedTag) and !favorites ? '「新規登録」から最初のキャラクターを追加しましょう。' : '名前・タグ・お気に入り条件を変更するか、検索をクリアしてください。'}"></p>
   </section>
   <section class="world-section" th:each="group : ${worldGroups}" th:attr="data-world=${group.world}">
-    <header class="world-heading"><h2 th:text="${group.world.label + 'の人物'}"></h2><span class="muted" th:text="${#lists.size(group.characters)} + '人'"></span></header>
+    <header class="world-heading"><h2 th:text="${group.world.name() == 'PROTAGONIST' ? '主人公' : group.world.label + 'の人物'}"></h2><span class="muted" th:text="${#lists.size(group.characters)} + '人'"></span></header>
     <p class="muted world-empty" th:if="${#lists.isEmpty(group.characters)}">表示する人物はいません。</p>
-  <div class="grid" th:attr="aria-label=${group.world.label + 'の人物'}">
+  <div class="grid" th:attr="aria-label=${group.world.name() == 'PROTAGONIST' ? '主人公' : group.world.label + 'の人物'}">
     <article class="character-card" data-reveal th:each="item : ${group.characters}" th:style="'--card-index: ' + ${itemStat.index}">
     <a class="card-link" th:href="@{/characters/{id}(id=${item.id})}" th:attr="aria-label=${item.name + 'の詳細を見る'}">
       <div class="thumbnail">
@@ -70,7 +71,7 @@
       </div></div>
     <a class="card-title-link" th:href="@{/characters/{id}(id=${item.id})}">
       <h2 class="card-title" th:text="${item.name}"></h2>
-      <p class="card-affiliation"><span>所属</span><span th:text="${#strings.isEmpty(item.affiliation) ? '未所属' : item.affiliation}"></span></p>
+      <p class="card-affiliation" th:unless="${item.protagonist}"><span>所属</span><span th:text="${#strings.isEmpty(item.affiliation) ? '未所属' : item.affiliation}"></span></p>
     </a>
     <div class="tags" th:if="${!#sets.isEmpty(item.tags)}" aria-label="タグ">
       <a class="tag" th:each="tag : ${item.tags}" th:text="${tag}"

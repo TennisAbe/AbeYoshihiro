@@ -39,7 +39,7 @@ final class ProfileSnapshot {
     static void apply(Map<String, String> values, OriginalCharacter target) {
         validate(values); ProfileFields.read(values, target);
         target.setWorld(CharacterWorld.parse(values.get("world")));
-        target.replaceTags(TagParser.parse(values.get("tagsInput"))); target.setTagsInput(null);
+        target.replaceTags(TagParser.parse(values.get("tagsInput"))); target.setTagsInput(null); ProfileFields.restrictProtagonist(target);
     }
     static String fingerprint(OriginalCharacter character) {
         try {

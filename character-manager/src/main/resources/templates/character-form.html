@@ -23,17 +23,19 @@
   </header>
   <div class="editor">
     <section class="panel" data-reveal>
-      <p class="eyebrow">01 / IDENTITY</p><h2>プロフィール</h2>
+      <p class="eyebrow">01 / IDENTITY</p><h2 th:text="${character.protagonist ? '主人公プロフィール' : 'プロフィール'}">プロフィール</h2>
       <form th:action="${character.id == null} ? @{/characters} : @{/characters/{id}/update(id=${character.id})}"
             th:object="${character}" method="post">
         <div class="field-error" role="alert" th:if="${#fields.hasAnyErrors()}"><p th:each="message : ${#fields.allErrors()}" th:text="${message}"></p></div>
         <div class="profile-field"><label for="name">名前（必須）</label><input type="text" th:field="*{name}" maxlength="255" required></div>
-        <div class="profile-field"><label for="world">世界</label><select th:field="*{world}" required><option th:each="world : ${worlds}" th:value="${world}" th:text="${world.label}"></option></select></div>
+        <input th:if="${character.protagonist}" type="hidden" name="world" value="PROTAGONIST">
+        <div class="profile-field" th:unless="${character.protagonist}"><label for="world">世界</label><select th:field="*{world}" required><option th:each="world : ${worlds}" th:value="${world}" th:text="${world.label}"></option></select></div>
         <div class="profile-field"><label for="gender">性別</label><select th:field="*{gender}"><option value="">未設定</option><option value="男">男</option><option value="女">女</option><option value="その他">その他</option></select></div>
         <div class="profile-field"><label for="heightCm">身長（cm）</label><input type="number" th:field="*{heightCm}" min="0.01" max="10000" step="0.01"></div>
-        <div class="profile-field" id="bust-field"><label for="bustCm">胸囲（cm・女性のみ）</label><input type="number" th:field="*{bustCm}" min="0.01" max="10000" step="0.01"><small>性別が女の場合に保存されます。</small></div>
-        <div class="profile-field"><label for="affiliation">所属</label><input type="text" th:field="*{affiliation}" maxlength="120"></div>
+        <div class="profile-field" id="bust-field" th:unless="${character.protagonist}"><label for="bustCm">胸囲</label><input type="number" th:field="*{bustCm}" min="0.01" max="10000" step="0.01"><small>性別が女の場合に保存されます。</small></div>
+        <div class="profile-field" th:unless="${character.protagonist}"><label for="affiliation">所属</label><input type="text" th:field="*{affiliation}" maxlength="120"></div>
         <div class="profile-field"><label for="basicSettings">基本設定</label><textarea th:field="*{basicSettings}" maxlength="12000" rows="8"></textarea></div>
+        <div th:unless="${character.protagonist}">
         <div class="profile-field"><label for="personality">性格</label><textarea th:field="*{personality}" maxlength="2000" rows="4"></textarea></div>
         <div class="profile-field"><label for="speechStyle">口調</label><textarea th:field="*{speechStyle}" maxlength="2000" rows="4"></textarea></div>
         <div class="profile-field"><label for="firstPerson">一人称</label><input type="text" th:field="*{firstPerson}" maxlength="120"></div>
@@ -46,6 +48,7 @@
         </label>
         <p id="tags-help" class="muted">カンマ「,」「、」で区切って入力。1個30文字・最大20個。空欄で保存するとタグをすべて外します。</p>
         <p class="field-error" role="alert" th:if="${#fields.hasErrors('tagsInput')}" th:errors="*{tagsInput}"></p>
+        </div>
         <div class="actions">
           <button type="submit" th:text="${character.id == null ? '登録して編集を続ける' : '変更を保存する'}"></button>
           <a th:href="@{/}">一覧に戻る</a>
@@ -53,6 +56,7 @@
       </form>
     </section>
     <section class="panel" data-reveal>
+      <div th:unless="${character.protagonist}">
       <p class="eyebrow">02 / PORTRAIT</p><h2>キャラクター画像</h2><p class="muted">立ち絵・表情差分・衣装違いを最大20枚保存できます。代表画像を一覧に表示します。</p>
       <img class="preview" th:if="${character.imageRegistered}" th:src="@{/characters/{id}/image(id=${character.id})}" th:alt="${character.name + 'の画像'}">
       <p class="muted" th:unless="${character.imageRegistered}">画像はまだ登録されていません。</p>
@@ -74,6 +78,7 @@
           <form th:unless="${picture.id == character.coverImageId}" th:action="@{/characters/{id}/images/{pictureId}/cover(id=${character.id},pictureId=${picture.id})}" method="post"><button type="submit" class="secondary">代表にする</button></form>
           <form th:action="@{/characters/{id}/images/{pictureId}/delete(id=${character.id},pictureId=${picture.id})}" method="post" onsubmit="return confirm('この画像を削除しますか？');"><button class="danger" type="submit">画像を削除</button></form>
         </article>
+      </div>
       </div>
       <div class="delete-area" th:if="${character.id != null}">
         <form th:action="@{/characters/{id}/delete(id=${character.id})}" method="post"

@@ -27,7 +27,7 @@ final class ProfileFields {
         read(values(from), to); to.setName(to.getName().strip());
         to.setWorld(from.getWorld());
         if (to.getAffiliation() != null) to.setAffiliation(to.getAffiliation().strip());
-        to.replaceTags(TagParser.parse(from.getTagsInput()));
+        to.replaceTags(TagParser.parse(from.getTagsInput())); restrictProtagonist(to);
     }
     static void read(Map<String, String> v, OriginalCharacter c) {
         c.setGender(v.get("gender")); c.setHeightCm(v.get("heightCm")); c.setBustCm("女".equals(c.getGender()) ? v.get("bustCm") : null);
@@ -56,6 +56,12 @@ final class ProfileFields {
     }
     private static void addLegacy(List<String> parts, String label, String value) {
         if (value != null && !value.isBlank()) parts.add("【" + label + "】\n" + value);
+    }
+    static void restrictProtagonist(OriginalCharacter c) {
+        if (!c.isProtagonist()) return;
+        c.setBustCm(null); c.setAffiliation(null); c.setPersonality(null); c.setSpeechStyle(null);
+        c.setFirstPerson(null); c.setFeelingsTowardMikado(null); c.setLikes(null); c.setDislikes(null); c.setAbilities(null);
+        c.setTagsInput(""); c.replaceTags(java.util.Set.of());
     }
     static Map<String, String> measurementErrors(OriginalCharacter c) {
         Map<String, String> errors = new LinkedHashMap<>();

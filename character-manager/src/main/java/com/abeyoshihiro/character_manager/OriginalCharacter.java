@@ -176,9 +176,12 @@ public class OriginalCharacter {
     public String getDislikes() { return dislikes; }
     public void setDislikes(String value) { dislikes = value; }
 
+    // Store enum names as VARCHAR so adding a category upgrades existing H2 ENUM columns.
+    @org.hibernate.annotations.JdbcTypeCode(org.hibernate.type.SqlTypes.VARCHAR)
     @jakarta.persistence.Enumerated(jakarta.persistence.EnumType.STRING)
     @Column(length = 24)
     private CharacterWorld world;
+    public boolean isProtagonist() { return getWorld() == CharacterWorld.PROTAGONIST; }
     public CharacterWorld getWorld() { return world == null ? CharacterWorld.ALTER_PALACE : world; }
     public void setWorld(CharacterWorld value) { world = value; }
     public boolean initializeWorld() {

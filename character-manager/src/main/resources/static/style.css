@@ -237,3 +237,20 @@ button.secondary { background: transparent; border-color: #65556f; color: var(--
 .favorite-form [role="status"] { display: block; font-size: .8rem; margin-top: .5rem; }
 .relationship-diagram { overflow: auto; margin: 1.5rem 0; background: #faf7ff; }
 .relationship-diagram img { width: 100%; min-width: 800px; max-width: none; display: block; }
+
+.protagonist-add { margin: 2rem 0; }
+.world-section[data-world="PROTAGONIST"] { padding: 1.5rem; border: 1px solid #8b7048; border-radius: 16px; background: linear-gradient(120deg, #211a2b, #100d18); }
+.diagram-heading { padding: 2.5rem 0 1rem; }
+.diagram-heading h1 { font-size: clamp(1.8rem, 4vw, 3rem); }
+.diagram-heading > p:last-child { color: #b4a8c4; }
+.diagram-filter fieldset { border: 0; padding: 0; margin-bottom: 1rem; }
+.diagram-filter legend { margin-bottom: .8rem; }
+.diagram-choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: .65rem; max-height: 310px; overflow: auto; }
+.diagram-choices label { display: flex; align-items: center; gap: .55rem; border: 1px solid #47374f; background: #1b1525; border-radius: 8px; padding: .7rem; margin: 0; }
+.diagram-choices label:has(input:checked) { border-color: #c5a876; background: #33273e; }
+.diagram-choices input { width: auto; accent-color: #c5a876; }
+.diagram-choices small { color: #b8a789; font-size: .7rem; margin-left: auto; }
+.diagram-toolbar { display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; justify-content: space-between; margin: 1.5rem 0; }
+.relationship-diagram { background: #0c0b13; border: 1px solid #594666; border-radius: 18px; box-shadow: 0 15px 65px #0007; }
+.relationship-diagram img { min-width: 1150px; }
+.favorite-form [role="status"]:empty { display: none; }

@@ -53,7 +53,7 @@ public class ComicShareService {
         StringBuilder text = new StringBuilder("## [" + ref(c.getId()) + "] " + markdown(c.getName()) + "\n\n");
         text.append("### 世界\n\n").append(quote(c.getWorld().getLabel()));
         ProfileFields.values(c).forEach((key, value) -> {
-            if (!key.equals("name")) text.append("### ").append(ProfileSnapshot.labels().get(key)).append("\n\n").append(quote(value));
+            if (!key.equals("name") && (!c.isProtagonist() || Set.of("gender", "heightCm", "basicSettings").contains(key))) text.append("### ").append(ProfileSnapshot.labels().get(key)).append("\n\n").append(quote(value));
         });
         text.append("### タグ\n\n").append(quote(String.join(", ", c.getTags())));
         text.append("### 見た目の参照画像\n\n");
@@ -76,13 +76,16 @@ public class ComicShareService {
         return text.append("---\n\n").toString();
     }
     @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
-    public byte[] exportAll() throws IOException {
+    public byte[] exportAll() throws IOException { return exportAll(List.of()); }
+    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
+    public byte[] exportAll(List<Long> ids) throws IOException {
         synchronized (gallery) {
             List<OriginalCharacter> roster = ordering.roster();
             if (roster.isEmpty()) throw new IllegalArgumentException("共有するキャラクターがまだいません。");
             if (roster.size() > 5000) throw new IllegalArgumentException("共有できるキャラクターは5000人までです。");
             List<CharacterRelation> connections = relations.findAll();
             if (connections.size() > 20000) throw new IllegalArgumentException("関係の件数が共有上限を超えています。");
+            var diagram = diagrams.select(roster, connections, ids);
             Map<Long, List<CharacterRelation>> byCharacter = new HashMap<>();
             for (CharacterRelation relation : connections) {
                 byCharacter.computeIfAbsent(relation.getSource().getId(), key -> new ArrayList<>()).add(relation);
@@ -156,7 +159,7 @@ public class ComicShareService {
                 total = text(zip, "01_ALL_CHARACTERS.md", all.toString(), total);
                 total = text(zip, "02_IMAGE_INDEX.csv", index.toString(), total);
                 total = text(zip, "03_CHATGPT_PROMPT.txt", PROMPT, total);
-                total = text(zip, "04_RELATIONSHIPS.svg", diagrams.render(roster, connections), total);
+                total = text(zip, "04_RELATIONSHIPS.svg", diagrams.render(diagram.characters(), diagram.relations()), total);
                 for (var entry : perCharacter.entrySet()) total = text(zip, entry.getKey(), entry.getValue(), total);
                 for (List<ImageReference> references : images.values()) for (ImageReference image : references) { zip.putNextEntry(new ZipEntry(image.path)); Files.copy(image.source, zip); zip.closeEntry(); }
             }

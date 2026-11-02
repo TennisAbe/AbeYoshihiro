@@ -75,7 +75,7 @@ class ProfileDiagramTests {
             CharacterRelation r=new CharacterRelation();r.setSource(pair.get(0));r.setTarget(pair.get(1));r.setRelationType("友人<&");r.setDescription("説明<script>");relations.save(r);
         }
         String svg=diagrams.exportSvg();assertTrue(svg.contains("孤立"));assertTrue(svg.contains("marker-end"));assertFalse(svg.contains("<script>"));assertTrue(svg.contains("&lt;script&gt;"));
-        assertTrue(svg.contains(String.format("C%06d",a.getId())));assertTrue(svg.contains(String.format("C%06d",b.getId())));
+        assertFalse(svg.contains(String.format("C%06d",a.getId())));assertFalse(svg.contains(String.format("C%06d",b.getId())));
         var factory=DocumentBuilderFactory.newInstance();factory.setNamespaceAware(true);var doc=factory.newDocumentBuilder().parse(new ByteArrayInputStream(svg.getBytes(StandardCharsets.UTF_8)));assertEquals("svg",doc.getDocumentElement().getLocalName());
         var response=request("GET","/relationships/diagram.svg?download=true","");assertEquals(200,response.statusCode());assertTrue(response.headers().firstValue("content-disposition").orElseThrow().contains("attachment"));
         assertTrue(response.headers().firstValue("content-type").orElseThrow().contains("image/svg+xml"));assertEquals(200,request("GET","/relationships","").statusCode());
@@ -87,11 +87,67 @@ class ProfileDiagramTests {
         OriginalCharacter next=new OriginalCharacter();ProfileSnapshot.apply(ProfileSnapshot.of(c),next);next.setName("ProfileNew");next.setHeightCm("161");history.update(c.getId(),next);
         byte[] bytes=backup.exportArchive();assertEquals(1,backup.restore(new ByteArrayInputStream(bytes)));
         var imported=characters.findAll().stream().max(Comparator.comparing(OriginalCharacter::getId)).orElseThrow();assertEquals("女",imported.getGender());assertEquals("161",imported.getHeightCm());assertEquals("85",imported.getBustCm());assertEquals("160",history.list(imported.getId()).get(0).getFields().get("heightCm"));
-        String xml=new String(unpack(bytes).get("manifest.xml"),StandardCharsets.UTF_8).replace("version=\"5\"","version=\"4\"")
+        String xml=new String(unpack(bytes).get("manifest.xml"),StandardCharsets.UTF_8).replace("version=\"6\"","version=\"4\"")
             .replaceAll("<(gender|heightCm|bustCm)(?:/>|>.*?</\\1>)", "").replaceAll("<field name=\"(gender|heightCm|bustCm)\"[^>]*>.*?</field>","");
         assertEquals(1,backup.restore(new ByteArrayInputStream(archive(xml))));
         var old=characters.findAll().stream().max(Comparator.comparing(OriginalCharacter::getId)).orElseThrow();assertNull(old.getGender());assertNull(old.getHeightCm());
         var entry=history.list(old.getId()).get(0);assertTrue(history.restore(old.getId(),entry.getId(),ProfileSnapshot.fingerprint(old)));
         String shared=new String(unpack(share.exportAll()).get("01_ALL_CHARACTERS.md"),StandardCharsets.UTF_8);assertTrue(shared.contains("身長（cm）"));assertTrue(shared.contains("胸囲（cm）"));assertTrue(shared.contains("85"));
     }
+    @Test void protagonistHasFourFieldsAndIsFirstInRosterAndBackups() throws Exception {
+        var ordinary=save("Ordinary");
+        String form=request("GET","/protagonists/new", "").body();
+        for(String field:List.of("name","gender","heightCm","basicSettings")) assertTrue(form.contains("name=\""+field+"\""),field);
+        for(String field:List.of("bustCm","affiliation","tagsInput","personality","speechStyle","firstPerson","feelingsTowardMikado","likes","dislikes","abilities","image","title")) assertFalse(form.contains("name=\""+field+"\""),field);
+        assertEquals(302,request("POST","/characters","world=PROTAGONIST&name=Hero&gender="+enc("女")+"&heightCm=170&basicSettings=Story&bustCm=Invalid&personality=Ignored&tagsInput=Ignored").statusCode());
+        var hero=characters.findAll().stream().filter(OriginalCharacter::isProtagonist).findFirst().orElseThrow();
+        assertEquals("Hero",hero.getName());assertEquals("170",hero.getHeightCm());assertEquals("Story",hero.getBasicSettings());assertNull(hero.getBustCm());assertNull(hero.getPersonality());assertTrue(hero.getTags().isEmpty());
+        String index=request("GET","/", "").body();assertTrue(index.indexOf("data-world=\"PROTAGONIST\"")<index.indexOf("data-world=\"ALTER_PALACE\""));
+        assertEquals(200,request("GET","/characters/"+hero.getId()+"/edit", "").statusCode());
+        CharacterRelation r=new CharacterRelation();r.setSource(hero);r.setTarget(ordinary);r.setRelationType("仲間");relations.save(r);
+        assertTrue(diagrams.exportSvg().contains("Hero"));
+        assertEquals(302,request("POST","/characters/"+hero.getId()+"/update","world=PROTAGONIST&name=HeroNew&gender="+enc("男")+"&heightCm=171&basicSettings=New").statusCode());
+        var revision=history.list(hero.getId()).get(0);history.restore(hero.getId(),revision.getId(),ProfileSnapshot.fingerprint(fresh(hero.getId())));
+        assertEquals("Hero",fresh(hero.getId()).getName());assertTrue(fresh(hero.getId()).isProtagonist());
+        var zip=unpack(share.exportAll());String all=new String(zip.get("01_ALL_CHARACTERS.md"),StandardCharsets.UTF_8);assertTrue(all.contains("Hero"));assertTrue(all.contains("Story"));
+        assertTrue(new String(zip.get("04_RELATIONSHIPS.svg"),StandardCharsets.UTF_8).contains("Hero"));
+        byte[] archive=backup.exportArchive();assertEquals(2,backup.restore(new ByteArrayInputStream(archive)));
+        assertEquals(2,characters.findAll().stream().filter(OriginalCharacter::isProtagonist).count());assertEquals(2,relations.count());
+    }
+    CharacterRelation relate(OriginalCharacter a, OriginalCharacter b, String type) {
+        var r=new CharacterRelation();r.setSource(a);r.setTarget(b);r.setRelationType(type);return relations.save(r);
+    }
+    @Test void selectedCharactersIncludeOnlyIncidentRelationsAndOneHopNeighbours() throws Exception {
+        var hero=save("CentralHero");hero.setWorld(CharacterWorld.PROTAGONIST);characters.save(hero);
+        var a=save("SelectedA");var b=save("NeighbourB");var c=save("UnrelatedC");var d=save("SelectedD");var e=save("NeighbourE");
+        relate(hero,a,"H-A");relate(a,b,"A-B");relate(b,c,"B-C");relate(d,e,"D-E");
+        String query="ids="+a.getId()+"&ids="+d.getId();
+        String svg=request("GET","/relationships/diagram.svg?"+query, "").body();
+        for(String name:List.of("CentralHero","SelectedA","NeighbourB","SelectedD","NeighbourE")) assertTrue(svg.contains(name),name);
+        assertFalse(svg.contains("UnrelatedC"));assertFalse(svg.contains("B-C"));assertTrue(svg.contains("A-B"));assertTrue(svg.contains("D-E"));
+        String page=request("GET","/relationships?"+query, "").body();assertTrue(page.contains("5人 / 3件の関係"));
+        var filtered=unpack(share.exportAll(List.of(a.getId(),d.getId())));
+        assertEquals(svg,new String(filtered.get("04_RELATIONSHIPS.svg"),StandardCharsets.UTF_8));
+        assertTrue(new String(filtered.get("01_ALL_CHARACTERS.md"),StandardCharsets.UTF_8).contains("UnrelatedC"));
+        assertEquals(400,request("GET","/relationships?ids=999999", "").statusCode());
+        assertEquals(400,request("GET","/relationships/diagram.svg?ids=999999", "").statusCode());
+        assertEquals(400,request("GET","/relationships?ids=oops", "").statusCode());
+        String all=request("GET","/relationships/diagram.svg", "").body();assertTrue(all.contains("UnrelatedC"));assertTrue(all.contains("B-C"));
+        relations.deleteAll();String isolated=request("GET","/relationships/diagram.svg?ids="+a.getId(), "").body();assertTrue(isolated.contains("SelectedA"));assertTrue(isolated.contains("CentralHero"));assertFalse(isolated.contains("NeighbourB"));
+    }
+    @Test void worldFramesAreCompactDarkAndDoNotDisplayInternalReferences() throws Exception {
+        for(CharacterWorld world:CharacterWorld.values()) {
+            var c=save("Name-"+world.name());c.setWorld(world);characters.save(c);
+        }
+        String svg=diagrams.exportSvg();
+        for(String label:List.of("主人公","オルタパレス","異世界","現代世界")) assertTrue(svg.contains(label));
+        assertTrue(svg.contains("url(#night)"));assertTrue(svg.contains("THE PROTAGONIST"));
+        assertFalse(java.util.regex.Pattern.compile("C[0-9]{6}").matcher(svg).find());
+        assertFalse(svg.contains("全キャラクター（関係のない人物も含む）"));
+        var factory=DocumentBuilderFactory.newInstance();var doc=factory.newDocumentBuilder().parse(new ByteArrayInputStream(svg.getBytes(StandardCharsets.UTF_8)));
+        assertEquals("1600",doc.getDocumentElement().getAttribute("width"));
+        var nodes=doc.getElementsByTagName("text");
+        for(int i=0;i<nodes.getLength();i++) assertFalse(nodes.item(i).getTextContent().matches("C[0-9]+.*"));
+    }
+
 }

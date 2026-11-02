@@ -20,7 +20,7 @@ document.querySelectorAll('.favorite-form').forEach(form => {
       button.setAttribute('aria-pressed', String(result.favorite));
       button.classList.toggle('is-favorite', result.favorite);
       button.textContent = result.favorite ? '★ お気に入り解除' : '☆ お気に入り';
-      message.textContent = '保存しました。検索結果は次の検索時に更新します。';
+
     } catch (error) {
       message.textContent = '保存できませんでした。もう一度お試しください。';
     } finally {

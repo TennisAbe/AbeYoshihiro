@@ -12,7 +12,7 @@ public class AffiliationOrderController {
     public AffiliationOrderController(AffiliationOrderingService ordering) { this.ordering = ordering; }
     @GetMapping("/affiliations/order")
     public String index(Model model) {
-        model.addAttribute("sections", Arrays.stream(CharacterWorld.values()).map(w -> new AffiliationOrderingService.WorldSection(w, List.of(), 0, ordering.current(w))).toList());
+        model.addAttribute("sections", CharacterWorld.worlds().stream().map(w -> new AffiliationOrderingService.WorldSection(w, List.of(), 0, ordering.current(w))).toList());
         return "affiliation-order";
     }
     @PostMapping("/affiliations/order/{world}")

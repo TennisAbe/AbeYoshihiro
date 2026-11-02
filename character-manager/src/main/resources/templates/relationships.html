@@ -2,10 +2,12 @@
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>NOCTALITH | 相関図</title><link rel="stylesheet" th:href="@{/style.css}"><script th:src="@{/palace.js}" defer></script></head>
 <body><div th:replace="~{fragments/palace :: atmosphere}"></div><div class="page-shell"><header th:replace="~{fragments/palace :: masthead}"></header>
-<main id="main-content"><h1>キャラクター相関図</h1><p>登録済みの全員の関係を、方向付きの図で確認できます。同名の人物はCから始まるIDで区別します。</p>
-<div class="actions"><a class="button" th:href="@{/relationships/diagram.svg(download=true)}">相関図をダウンロード（SVG）</a><a th:href="@{/share}">相関図を含む共有ZIPを保存</a></div>
-<p>全体図の下に関係ごとの図を表示します。名前・関係が長い場合や関係の説明は、下の一覧で確認できます。</p>
-<div class="relationship-diagram"><img th:src="@{/relationships/diagram.svg}" alt="キャラクター相関図。関係の詳細は下の一覧を参照してください。"></div>
-<section class="panel"><h2>関係の詳細</h2><p th:if="${#lists.isEmpty(relations)}">関係はまだ登録されていません。キャラクターの編集画面から追加できます。</p>
+<main id="main-content"><header class="diagram-heading"><p class="eyebrow">THE THREADS OF FATE</p><h1>魂を結ぶ、物語の軌跡。</h1><p>主人公を中心に、3つの世界に宿る人物たちのつながりを辿る。</p></header>
+<section class="panel diagram-filter"><h2>相関図に表示するキャラクター</h2><p id="selection-help" class="muted">複数選択できます。選択した人物に直接かかわる関係とその相手を表示します。主人公は中央に残ります。何も選ばず「表示を更新」を押すと全員を表示します。</p>
+<form th:action="@{/relationships}" method="get" aria-describedby="selection-help"><fieldset><legend>キャラクターを選択</legend><div class="diagram-choices"><label th:each="item : ${roster}"><input type="checkbox" name="ids" th:value="${item.id}" th:checked="${#lists.contains(selectedIds,item.id)}"><span th:text="${item.name}"></span><small th:text="${item.world.label}"></small></label></div></fieldset><div class="actions"><button type="submit">表示を更新</button><a th:href="@{/relationships}">全員を表示</a></div></form></section>
+<div class="diagram-toolbar"><p th:text="${visibleCount + '人 / ' + #lists.size(relations) + '件の関係'}"></p><div class="actions"><a class="button" th:href="@{/relationships/diagram.svg(download=true,ids=${selection})}">相関図をダウンロード（SVG）</a><a class="button secondary" th:href="@{/share/download(ids=${selection})}">この相関図を含む共有ZIPを保存</a></div></div>
+<p class="muted">矢印は登録した関係の向きです。全体図は横にスクロールして確認できます。共有ZIPの設定・画像は全キャラクターを含み、相関図には現在の選択を反映します。</p>
+<div class="relationship-diagram"><img th:src="@{/relationships/diagram.svg(ids=${selection})}" alt="主人公を中心とした3つの世界の相関図。関係の詳細は下の一覧を参照してください。"></div>
+<section class="panel"><h2>関係の詳細</h2><p th:if="${#lists.isEmpty(relations)}">表示する関係はありません。キャラクターの編集画面から追加できます。</p>
 <article class="relation-item" th:each="relation : ${relations}"><h3><a th:href="@{/characters/{id}(id=${relation.source.id})}" th:text="${relation.source.name}"></a> → <a th:href="@{/characters/{id}(id=${relation.target.id})}" th:text="${relation.target.name}"></a></h3><p th:text="${relation.relationType}"></p><p class="preserve-text" th:text="${relation.description}"></p></article></section>
 </main><footer th:replace="~{fragments/palace :: footer}"></footer></div></body></html>

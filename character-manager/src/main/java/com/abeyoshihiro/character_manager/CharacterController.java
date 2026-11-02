@@ -61,11 +61,16 @@ public class CharacterController {
         return "index";
     }
     private void populate(OriginalCharacter c, Model model) {
-        model.addAttribute("worlds", CharacterWorld.values());
+        model.addAttribute("worlds", CharacterWorld.worlds());
         model.addAttribute("pictures", c.getId() == null ? List.of() : gallery.list(c.getId()));
         model.addAttribute("outgoing", c.getId() == null ? List.of() : relations.findBySourceIdOrderByIdAsc(c.getId()));
         model.addAttribute("incoming", c.getId() == null ? List.of() : relations.findByTargetIdOrderByIdAsc(c.getId()));
         model.addAttribute("others", repository.findAll().stream().filter(other -> !Objects.equals(other.getId(), c.getId())).sorted(Comparator.comparing(OriginalCharacter::getId)).toList());
+    }
+    @GetMapping("/protagonists/new")
+    public String newProtagonist(Model model) {
+        OriginalCharacter c = new OriginalCharacter(); c.setWorld(CharacterWorld.PROTAGONIST);
+        model.addAttribute("character", c); populate(c, model); return "character-form";
     }
     @GetMapping("/characters/new")
     public String newCharacter(Model model) {
@@ -75,7 +80,7 @@ public class CharacterController {
     public String create(@ModelAttribute("character") OriginalCharacter character, BindingResult binding, Model model) {
         if (!validate(character, binding)) {
             // Preserve the existing empty-name redirect, while displaying all other validation errors in place.
-            if (!binding.hasFieldErrors("tagsInput") && (character.getName() == null || character.getName().isBlank())) return "redirect:/characters/new";
+            if (!binding.hasFieldErrors("tagsInput") && (character.getName() == null || character.getName().isBlank())) return character.isProtagonist() ? "redirect:/protagonists/new" : "redirect:/characters/new";
             populate(character, model); return "character-form";
         }
         OriginalCharacter saved = new OriginalCharacter(); ProfileFields.copy(character, saved); repository.save(saved);
@@ -100,6 +105,7 @@ public class CharacterController {
         model.addAttribute("profileSections", ProfileFields.values(c).entrySet().stream()
                 .filter(e -> !java.util.Set.of("name", "affiliation").contains(e.getKey()))
                 .filter(e -> !e.getKey().equals("bustCm") || "女".equals(c.getGender()))
+                .filter(e -> !c.isProtagonist() || Set.of("gender", "heightCm", "basicSettings").contains(e.getKey()))
                 .map(e -> new RevisionService.Difference(ProfileSnapshot.labels().get(e.getKey()), e.getValue(), "")).toList());
         model.addAttribute("history", revisions.entries(c));
         List<OriginalCharacter> roster = ordering.roster();
@@ -146,6 +152,7 @@ public class CharacterController {
         });
     }
     private boolean validate(OriginalCharacter input, BindingResult binding) {
+        ProfileFields.restrictProtagonist(input);
         ProfileFields.measurementErrors(input).forEach((field, message) -> binding.rejectValue(field, "profile.measurement", message));
         try { TagParser.parse(input.getTagsInput()); }
         catch (IllegalArgumentException exception) { binding.rejectValue("tagsInput", "tags.invalid", exception.getMessage()); }
