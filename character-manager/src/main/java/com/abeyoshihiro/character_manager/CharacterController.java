@@ -29,7 +29,7 @@ public class CharacterController {
     }
     @InitBinder("character")
     public void bindCharacter(WebDataBinder binder) {
-        binder.setAllowedFields("world", "name", "affiliation", "basicSettings", "personality", "speechStyle", "firstPerson", "feelingsTowardMikado", "likes", "dislikes", "abilities", "tagsInput");
+        binder.setAllowedFields("gender", "heightCm", "bustCm", "world", "name", "affiliation", "basicSettings", "personality", "speechStyle", "firstPerson", "feelingsTowardMikado", "likes", "dislikes", "abilities", "tagsInput");
     }
     @GetMapping("/")
     public String index(@RequestParam(name = "q", defaultValue = "") String query,
@@ -99,6 +99,7 @@ public class CharacterController {
         OriginalCharacter c = gallery.character(id); model.addAttribute("character", c); populate(c, model);
         model.addAttribute("profileSections", ProfileFields.values(c).entrySet().stream()
                 .filter(e -> !java.util.Set.of("name", "affiliation").contains(e.getKey()))
+                .filter(e -> !e.getKey().equals("bustCm") || "女".equals(c.getGender()))
                 .map(e -> new RevisionService.Difference(ProfileSnapshot.labels().get(e.getKey()), e.getValue(), "")).toList());
         model.addAttribute("history", revisions.entries(c));
         List<OriginalCharacter> roster = ordering.roster();
@@ -135,7 +136,17 @@ public class CharacterController {
         redirect.addAttribute("q", q); redirect.addAttribute("tag", tag); redirect.addAttribute("sort", sort); redirect.addAttribute("favorites", favorites);
         return "redirect:/";
     }
+    @PutMapping("/characters/{id}/favorite")
+    @ResponseBody
+    public Map<String, Boolean> setFavorite(@PathVariable Long id, @RequestParam boolean favorite) {
+        return transactions.execute(status -> {
+            OriginalCharacter c = repository.findForUpdate(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            c.setFavorite(favorite); repository.save(c);
+            return Map.of("favorite", c.isFavorite());
+        });
+    }
     private boolean validate(OriginalCharacter input, BindingResult binding) {
+        ProfileFields.measurementErrors(input).forEach((field, message) -> binding.rejectValue(field, "profile.measurement", message));
         try { TagParser.parse(input.getTagsInput()); }
         catch (IllegalArgumentException exception) { binding.rejectValue("tagsInput", "tags.invalid", exception.getMessage()); }
         ProfileFields.values(input).forEach((field, value) -> {

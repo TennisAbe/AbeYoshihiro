@@ -15,13 +15,20 @@ final class ProfileSnapshot {
     }
     static Map<String, String> labels() {
         Map<String, String> result = new LinkedHashMap<>();
+        result.put("gender", "性別"); result.put("heightCm", "身長（cm）"); result.put("bustCm", "胸囲（cm）");
         result.put("name", "名前"); result.put("world", "世界"); result.put("affiliation", "所属");
         result.put("basicSettings", "基本設定"); result.put("personality", "性格"); result.put("speechStyle", "口調");
         result.put("firstPerson", "一人称"); result.put("feelingsTowardMikado", "ミカドへの思い");
         result.put("likes", "好き"); result.put("dislikes", "嫌い"); result.put("abilities", "能力"); result.put("tagsInput", "タグ");
         return result;
     }
+    static Map<String, String> compatible(Map<String, String> values) {
+        Map<String, String> result = new LinkedHashMap<>(values);
+        for (String field : List.of("gender", "heightCm", "bustCm")) { if (!result.containsKey(field)) result.put(field, ""); }
+        return result;
+    }
     static void validate(Map<String, String> values) {
+        values = compatible(values);
         if (!values.keySet().equals(labels().keySet()) || values.values().stream().anyMatch(Objects::isNull))
             throw new IllegalArgumentException("履歴の項目が不足または不正です。");
         OriginalCharacter character = new OriginalCharacter(); ProfileFields.read(values, character); ProfileFields.validate(character);

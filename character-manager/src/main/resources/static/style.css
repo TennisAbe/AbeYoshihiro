@@ -232,3 +232,8 @@ button.secondary { background: transparent; border-color: #65556f; color: var(--
 #share-prompt { font-size: 13px; line-height: 1.9; }
 .share-copy { display: none !important; }.js .share-copy { display: inline-flex !important; }
 @media (max-width: 500px) { .share-overview h2, .share-instructions h2 { font-size: 19px; }.share-count { font-size: 12px; }.share-count strong { font-size: 23px; } }
+
+[hidden] { display: none !important; }
+.favorite-form [role="status"] { display: block; font-size: .8rem; margin-top: .5rem; }
+.relationship-diagram { overflow: auto; margin: 1.5rem 0; background: #faf7ff; }
+.relationship-diagram img { width: 100%; min-width: 800px; max-width: none; display: block; }

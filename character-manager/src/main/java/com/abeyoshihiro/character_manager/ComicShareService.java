@@ -31,8 +31,9 @@ public class ComicShareService {
     private final AffiliationOrderingService ordering;
     private final RelationRepository relations;
     private final GalleryService gallery;
-    public ComicShareService(AffiliationOrderingService ordering, RelationRepository relations, GalleryService gallery) {
-        this.ordering = ordering; this.relations = relations; this.gallery = gallery;
+    private final RelationshipDiagramService diagrams;
+    public ComicShareService(AffiliationOrderingService ordering, RelationRepository relations, GalleryService gallery, RelationshipDiagramService diagrams) {
+        this.diagrams = diagrams; this.ordering = ordering; this.relations = relations; this.gallery = gallery;
     }
     private record ImageReference(CharacterPicture picture, String path, Path source, boolean cover) { }
     private static String ref(Long id) { return String.format(Locale.ROOT, "C%06d", id); }
@@ -140,6 +141,7 @@ public class ComicShareService {
                     - 02_IMAGE_INDEX.csv：キャラ名・参照IDと画像ファイル・画像説明・代表画像の対応。
                     - characters/：1人ずつの同じ設定。名前が同じでも参照IDで区別できます。
                     - images/：登録された実際のPNG画像。画像を実際に開いて確認してください。
+                    - 04_RELATIONSHIPS.svg：方向付き相関図。ブラウザーで開いて確認できます。
                     - 03_CHATGPT_PROMPT.txt：資料を読み込む際の依頼文。
 
                     ## 漫画制作で参照する項目
@@ -154,6 +156,7 @@ public class ComicShareService {
                 total = text(zip, "01_ALL_CHARACTERS.md", all.toString(), total);
                 total = text(zip, "02_IMAGE_INDEX.csv", index.toString(), total);
                 total = text(zip, "03_CHATGPT_PROMPT.txt", PROMPT, total);
+                total = text(zip, "04_RELATIONSHIPS.svg", diagrams.render(roster, connections), total);
                 for (var entry : perCharacter.entrySet()) total = text(zip, entry.getKey(), entry.getValue(), total);
                 for (List<ImageReference> references : images.values()) for (ImageReference image : references) { zip.putNextEntry(new ZipEntry(image.path)); Files.copy(image.source, zip); zip.closeEntry(); }
             }

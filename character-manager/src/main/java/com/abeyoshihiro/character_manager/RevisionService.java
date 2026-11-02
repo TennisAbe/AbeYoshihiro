@@ -36,12 +36,12 @@ public class RevisionService {
         OriginalCharacter current = locked(owner); CharacterRevision revision = revision(owner, revisionId);
         if (!ProfileSnapshot.fingerprint(current).equals(expectedFingerprint))
             throw new IllegalArgumentException("確認後にプロフィールが更新されています。差分を確認し直してください。");
-        Map<String, String> fields = revision.getFields(); ProfileSnapshot.validate(fields);
+        Map<String, String> fields = ProfileSnapshot.compatible(revision.getFields()); ProfileSnapshot.validate(fields);
         if (ProfileSnapshot.of(current).equals(fields)) return false;
         capture(current, "RESTORE"); ProfileSnapshot.apply(fields, current); characters.save(current); return true;
     }
     public List<Difference> differences(OriginalCharacter current, CharacterRevision revision) {
-        Map<String, String> now = ProfileSnapshot.of(current), previous = revision.getFields();
+        Map<String, String> now = ProfileSnapshot.of(current), previous = ProfileSnapshot.compatible(revision.getFields());
         List<Difference> result = new ArrayList<>();
         ProfileSnapshot.labels().forEach((key, label) -> {
             if (!Objects.equals(now.get(key), previous.get(key))) result.add(new Difference(label, display(key, now.get(key)), display(key, previous.get(key))));

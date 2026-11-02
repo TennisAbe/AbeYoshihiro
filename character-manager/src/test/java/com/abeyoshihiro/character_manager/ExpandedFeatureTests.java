@@ -120,7 +120,7 @@ class ExpandedFeatureTests {
     @Test void rejectsCorruptUnsafeAndInconsistentBackupsWithoutChangingExistingData() throws Exception {
         OriginalCharacter c=save("Existing");gallery.upload(c.getId(),new MockMultipartFile("image",png(0)),"portrait");Map<String,byte[]> entries=unzip(backup.exportArchive());String xml=new String(entries.get("manifest.xml"),StandardCharsets.UTF_8);
         List<byte[]> invalid=new ArrayList<>();invalid.add("not a zip".getBytes());invalid.add(zip(Map.of("../escape.png",png(0))));invalid.add(zip(Map.of("manifest.xml",new byte[5*1024*1024+1])));invalid.add(Arrays.copyOf(backup.exportArchive(),20));
-        for(String changed:List.of(xml.replace("version=\"4\"","version=\"999\""),xml.replace("favorite=\"false\"","favorite=\"invalid\""),xml.replace("<relations/>","<relations><relation source=\"99999\" target=\"99998\" type=\"friend\"/></relations>"),xml.replace("<name>Existing</name>",""),xml.replace("cover=\""+characters.findById(c.getId()).orElseThrow().getCoverImageId()+"\"","cover=\"999999\""),"<!DOCTYPE noctalith [<!ENTITY xxe SYSTEM 'file:///etc/passwd'>]><noctalith version=\"1\">&xxe;</noctalith>")){Map<String,byte[]> altered=new LinkedHashMap<>(entries);altered.put("manifest.xml",changed.getBytes(StandardCharsets.UTF_8));invalid.add(zip(altered));}
+        for(String changed:List.of(xml.replace("version=\"5\"","version=\"999\""),xml.replace("favorite=\"false\"","favorite=\"invalid\""),xml.replace("<relations/>","<relations><relation source=\"99999\" target=\"99998\" type=\"friend\"/></relations>"),xml.replace("<name>Existing</name>",""),xml.replace("cover=\""+characters.findById(c.getId()).orElseThrow().getCoverImageId()+"\"","cover=\"999999\""),"<!DOCTYPE noctalith [<!ENTITY xxe SYSTEM 'file:///etc/passwd'>]><noctalith version=\"1\">&xxe;</noctalith>")){Map<String,byte[]> altered=new LinkedHashMap<>(entries);altered.put("manifest.xml",changed.getBytes(StandardCharsets.UTF_8));invalid.add(zip(altered));}
         Map<String,byte[]> broken=new LinkedHashMap<>(entries);broken.remove(broken.keySet().stream().filter(k->k.startsWith("images/")).findFirst().orElseThrow());invalid.add(zip(broken));Map<String,byte[]> badImage=new LinkedHashMap<>(entries);badImage.put(badImage.keySet().stream().filter(k->k.startsWith("images/")).findFirst().orElseThrow(),"not image".getBytes());invalid.add(zip(badImage));
         for(byte[] bytes:invalid){assertThrows(Exception.class,()->backup.restore(new ByteArrayInputStream(bytes)));assertEquals(1,characters.count());assertEquals(1,pictures.count());assertEquals(0,relations.count());}
         assertEquals(302,multipart("/backup/restore","archive",invalid.get(0),Map.of("confirmed","true")).statusCode());assertTrue(text(get("/backup")).contains("バックアップZIP"));assertEquals(1,characters.count());
@@ -165,7 +165,7 @@ class ExpandedFeatureTests {
         assertEquals("穏やか",c.getPersonality());assertEquals("魔法",c.getAbilities());assertEquals("騎士団",c.getAffiliation());assertTrue(c.isFavorite());
         assertArrayEquals(png(0xff0000),get("/characters/"+c.getId()+"/image").body());assertEquals("相手",relations.findBySourceIdOrderByIdAsc(c.getId()).get(0).getTarget().getName());
         assertEquals("Existing",characters.findById(existing.getId()).orElseThrow().getName());
-        String xml=new String(unzip(backup.exportArchive()).get("manifest.xml"),StandardCharsets.UTF_8);assertTrue(xml.contains("version=\"4\""));assertTrue(xml.contains("speechStyle"));
+        String xml=new String(unzip(backup.exportArchive()).get("manifest.xml"),StandardCharsets.UTF_8);assertTrue(xml.contains("version=\"5\""));assertTrue(xml.contains("speechStyle"));
         byte[] invalid=zip(Map.of("manifest.xml",legacyArchiveXml().replace("<age>18歳</age>","<age>"+"a".repeat(41)+"</age>").getBytes(StandardCharsets.UTF_8),"images/11.png",png(0)));
         assertThrows(IllegalArgumentException.class,()->backup.restore(new ByteArrayInputStream(invalid)));assertEquals(3,characters.count());
     }
@@ -183,7 +183,7 @@ class ExpandedFeatureTests {
     }
     @Test void validatesEveryProfileFieldAtAndBeyondItsBoundary() throws Exception {
         for(var field:ProfileFields.limits().entrySet()){
-            if(field.getKey().equals("name"))continue;
+            if(Set.of("name", "gender", "heightCm", "bustCm").contains(field.getKey()))continue;
             String valid="あ".repeat(field.getValue());assertEquals(302,post("/characters","name=Boundary&"+field.getKey()+"="+encode(valid)).statusCode());
             OriginalCharacter c=characters.findAll().stream().max(Comparator.comparing(OriginalCharacter::getId)).orElseThrow();
             assertEquals(valid,ProfileFields.values(c).get(field.getKey()));

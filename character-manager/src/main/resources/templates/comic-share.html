@@ -11,4 +11,4 @@
 <ol><li>上のボタンで共有ZIPを保存します。</li><li>ChatGPTの会話にZIPを添付します。</li><li>下の依頼文をコピーして送信し、読み込めたキャラ・画像を確認します。</li><li>登場人物・場面・使いたい衣装などを指定して、漫画制作を相談します。</li></ol>
 <label for="share-prompt">添付するときの依頼文</label><textarea id="share-prompt" readonly rows="13" th:text="${sharePrompt}"></textarea><div class="actions"><button class="share-copy" type="button">依頼文をコピー</button><span id="share-copy-status" class="muted" role="status" aria-live="polite"></span></div>
 <p class="muted">ZIP内の画像をChatGPTが確認できない場合は、同梱の画像対応表を使い、必要な画像を展開して直接添付してください。ファイルの大きさや画像の扱いは利用環境によって異なります。</p><p class="muted">共有資料は見た目や口調を参照しやすくするものです。生成結果の完全な固定を保証するものではありません。設定・画像を更新したら、新しいZIPを共有し直してください。</p><p class="muted">このZIPは漫画向けの参照資料です。アプリへ戻すための保存は「バックアップ」を利用してください。</p></section>
-</main><footer th:replace="~{fragments/palace :: footer}"></footer></div></body></html>
+<p>共有ZIPには相関図（04_RELATIONSHIPS.svg）も含みます。<a th:href="@{/relationships}">相関図を確認</a></p></main><footer th:replace="~{fragments/palace :: footer}"></footer></div></body></html>

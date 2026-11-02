@@ -127,6 +127,19 @@ public class OriginalCharacter {
     public String getAbilities() { return abilities; }
     public void setAbilities(String value) { abilities = value; }
 
+    @Column(length = 8)
+    private String gender;
+    @Column(length = 8)
+    private String heightCm;
+    @Column(length = 8)
+    private String bustCm;
+    public String getGender() { return gender == null || gender.isEmpty() ? null : gender; }
+    public void setGender(String value) { gender = value; }
+    public String getHeightCm() { return heightCm == null || heightCm.isEmpty() ? null : heightCm; }
+    public void setHeightCm(String value) { heightCm = value; }
+    public String getBustCm() { return "女".equals(gender) ? (bustCm == null || bustCm.isEmpty() ? null : bustCm) : null; }
+    public void setBustCm(String value) { bustCm = value; }
+
     private Boolean favorite = false;
     private Long coverImageId;
     public boolean isFavorite() { return Boolean.TRUE.equals(favorite); }

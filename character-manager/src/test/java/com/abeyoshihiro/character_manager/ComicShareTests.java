@@ -55,7 +55,7 @@ class ComicShareTests {
         gallery.upload(a.getId(),new MockMultipartFile("image",png(0xff0000)),"通常衣装");gallery.upload(a.getId(),new MockMultipartFile("image",png(0x0000ff)),"笑顔,\"衣装違い\"");var images=gallery.list(a.getId());gallery.cover(a.getId(),images.get(1).getId());
         var relation=new CharacterRelation();relation.setSource(a);relation.setTarget(b);relation.setRelationType("友人");relation.setDescription("昔からの仲間");relations.save(relation);
         var state=ProfileSnapshot.of(characters.findById(a.getId()).orElseThrow());byte[] original=Files.readAllBytes(gallery.path(images.get(0).getStorageName()));
-        var zip=unpack(share.exportAll());assertEquals(9,zip.size());
+        var zip=unpack(share.exportAll());assertEquals(10,zip.size());
         for(String path:List.of("00_START_HERE.md","01_ALL_CHARACTERS.md","02_IMAGE_INDEX.csv","03_CHATGPT_PROMPT.txt","characters/"+ref(a.getId())+".md","characters/"+ref(b.getId())+".md"))assertTrue(zip.containsKey(path),path);
         String all=text(zip,"01_ALL_CHARACTERS.md");
         for(String expected:List.of("シズ","登録された基本設定","丁寧な口調","私","強い信頼","紅茶","嘘","星の魔法","主人公","昔からの仲間","オルタパレス","異世界","現代世界"))assertTrue(all.contains(expected),expected);

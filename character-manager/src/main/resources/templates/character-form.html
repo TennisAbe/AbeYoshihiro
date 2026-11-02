@@ -7,6 +7,7 @@
   <link rel="icon" type="image/png" th:href="@{/images/noctalith-mark.png}">
   <link rel="stylesheet" th:href="@{/style.css}">
   <script th:src="@{/palace.js}" defer></script>
+  <script th:src="@{/profile-form.js}" defer></script>
 </head>
 <body>
 <div th:replace="~{fragments/palace :: atmosphere}"></div>
@@ -28,6 +29,9 @@
         <div class="field-error" role="alert" th:if="${#fields.hasAnyErrors()}"><p th:each="message : ${#fields.allErrors()}" th:text="${message}"></p></div>
         <div class="profile-field"><label for="name">名前（必須）</label><input type="text" th:field="*{name}" maxlength="255" required></div>
         <div class="profile-field"><label for="world">世界</label><select th:field="*{world}" required><option th:each="world : ${worlds}" th:value="${world}" th:text="${world.label}"></option></select></div>
+        <div class="profile-field"><label for="gender">性別</label><select th:field="*{gender}"><option value="">未設定</option><option value="男">男</option><option value="女">女</option><option value="その他">その他</option></select></div>
+        <div class="profile-field"><label for="heightCm">身長（cm）</label><input type="number" th:field="*{heightCm}" min="0.01" max="10000" step="0.01"></div>
+        <div class="profile-field" id="bust-field"><label for="bustCm">胸囲（cm・女性のみ）</label><input type="number" th:field="*{bustCm}" min="0.01" max="10000" step="0.01"><small>性別が女の場合に保存されます。</small></div>
         <div class="profile-field"><label for="affiliation">所属</label><input type="text" th:field="*{affiliation}" maxlength="120"></div>
         <div class="profile-field"><label for="basicSettings">基本設定</label><textarea th:field="*{basicSettings}" maxlength="12000" rows="8"></textarea></div>
         <div class="profile-field"><label for="personality">性格</label><textarea th:field="*{personality}" maxlength="2000" rows="4"></textarea></div>

@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>NOCTALITH | 相関図</title><link rel="stylesheet" th:href="@{/style.css}"><script th:src="@{/palace.js}" defer></script></head>
+<body><div th:replace="~{fragments/palace :: atmosphere}"></div><div class="page-shell"><header th:replace="~{fragments/palace :: masthead}"></header>
+<main id="main-content"><h1>キャラクター相関図</h1><p>登録済みの全員の関係を、方向付きの図で確認できます。同名の人物はCから始まるIDで区別します。</p>
+<div class="actions"><a class="button" th:href="@{/relationships/diagram.svg(download=true)}">相関図をダウンロード（SVG）</a><a th:href="@{/share}">相関図を含む共有ZIPを保存</a></div>
+<p>全体図の下に関係ごとの図を表示します。名前・関係が長い場合や関係の説明は、下の一覧で確認できます。</p>
+<div class="relationship-diagram"><img th:src="@{/relationships/diagram.svg}" alt="キャラクター相関図。関係の詳細は下の一覧を参照してください。"></div>
+<section class="panel"><h2>関係の詳細</h2><p th:if="${#lists.isEmpty(relations)}">関係はまだ登録されていません。キャラクターの編集画面から追加できます。</p>
+<article class="relation-item" th:each="relation : ${relations}"><h3><a th:href="@{/characters/{id}(id=${relation.source.id})}" th:text="${relation.source.name}"></a> → <a th:href="@{/characters/{id}(id=${relation.target.id})}" th:text="${relation.target.name}"></a></h3><p th:text="${relation.relationType}"></p><p class="preserve-text" th:text="${relation.description}"></p></article></section>
+</main><footer th:replace="~{fragments/palace :: footer}"></footer></div></body></html>
