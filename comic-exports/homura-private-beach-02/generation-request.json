@@ -1,0 +1,38 @@
+{
+  "status": "blocked_usage_limit_no_new_artwork",
+  "prompt": "この白黒漫画の衣装修正。ホムラ（眼帯と長い高いポニーテールの成人女性）の衣装を、普通の海水浴で着る真紅のビキニに統一する。無地の中間トーン、標準的なホルターネックの三角形トップと標準的なボトムの上下別デザイン。普通の不透明な水着。体格を誇張せず、自然な目線と日常の海遊びとして描く。人物の顔・髪型・本人右目の黒い眼帯、各コマの感情、作画、台詞の全文、吹き出しの尾と話者、コマ割り、背景は忠実に保持する。競泳水着やジャージは水着のお披露目・海遊び場面には使わない。水着の一部だけでなく、そのページの全コマに衣装変更を反映する。",
+  "firstTargets": [
+    "spread-03-04",
+    "page-07"
+  ],
+  "remainingTargets": [
+    "page-02",
+    "page-05",
+    "page-06",
+    "page-08",
+    "page-10",
+    "page-11",
+    "page-12",
+    "page-13",
+    "page-14",
+    "page-15",
+    "page-16",
+    "page-17",
+    "page-18",
+    "page-19",
+    "page-20"
+  ],
+  "errors": [
+    {
+      "key": "spread-03-04",
+      "error": "image generation failed: http 429 Too Many Requests: Some(\"{\\\"error\\\":{\\\"type\\\":\\\"usage_limit_reached\\\",\\\"message\\\":\\\"The usage limit has been reached\\\",\\\"plan_type\\\":\\\"plus\\\",\\\"resets_at\\\":1793757098,\\\"eligible_promo\\\":null,\\\"limit_window_minutes\\\":null,\\\"resets_in_seconds\\\":56813}}\")"
+    },
+    {
+      "key": "page-07",
+      "error": "image generation failed: http 429 Too Many Requests: Some(\"{\\\"error\\\":{\\\"type\\\":\\\"usage_limit_reached\\\",\\\"message\\\":\\\"The usage limit has been reached\\\",\\\"plan_type\\\":\\\"plus\\\",\\\"resets_at\\\":1793757099,\\\"eligible_promo\\\":null,\\\"limit_window_minutes\\\":null,\\\"resets_in_seconds\\\":56813}}\")"
+    }
+  ],
+  "resetAtUTC": "2026-11-04T01:51:39Z",
+  "previousEdition": "../homura-private-beach-01",
+  "delivery": "No revised PDF or new images exist yet."
+}
