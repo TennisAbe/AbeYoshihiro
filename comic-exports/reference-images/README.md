@@ -13,4 +13,4 @@
 
 ## 元の漫画見本
 
-`style-originals/README.md` を参照。チャットに貼られた3種類の元画像のファイルは未収録。生成物で代用したと偽ってはならない。
+ユーザー提供の「引継ぎ用画像.zip」から、漫画見本9枚を `style-originals/` に加工せず保存済み。対応・用途・SHA-256は `style-originals/manifest.csv`、優先する見本と残る未収録画像は `style-originals/README.md` を参照。こちらで生成した練習作と元の見本を区別する。
