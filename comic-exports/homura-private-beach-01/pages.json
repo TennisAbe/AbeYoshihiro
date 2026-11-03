@@ -1,0 +1,202 @@
+[
+  {
+    "page": 1,
+    "image": "page-01.png",
+    "region": "whole",
+    "dimensions": [
+      1060,
+      1484
+    ],
+    "sha256": "6a01272e2afecdd0178c041944bc2f561be6dd51cf7308ca32cf51723ce6ed42"
+  },
+  {
+    "page": 2,
+    "image": "page-02.png",
+    "region": "whole",
+    "dimensions": [
+      1060,
+      1484
+    ],
+    "sha256": "562da3c7df5e91ce80c8a279335e72295364c52c21040f4f382c9e0ba572e609"
+  },
+  {
+    "page": 3,
+    "image": "spread-03-04.png",
+    "region": "right-half",
+    "dimensions": [
+      1483,
+      1061
+    ],
+    "sha256": "115bde7ed24c65d282fdd31bf81a5a1c7d9d58841f1d824c00aa1fd51eeea1b0"
+  },
+  {
+    "page": 4,
+    "image": "spread-03-04.png",
+    "region": "left-half",
+    "dimensions": [
+      1483,
+      1061
+    ],
+    "sha256": "115bde7ed24c65d282fdd31bf81a5a1c7d9d58841f1d824c00aa1fd51eeea1b0"
+  },
+  {
+    "page": 5,
+    "image": "page-05.png",
+    "region": "whole",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "5b0fe0da649cffb340bb5910f9af0560b823220b69b9a03dc74e4fdbeea2d5a7"
+  },
+  {
+    "page": 6,
+    "image": "page-06.png",
+    "region": "whole",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "28054ddc0251f9f27fab5696ead3c410ba565d5eeb527ddaffff07bbbc0d7636"
+  },
+  {
+    "page": 7,
+    "image": "page-07.png",
+    "region": "whole",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "b505b901b590e4e3db0f290a5bcc7183e208ae51342f9dd088180b28c5001e35"
+  },
+  {
+    "page": 8,
+    "image": "page-08.png",
+    "region": "whole",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "9c64a0c876bc9a6e5ec05d410e7a788068bafca5ef916652ad1e02d3cdd17a12"
+  },
+  {
+    "page": 9,
+    "image": "page-09.png",
+    "region": "whole",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "2d38d9a5d17c6152f37179080943a762984d7607e587ba39c86e9fab2fd725a8"
+  },
+  {
+    "page": 10,
+    "image": "page-10.png",
+    "region": "whole",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "899715ffaba02411f909ceac920d9ec3ebd02c223f2849e5711d26cd4fb9fe96"
+  },
+  {
+    "page": 11,
+    "image": "page-11.png",
+    "region": "whole",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "b268a974fd7bd0e9ef6a74b6ff47642f7746ef717cee98e713a35f472ded7809"
+  },
+  {
+    "page": 12,
+    "image": "page-12.png",
+    "region": "whole",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "586184ed8b53489101194d2dd8c5c76ba8c2dba50644278761acacf4146dd13f"
+  },
+  {
+    "page": 13,
+    "image": "page-13.png",
+    "region": "whole",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "e0518d95fdfeaeeccc9f7399e777c639e535b212c9edfa8afd8fdb065c17bf2c"
+  },
+  {
+    "page": 14,
+    "image": "page-14.png",
+    "region": "whole",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "192ca54e1a3cf59750c4c1c2cf042e11a203526f31e18cb771aa8fe6dbace852"
+  },
+  {
+    "page": 15,
+    "image": "page-15.png",
+    "region": "whole",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "2daf29f22cdb96ab636f62510313e47207f4e13582a97fa90101a260dc9aacb2"
+  },
+  {
+    "page": 16,
+    "image": "page-16.png",
+    "region": "whole",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "1107871eb15cd5bea7586bdf5f72307fb1f38436be0a0dcd150307a15244479d"
+  },
+  {
+    "page": 17,
+    "image": "page-17.png",
+    "region": "whole",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "60bae86372c99a9ce289e9b1e666ff7c38d736f25d1ea217a3e5b63878cf6d62"
+  },
+  {
+    "page": 18,
+    "image": "page-18.png",
+    "region": "whole",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "ae1bbb3a3d9dc9f09d462a821fb07bd0760a4ad1f0ceb15b1d2f5ceec49be09f"
+  },
+  {
+    "page": 19,
+    "image": "page-19.png",
+    "region": "whole",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "01a940c915be85eabd7dd4cd94b22093c13f942ec584221605a4c03808084791"
+  },
+  {
+    "page": 20,
+    "image": "page-20.png",
+    "region": "whole",
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "42a4d4ecba11d663d8990958fc850c4e2b13a0d6f07614959afe5ed7ac5a2a4f"
+  }
+]
