@@ -1,0 +1,135 @@
+[
+  {
+    "character_ref": "C000193",
+    "character_name": "ルシフェリア",
+    "world": "異世界",
+    "affiliation": "魔王",
+    "image_ref": "I000130",
+    "role": "代表画像",
+    "image_title": "通常衣装",
+    "path": "images/C000193/I000130.png",
+    "local_path": "characters/C000193/I000130.png",
+    "bytes": 341230,
+    "dimensions": [
+      369,
+      553
+    ],
+    "sha256": "50e6d7b4e12856a2c7bc808ef1c46f922d3483c4af1a45dd3b6908938c2c73e3",
+    "visual_status": "opened_and_verified_2026-11-08",
+    "source_archive": "new_char.zip"
+  },
+  {
+    "character_ref": "C000194",
+    "character_name": "レヴィアナ",
+    "world": "異世界",
+    "affiliation": "魔王",
+    "image_ref": "I000131",
+    "role": "代表画像",
+    "image_title": "通常衣装",
+    "path": "images/C000194/I000131.png",
+    "local_path": "characters/C000194/I000131.png",
+    "bytes": 2952129,
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "94fedbf55eebdd9266bc3c7b28e042fa7bc695dccddab8308648e65b486ab363",
+    "visual_status": "opened_and_verified_2026-11-08",
+    "source_archive": "new_char.zip"
+  },
+  {
+    "character_ref": "C000195",
+    "character_name": "サタニア",
+    "world": "異世界",
+    "affiliation": "魔王",
+    "image_ref": "I000132",
+    "role": "代表画像",
+    "image_title": "通常衣装",
+    "path": "images/C000195/I000132.png",
+    "local_path": "characters/C000195/I000132.png",
+    "bytes": 3204394,
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "170c22226ac1e9f735fe9cbaf820ecab6a4f77471360aea611b4212964a1a27c",
+    "visual_status": "opened_and_verified_2026-11-08",
+    "source_archive": "new_char.zip"
+  },
+  {
+    "character_ref": "C000196",
+    "character_name": "ベルフィナ",
+    "world": "異世界",
+    "affiliation": "魔王",
+    "image_ref": "I000133",
+    "role": "代表画像",
+    "image_title": "通常衣装",
+    "path": "images/C000196/I000133.png",
+    "local_path": "characters/C000196/I000133.png",
+    "bytes": 3114531,
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "a1973abdf4a85cebdc0f9ba54938f70554678a7922dcddc6f9c140c5a255df00",
+    "visual_status": "opened_and_verified_2026-11-08",
+    "source_archive": "new_char.zip"
+  },
+  {
+    "character_ref": "C000197",
+    "character_name": "モニカ",
+    "world": "異世界",
+    "affiliation": "魔王",
+    "image_ref": "I000134",
+    "role": "代表画像",
+    "image_title": "通常衣装",
+    "path": "images/C000197/I000134.png",
+    "local_path": "characters/C000197/I000134.png",
+    "bytes": 2413533,
+    "dimensions": [
+      1024,
+      1536
+    ],
+    "sha256": "01c06d2ef1628c8c13742e7d3790336048929b6bbcad0878c288bc55157da08e",
+    "visual_status": "opened_and_verified_2026-11-08",
+    "source_archive": "new_char.zip"
+  },
+  {
+    "character_ref": "C000198",
+    "character_name": "ベル",
+    "world": "異世界",
+    "affiliation": "魔王",
+    "image_ref": "I000138",
+    "role": "代表画像",
+    "image_title": "通常衣装",
+    "path": "images/C000198/I000138.png",
+    "local_path": "characters/C000198/I000138.png",
+    "bytes": 580179,
+    "dimensions": [
+      750,
+      1333
+    ],
+    "sha256": "5b007cc384ef600f67cfa783cd03ad5b49a5f83fb33d3f70273c8776a2397b04",
+    "visual_status": "opened_and_verified_2026-11-08",
+    "source_archive": "new_char.zip"
+  },
+  {
+    "character_ref": "C000199",
+    "character_name": "アスティリア",
+    "world": "異世界",
+    "affiliation": "魔王",
+    "image_ref": "I000137",
+    "role": "代表画像",
+    "image_title": "通常衣装",
+    "path": "images/C000199/I000137.png",
+    "local_path": "characters/C000199/I000137.png",
+    "bytes": 988784,
+    "dimensions": [
+      750,
+      1333
+    ],
+    "sha256": "9e8deaa21c7006329669903742c26ef34efd66161b2cd1ef63abf4dda4c20778",
+    "visual_status": "opened_and_verified_2026-11-08",
+    "source_archive": "new_char.zip"
+  }
+]
