@@ -1,0 +1,32 @@
+[
+  {
+    "file": "00_START_HERE.md",
+    "bytes": 2277,
+    "sha256": "95a378736fbb01a9471aceab9f15831641294826b57a75aca40300ff7a5d2185"
+  },
+  {
+    "file": "01_ALL_CHARACTERS.md",
+    "bytes": 78739,
+    "sha256": "5ca54f36061a7d3e78a06b1ed954216e6fc22658d3c05173e87d254570e59562"
+  },
+  {
+    "file": "02_IMAGE_INDEX.csv",
+    "bytes": 4957,
+    "sha256": "92566ec7f55a17100e9b5f63e2f8974875378d8d3d7a45e2fa82f3d3b1ccffa3"
+  },
+  {
+    "file": "03_CHATGPT_PROMPT.txt",
+    "bytes": 1407,
+    "sha256": "830247f072fb9f66c270a9dcaebb56e1ea6f81e46d0108bdde7ad9174c708e05"
+  },
+  {
+    "file": "04_RELATIONSHIPS.svg",
+    "bytes": 14273,
+    "sha256": "5702f43381c2cac3b989747d26ec9b43620c845a5a9be423de13082b93e49a01"
+  },
+  {
+    "file": "05_DISPLAY_COLORS.csv",
+    "bytes": 1267,
+    "sha256": "564bef2b942050a82346529a9f5acfedaaceeea64ce4ca360042803ea7854685"
+  }
+]
