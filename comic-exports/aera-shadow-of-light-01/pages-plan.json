@@ -1,0 +1,1505 @@
+[
+  {
+    "page": 1,
+    "title": "暗殺依頼",
+    "refs": [
+      "C000225",
+      "C000161"
+    ],
+    "panels": [
+      {
+        "visual": "Large opening panel: torchlit stone basement, cloaked anonymous client slides a portrait of long silver-haired Mikado across table to bob-haired assassin Aera. Chapter title integrated elegantly: 光を追う影. No sexual posing.",
+        "dialogue": "ナレーション「その朝、異世界の地下で――」／アエラ「……標的は、この男か」",
+        "emotion": "professional composure"
+      },
+      {
+        "visual": "Closeup Aera looking at the handsome portrait, tiny crack in her cool expression.",
+        "dialogue": "アエラ心中「……何、この顔。整いすぎじゃない？」",
+        "emotion": "surprised then suppressing it"
+      },
+      {
+        "visual": "Aera fastens her dagger and melts into deep shadow, sharp silhouette.",
+        "dialogue": "アエラ「……仕事だ。感情を挟むな、私」",
+        "emotion": "resolve"
+      }
+    ]
+  },
+  {
+    "page": 2,
+    "title": "王都の朝",
+    "refs": [
+      "C000161",
+      "C000137",
+      "C000138"
+    ],
+    "panels": [
+      {
+        "visual": "Wide bright medieval royal market, Mikado in black long military coat buying potions and apples. Silver hair has very long trailing back hair.",
+        "dialogue": "ミカド心中「魔法薬と野営具……このくらいか」",
+        "emotion": "relaxed"
+      },
+      {
+        "visual": "Sakuya and Konoha approach through stalls, friendly greeting.",
+        "dialogue": "サクヤ「ミカドくん！ 奇遇だね」／ミカド「何だ、お前らも来てたのか」",
+        "emotion": "pleasant surprise"
+      },
+      {
+        "visual": "Konoha shows sword maintenance supplies; Sakuya leans in seriously.",
+        "dialogue": "コノハ「王都の市場は品揃えがいい！」／サクヤ「最近、不審な噂があるから気をつけてね」",
+        "emotion": "enthusiasm then concern"
+      },
+      {
+        "visual": "Mikado subtly notices a cold gaze among roof shadows.",
+        "dialogue": "ミカド「……ああ。忠告感謝する」",
+        "emotion": "sudden alertness"
+      }
+    ]
+  },
+  {
+    "page": 3,
+    "title": "尾行",
+    "refs": [
+      "C000161",
+      "C000225"
+    ],
+    "panels": [
+      {
+        "visual": "Mikado leaves the classmates behind off panel, buys plain broad-brimmed hat and loose cloak over established uniform.",
+        "dialogue": "ミカド心中「……気のせい、か？」",
+        "emotion": "guarded"
+      },
+      {
+        "visual": "On a tile rooftop, Aera studies the portrait then spots tall Mikado wearing the broad hat below.",
+        "dialogue": "アエラ心中「背格好、歩き方……間違いない」",
+        "emotion": "focused"
+      },
+      {
+        "visual": "Clock detail shows roughly morning nine, Mikado turns into quiet alley.",
+        "dialogue": "ミカド心中「昼からはホムラとの約束だ。先に用を済ませよう」",
+        "emotion": "practical"
+      },
+      {
+        "visual": "Aera silently drops into alley behind him, dagger still low, ominous long shadow.",
+        "dialogue": "アエラ心中「隙があれば、一撃で仕留める」",
+        "emotion": "predatory concentration"
+      }
+    ]
+  },
+  {
+    "page": 4,
+    "title": "落ちた帽子",
+    "refs": [
+      "C000161",
+      "C000225"
+    ],
+    "panels": [
+      {
+        "visual": "Top wide panel: Mikado stretches arms in an empty alley, hat on head; Aera launches silently from behind.",
+        "dialogue": "ミカド「んー……少し肩が凝ったな」",
+        "emotion": "unwitting calm to sudden action"
+      },
+      {
+        "visual": "Diagonal action panel: Mikado pivots, dagger misses cloak, hat flies off. No wound or blood.",
+        "dialogue": "ミカド「――誰だ？」／効果音「ヒュッ」",
+        "emotion": "sharp alertness"
+      },
+      {
+        "visual": "Large bottom panel: beautiful unveiled Mikado face, long silver back hair glows in alley light. Small inset of Aera stunned with raised dagger.",
+        "dialogue": "アエラ心中「似顔絵……誇張じゃなかったの？」",
+        "emotion": "breathless shock"
+      }
+    ]
+  },
+  {
+    "page": 5,
+    "title": "背後を取る者",
+    "refs": [
+      "C000161",
+      "C000225"
+    ],
+    "panels": [
+      {
+        "visual": "Mikado stands poised while Aera resets her dagger stance, hat on ground.",
+        "dialogue": "ミカド「俺の背後を取るとは、なかなかやるな」",
+        "emotion": "quiet confidence"
+      },
+      {
+        "visual": "Closeup Aera regaining assassin expression, slight blush held in check.",
+        "dialogue": "アエラ「……死んでもらうわ」",
+        "emotion": "defiance"
+      },
+      {
+        "visual": "Multiple clean action arcs: Aera rushes with a flurry, Mikado evades by minimal movement.",
+        "dialogue": "ミカド「随分と物騒だな。誰の差し金だ？」",
+        "emotion": "pressure"
+      },
+      {
+        "visual": "Mikado steps inside her range, open hand at safe distance by her throat, Aera startled.",
+        "dialogue": "アエラ心中「速い……間合いが！」",
+        "emotion": "alarm"
+      }
+    ]
+  },
+  {
+    "page": 6,
+    "title": "影喰らい",
+    "refs": [
+      "C000161",
+      "C000225"
+    ],
+    "panels": [
+      {
+        "visual": "Aera bends low to break free of close range, shadow gathers around her blade.",
+        "dialogue": "アエラ「なめるな……ッ！」",
+        "emotion": "fierce pride"
+      },
+      {
+        "visual": "Large diagonal panel: a lance-like black shadow extends from dagger toward Mikado, strong white speed lines.",
+        "dialogue": "アエラ「秘剣――影喰らい！」",
+        "emotion": "all-out determination"
+      },
+      {
+        "visual": "Mikado calmly flicks flat of blade with one finger; shadow strike carves empty brick wall aside. No impact injury.",
+        "dialogue": "ミカド「――遅いな」／効果音「パァン！」",
+        "emotion": "overwhelming calm"
+      },
+      {
+        "visual": "Aera looks at shattered wall then his hand in disbelief.",
+        "dialogue": "アエラ心中「私の必殺技が……指一本で！？」",
+        "emotion": "humiliation and awe"
+      }
+    ]
+  },
+  {
+    "page": 7,
+    "title": "名を問う",
+    "refs": [
+      "C000161",
+      "C000225"
+    ],
+    "panels": [
+      {
+        "visual": "Mikado catches Aera by the clothed shoulder and blocks her retreat against alley wall; nonsexual combat restraint, no pin-up.",
+        "dialogue": "ミカド「誰の依頼で俺を狙った？」",
+        "emotion": "stern"
+      },
+      {
+        "visual": "Aera glares back, jaw tight, dagger no longer raised.",
+        "dialogue": "アエラ「……依頼人は売らない。殺しなさいよ」",
+        "emotion": "defiant resignation"
+      },
+      {
+        "visual": "Mikado changes subject, calm face in clean closeup.",
+        "dialogue": "ミカド「お前の名前は？」",
+        "emotion": "unexpected gentleness"
+      },
+      {
+        "visual": "Aera looks aside, reluctantly answers.",
+        "dialogue": "アエラ「……アエラ」／ミカド「いい名前だ」",
+        "emotion": "confusion and embarrassment"
+      }
+    ]
+  },
+  {
+    "page": 8,
+    "title": "次は必ず",
+    "refs": [
+      "C000161",
+      "C000225"
+    ],
+    "panels": [
+      {
+        "visual": "Mikado releases her and picks up broad hat, steps toward street.",
+        "dialogue": "ミカド「今日のところは、まあいい」",
+        "emotion": "easy mercy"
+      },
+      {
+        "visual": "Over shoulder looking back at Aera, long hair moving with coat.",
+        "dialogue": "ミカド「次に会ったら、もういっぺん殺しに来い」",
+        "emotion": "provocative confidence"
+      },
+      {
+        "visual": "Aera grips dagger hilt, rattled, blushing through anger.",
+        "dialogue": "アエラ「……次は、必ず殺すわ！」",
+        "emotion": "anger tangled with attraction"
+      },
+      {
+        "visual": "Mikado exits with raised hand; Aera left alone in enormous quiet alley.",
+        "dialogue": "ミカド「ああ、楽しみにしている」",
+        "emotion": "comedic dissonance"
+      }
+    ]
+  },
+  {
+    "page": 9,
+    "title": "顔が、いい",
+    "refs": [
+      "C000225",
+      "C000161",
+      "C000129"
+    ],
+    "panels": [
+      {
+        "visual": "Aera alone leans against wall, tries to analyze defeat with cool expression.",
+        "dialogue": "アエラ心中「実力差……あの余裕……」",
+        "emotion": "shaken pride"
+      },
+      {
+        "visual": "Closeup Aera suddenly covers blushing cheeks, tiny mental portrait of Mikado above. Nonsexual romantic reaction.",
+        "dialogue": "アエラ心中「でも、まず……顔が良すぎる！」",
+        "emotion": "comic collapse of composure"
+      },
+      {
+        "visual": "Noon city square: Mikado meets Homura, extremely long high ponytail and black eyepatch on HER RIGHT eye; she waves exuberantly.",
+        "dialogue": "ホムラ「待ってたぜ、ミカド！」",
+        "emotion": "joy"
+      },
+      {
+        "visual": "They head toward huge guild door side by side.",
+        "dialogue": "ミカド「少し寄り道に付き合ってくれ」／ホムラ「おう！ 任せとけ！」",
+        "emotion": "adventure anticipation"
+      }
+    ]
+  },
+  {
+    "page": 10,
+    "title": "王獣の牙",
+    "refs": [
+      "C000161",
+      "C000129"
+    ],
+    "panels": [
+      {
+        "visual": "Big establishing panel of busy adventurer guild interior, quest board, reception queues. Homura and Mikado enter.",
+        "dialogue": "ナレーション「冒険者ギルド・王獣の牙」／ミカド「すごい人だな」",
+        "emotion": "curiosity"
+      },
+      {
+        "visual": "At quiet side desk anonymous bespectacled clerk drowning in paperwork under REPORTS sign; no repeated character reference.",
+        "dialogue": "ミカド「……ここは任務報告の窓口か」",
+        "emotion": "mild exasperation"
+      },
+      {
+        "visual": "Homura wants to barge through crowded registration queue, Mikado lightly holds her shoulder.",
+        "dialogue": "ミカド「頼もしいが、目立つことはやめてな？」",
+        "emotion": "restraint"
+      },
+      {
+        "visual": "Close Homura turns bright red then folds arms awkwardly, eyepatch still right side.",
+        "dialogue": "ホムラ「あ、ああ！ 大人しくしてるぜ！」",
+        "emotion": "flustered obedience"
+      }
+    ]
+  },
+  {
+    "page": 11,
+    "title": "受付の争奪戦",
+    "refs": [
+      "C000161",
+      "C000129",
+      "C000226"
+    ],
+    "panels": [
+      {
+        "visual": "At reception Elsa, an original supporting clerk with dark hair tied up and modest guild vest, passes registration forms to Mikado. Yuri visible at neighboring counter in established bob uniform.",
+        "dialogue": "エルザ「新規登録ですね。こちらの用紙へどうぞ」",
+        "emotion": "professional welcome"
+      },
+      {
+        "visual": "Close Yuri sees Mikado for first time; eyes widen and blush, forms frozen in hands.",
+        "dialogue": "ユーリ心中「え……こんな綺麗な人、実在したんだ……」",
+        "emotion": "smitten shock"
+      },
+      {
+        "visual": "Yuri pushes through partition to stand at Mikado counter, Elsa startled sideways, comedic no injury.",
+        "dialogue": "ユーリ「私、ユーリが担当いたしますっ！」／エルザ「ちょっと！ 私が先よ！」",
+        "emotion": "sudden competitive frenzy"
+      },
+      {
+        "visual": "Homura glowers at the two receptionists while Mikado sighs dryly.",
+        "dialogue": "ホムラ「ミカドに色目使ってんじゃねーぞ」",
+        "emotion": "jealous anger"
+      }
+    ]
+  },
+  {
+    "page": 12,
+    "title": "ただの新人",
+    "refs": [
+      "C000161",
+      "C000129",
+      "C000226"
+    ],
+    "panels": [
+      {
+        "visual": "Mikado fills form ignoring offscreen bickering; extreme closeup of writing avoids any age field. Visible name Mikado and 無属性, 剣 only.",
+        "dialogue": "ミカド心中「目立つのはやめようと言った矢先に……」",
+        "emotion": "deadpan irony"
+      },
+      {
+        "visual": "Mikado lays two forms down, Homura looks impatient.",
+        "dialogue": "ミカド「喧嘩は後にしてくれ。二人分、頼む」",
+        "emotion": "dry authority"
+      },
+      {
+        "visual": "Yuri checks the form with worried face.",
+        "dialogue": "ユーリ「無属性ですか？ 初心者向けの依頼になりますよ？」",
+        "emotion": "concern"
+      },
+      {
+        "visual": "Mikado points to simple quest board; Homura grins.",
+        "dialogue": "ミカド「ああ、それでいい。規定どおりに頼む」",
+        "emotion": "unfazed"
+      }
+    ]
+  },
+  {
+    "page": 13,
+    "title": "ゴブリン五匹",
+    "refs": [
+      "C000161",
+      "C000129",
+      "C000226"
+    ],
+    "panels": [
+      {
+        "visual": "Mikado plucks quest parchment from board, graphic five goblin silhouettes.",
+        "dialogue": "ミカド「このゴブリン五匹の討伐を頼む」",
+        "emotion": "decisive"
+      },
+      {
+        "visual": "Yuri clutches quest stamp, trying to protect him from mundane danger.",
+        "dialogue": "ユーリ「初心者には、意外と危険なんですよ……！」",
+        "emotion": "anxious affection"
+      },
+      {
+        "visual": "Homura slaps countertop with palm, puff of comic impact, no violence to clerk.",
+        "dialogue": "ホムラ「さっさとハンコ押せっつってんだよ！」",
+        "emotion": "explosive impatience"
+      },
+      {
+        "visual": "Yuri stamps and hands cards, Mikado accepts with slight nod.",
+        "dialogue": "ユーリ「怪我をしたら、すぐ戻ってくださいね！」／ミカド「ありがとう。気をつけるよ」",
+        "emotion": "panic softens to warmth"
+      }
+    ]
+  },
+  {
+    "page": 14,
+    "title": "初級冒険者",
+    "refs": [
+      "C000161",
+      "C000129"
+    ],
+    "panels": [
+      {
+        "visual": "Forest path afternoon, Mikado carries plain iron sword at waist, Homura stretches.",
+        "dialogue": "ミカド「いいね、こういうの。最初はEランクか」",
+        "emotion": "playful enjoyment"
+      },
+      {
+        "visual": "Homura yawns then proposes fire with raised finger.",
+        "dialogue": "ホムラ「森ごと燃やしちまえば一瞬だぜ」",
+        "emotion": "bored bravado"
+      },
+      {
+        "visual": "Mikado lightly taps her head, comedic miniature expression.",
+        "dialogue": "ミカド「証明部位が残らないだろ。派手な真似はするなよ」",
+        "emotion": "dry scolding"
+      },
+      {
+        "visual": "Three goblins emerge from bushes with clubs, heroes turn toward them.",
+        "dialogue": "効果音「ガサッ」／ミカド「おっ。結構大きいな」",
+        "emotion": "small tension"
+      }
+    ]
+  },
+  {
+    "page": 15,
+    "title": "討伐完了",
+    "refs": [
+      "C000161",
+      "C000129"
+    ],
+    "panels": [
+      {
+        "visual": "Dynamic diagonal sword sweep, goblin attackers only dark silhouettes dissolve into speed lines, no severed anatomy or gore.",
+        "dialogue": "ミカド「……遅い」",
+        "emotion": "effortless strength"
+      },
+      {
+        "visual": "Homura punches approaching goblin away in stylized impact cloud, no injury detail.",
+        "dialogue": "ホムラ「さっすがミカド！」",
+        "emotion": "exuberance"
+      },
+      {
+        "visual": "Five defeated goblins kept distant and non-graphic; Mikado holds closed small proof sack.",
+        "dialogue": "ミカド「これで五匹。依頼は達成だ」",
+        "emotion": "matter-of-fact"
+      },
+      {
+        "visual": "Homura looks at muddy boot in disgust, Mikado casts tiny cleaning light.",
+        "dialogue": "ホムラ「弱いくせに、臭いだけは一人前だな！」／ミカド「……清浄」",
+        "emotion": "comic disgust to relief"
+      }
+    ]
+  },
+  {
+    "page": 16,
+    "title": "古木の影",
+    "refs": [
+      "C000161",
+      "C000129"
+    ],
+    "panels": [
+      {
+        "visual": "Mikado abruptly pauses on forest path, Homura follows his gaze.",
+        "dialogue": "ミカド「あの木の影から……変な気配がしないか？」",
+        "emotion": "unease"
+      },
+      {
+        "visual": "Ancient trees bend, huge crowned draconic silhouette appears from forest, tiny heroes for scale.",
+        "dialogue": "効果音「ズシン……」",
+        "emotion": "awe"
+      },
+      {
+        "visual": "Huge full-width reveal of Kiryu: original massive dragon with prismatic crystal-like armored scales rendered black white tones, crown horns, broad wings.",
+        "dialogue": "ナレーション「最上位魔物――輝龍」",
+        "emotion": "threatening grandeur"
+      }
+    ]
+  },
+  {
+    "page": 17,
+    "title": "面白くなってきた",
+    "refs": [
+      "C000161",
+      "C000129"
+    ],
+    "panels": [
+      {
+        "visual": "Close Mikado looks up and smiles with challenge, hair flowing.",
+        "dialogue": "ミカド「……面白くなってきたな」",
+        "emotion": "growing excitement"
+      },
+      {
+        "visual": "Homura clenches fists grinning, right eyepatch and pauldrons clearly visible.",
+        "dialogue": "ホムラ「ミカド、あいつはアタシがやってもいいか？」",
+        "emotion": "eager rivalry"
+      },
+      {
+        "visual": "Dragon releases colossal beam, Mikado stands between it and Homura with ordinary iron sword.",
+        "dialogue": "ミカド「俺も、久々に体を動かしたい」",
+        "emotion": "fearless"
+      },
+      {
+        "visual": "Wide dynamic composition: Mikado sword cleaves beam into two streams around heroes, forest silhouettes blast far behind them.",
+        "dialogue": "ミカド「ははっ、いいぞ！」／効果音「バキィン！」",
+        "emotion": "thrill"
+      }
+    ]
+  },
+  {
+    "page": 18,
+    "title": "ホムラ、合わせろ",
+    "refs": [
+      "C000161",
+      "C000129"
+    ],
+    "panels": [
+      {
+        "visual": "Iron sword chips and falls from Mikado hand in foreground, he calls to Homura.",
+        "dialogue": "ミカド「ホムラ！ 合わせろ！」",
+        "emotion": "decisive command"
+      },
+      {
+        "visual": "Homura launches into air with enormous sword of stylized white-hot flame; eyepatch correctly on her right eye.",
+        "dialogue": "ホムラ「任せとけ！ 炎神剣――スルト！」",
+        "emotion": "fierce delight"
+      },
+      {
+        "visual": "Dragon swings tail; Mikado slides below its side and kicks jaw upward, non-graphic impact star.",
+        "dialogue": "ミカド「……隙だらけだ」",
+        "emotion": "precision"
+      },
+      {
+        "visual": "Hero looking up to airborne Homura, dragon lifted off balance between them.",
+        "dialogue": "ミカド「ホムラ、そこだ！」",
+        "emotion": "perfect teamwork"
+      }
+    ]
+  },
+  {
+    "page": 19,
+    "title": "獄炎狼牙",
+    "refs": [
+      "C000161",
+      "C000129"
+    ],
+    "panels": [
+      {
+        "visual": "Large diagonal panel Homura summons wolf-shaped fire jaw surrounding dragon silhouette, crisp black white blazing lines.",
+        "dialogue": "ホムラ「喰らい尽くせ！ 獄炎狼牙――フェンリル！」",
+        "emotion": "triumphant ferocity"
+      },
+      {
+        "visual": "Mikado leaps through white flare and delivers clean decisive light stroke; dragon only silhouette, no dismemberment visible.",
+        "dialogue": "ミカド「……終わりだ」",
+        "emotion": "absolute focus"
+      },
+      {
+        "visual": "Wide quiet aftermath dragon lies motionless behind dust with intact outline, heroes land shoulder to shoulder.",
+        "dialogue": "ホムラ「やったぜ！ アタシたちのコンビだな！」",
+        "emotion": "victorious joy"
+      },
+      {
+        "visual": "Mikado mischievous face, Homura catches same idea.",
+        "dialogue": "ミカド「これ、持って行ったらどんな反応されるんだろうな」",
+        "emotion": "impish anticipation"
+      }
+    ]
+  },
+  {
+    "page": 20,
+    "title": "天才鍛冶師の出張",
+    "refs": [
+      "C000161",
+      "C000129",
+      "C000158"
+    ],
+    "panels": [
+      {
+        "visual": "Mikado holds small communication device beside immense defeated dragon in distance.",
+        "dialogue": "ミカド「シュミール、大きめの収納袋を持ってきてくれ」",
+        "emotion": "practical"
+      },
+      {
+        "visual": "Portal opens, Shumiru with her established brown curled twin ponytails, goggles on cap, cargo trousers and craft gear emerges carrying sacks and sheathed sword.",
+        "dialogue": "シュミール「お待たせしたッス！ ……えええっ！？」",
+        "emotion": "cheer flips into shock"
+      },
+      {
+        "visual": "Shumiru stares up at dragon wide-eyed; Homura proudly hands on hips.",
+        "dialogue": "シュミール「輝龍じゃないッスか！？」／ホムラ「アタシらにかかれば一瞬だぜ！」",
+        "emotion": "awe versus swagger"
+      },
+      {
+        "visual": "Shumiru excitedly points at scales and tusks with sparkling eyes.",
+        "dialogue": "シュミール「この素材、少し分けてほしいッス！」",
+        "emotion": "craft obsession"
+      }
+    ]
+  },
+  {
+    "page": 21,
+    "title": "そいやっ",
+    "refs": [
+      "C000161",
+      "C000129",
+      "C000158"
+    ],
+    "panels": [
+      {
+        "visual": "Mikado casually manifests clean light katana, dragon remains shown only as distant outline.",
+        "dialogue": "ミカド「……面倒だな。俺がやるか」",
+        "emotion": "casual"
+      },
+      {
+        "visual": "Large white panel with dozens of precise clean light arcs, hands and face of Mikado; no anatomical gore.",
+        "dialogue": "ミカド「そいやっ」／効果音「シュパパッ」",
+        "emotion": "comic understatement"
+      },
+      {
+        "visual": "Dragon parts now neatly sorted piles of scales bones gems and wrapped material, no raw organs; Shumiru stunned.",
+        "dialogue": "シュミール「……へ？」",
+        "emotion": "speechless"
+      },
+      {
+        "visual": "Shumiru gleefully collects a tooth and a scale while Homura admires work.",
+        "dialogue": "ミカド「必要な分は持っていけ」／シュミール「ありがとうございますッス！」",
+        "emotion": "delight"
+      }
+    ]
+  },
+  {
+    "page": 22,
+    "title": "新しい剣",
+    "refs": [
+      "C000161",
+      "C000129",
+      "C000158"
+    ],
+    "panels": [
+      {
+        "visual": "Shumiru presents plain-looking straight sword with black sheath to Mikado, proud craftsman posture.",
+        "dialogue": "シュミール「普通の鉄剣に見えて、強度はオリハルコン並みッス！」",
+        "emotion": "pride"
+      },
+      {
+        "visual": "Mikado checks blade edge then smiles gently at Shumiru, not flirtatious body framing.",
+        "dialogue": "ミカド「さすがの出来栄えだ。後で使わせてもらう」",
+        "emotion": "gratitude"
+      },
+      {
+        "visual": "Shumiru waves through portal with materials, Homura and Mikado close storage bags.",
+        "dialogue": "シュミール「最高のものを作るッス！」",
+        "emotion": "energized"
+      },
+      {
+        "visual": "Mikado and Homura arrive at guild counter with large sack, Yuri looks relieved.",
+        "dialogue": "ホムラ「おい、受付！ ゴブリン討伐、終わったぜ！」",
+        "emotion": "mischief"
+      }
+    ]
+  },
+  {
+    "page": 23,
+    "title": "おまけ",
+    "refs": [
+      "C000161",
+      "C000129",
+      "C000226"
+    ],
+    "panels": [
+      {
+        "visual": "Mikado places small closed proof bag first on counter, Yuri checking notes.",
+        "dialogue": "ミカド「まずゴブリン五匹。……あと、これ。おまけだ」",
+        "emotion": "deadpan"
+      },
+      {
+        "visual": "He drops large storage sack on counter; Yuri opens it expecting herbs.",
+        "dialogue": "ユーリ「おまけ……薬草でしょうか？」",
+        "emotion": "innocent curiosity"
+      },
+      {
+        "visual": "Huge middle panel: radiant dragon horn and scales rise from sack; Yuri and Elsa eye-popping stunned faces, crowd behind freezes.",
+        "dialogue": "ユーリ「き、輝龍の……！？」／エルザ「うそでしょ！？」",
+        "emotion": "explosive shock"
+      },
+      {
+        "visual": "Homura doubles over laughing, Mikado composed beside her.",
+        "dialogue": "ホムラ「ぎゃははっ！ いい顔すんじゃねーか！」",
+        "emotion": "gloating joy"
+      }
+    ]
+  },
+  {
+    "page": 24,
+    "title": "百分の一",
+    "refs": [
+      "C000161",
+      "C000129",
+      "C000226"
+    ],
+    "panels": [
+      {
+        "visual": "Original Elsa supporting clerk sweats at ledger, Yuri also stunned, Mikado waits.",
+        "dialogue": "エルザ「ギルドの資金じゃ、とても買い取れません！」",
+        "emotion": "financial panic"
+      },
+      {
+        "visual": "Mikado tilts head as if trivial, Homura grins.",
+        "dialogue": "ミカド「無理なく出せる額で構わない」",
+        "emotion": "indifference"
+      },
+      {
+        "visual": "Yuri rushes back saying guild master wants to meet, Mikado waves it aside.",
+        "dialogue": "ユーリ「マスターが直接お会いしたいと……」／ミカド「あー、そういうのいい」",
+        "emotion": "fuss versus disinterest"
+      },
+      {
+        "visual": "Large comedic Mikado one finger raised, receptionists recoil.",
+        "dialogue": "ミカド「相場の百分の一でどうだと、伝えてくれ」",
+        "emotion": "outrageous calm"
+      }
+    ]
+  },
+  {
+    "page": 25,
+    "title": "先輩たち",
+    "refs": [
+      "C000161",
+      "C000129",
+      "C000142",
+      "C000143"
+    ],
+    "panels": [
+      {
+        "visual": "Guild door swings open, Charle and Ashe in established school clothes enter, sharply observant.",
+        "dialogue": "シャルル「……騒がしいわね」",
+        "emotion": "authority"
+      },
+      {
+        "visual": "Mikado turns casually, Homura defensive beside him.",
+        "dialogue": "ミカド「あれ、先輩たち」／ホムラ「ミカドの知り合いか？」",
+        "emotion": "surprise and suspicion"
+      },
+      {
+        "visual": "Charle and Ashe look at dragon material sack in shock.",
+        "dialogue": "アッシェ「その中身……まさか、輝龍か？」／シャルル「あなたが、これを！？」",
+        "emotion": "incredulity"
+      },
+      {
+        "visual": "Mikado points thumb toward proud Homura.",
+        "dialogue": "ミカド「ホムラと二人ですよ。たまたま出くわしましてね」",
+        "emotion": "casual correction"
+      }
+    ]
+  },
+  {
+    "page": 26,
+    "title": "噂は王都を駆ける",
+    "refs": [
+      "C000161",
+      "C000129",
+      "C000226",
+      "C000143"
+    ],
+    "panels": [
+      {
+        "visual": "Yuri sets bag of coins on counter; Mikado stores it into small magic space, Ashe gapes behind.",
+        "dialogue": "ユーリ「百分の一で、大金貨百枚です……！」",
+        "emotion": "stunned transaction"
+      },
+      {
+        "visual": "Mikado heads out with Homura, Ashe calls after him from background, clear separate speech tails.",
+        "dialogue": "アッシェ「学園に戻ったら、生徒会室へ来い！」／ミカド「タバコやめてくれたら考えまーす」",
+        "emotion": "cheeky deflection"
+      },
+      {
+        "visual": "Split visual montage: gossip across market; Yuri blushes into her hands back at counter.",
+        "dialogue": "ユーリ「ミカドさん……何より、顔が……！」",
+        "emotion": "romantic obsession, comic"
+      },
+      {
+        "visual": "Street food stall Mikado and Homura share view of city, not food mouth contact.",
+        "dialogue": "ミカド「もっとすごい奴、狩ってみたくないか？」／ホムラ「いいねぇ！」",
+        "emotion": "restless excitement"
+      }
+    ]
+  },
+  {
+    "page": 27,
+    "title": "魔王種",
+    "refs": [
+      "C000161",
+      "C000129",
+      "C000226"
+    ],
+    "panels": [
+      {
+        "visual": "Royal library Mikado reads book with seven symbolic crowns, Homura perched by table bored then interested.",
+        "dialogue": "ミカド「魔王の魔力を受けて強化された魔物……魔王種か」",
+        "emotion": "investigation"
+      },
+      {
+        "visual": "They return to guild counter; Yuri raises eyes, Elsa lays ominous quest sheet.",
+        "dialogue": "ミカド「一番難しい依頼を頼む」",
+        "emotion": "challenge"
+      },
+      {
+        "visual": "Close parchment map east of capital marked cave, no dense tiny text.",
+        "dialogue": "エルザ「特Sランク、大悪魔の討伐です。憤怒の魔王サタニアの配下と推定されています」",
+        "emotion": "grave urgency"
+      },
+      {
+        "visual": "Mikado folds quest, Homura tightens gauntlet with eager grin.",
+        "dialogue": "ミカド「温厚な魔王でも、配下はそうとは限らないか。……行くぞ」",
+        "emotion": "serious resolve"
+      }
+    ]
+  },
+  {
+    "page": 28,
+    "title": "嘆きの洞窟",
+    "refs": [
+      "C000161",
+      "C000129",
+      "C000225"
+    ],
+    "panels": [
+      {
+        "visual": "Fast montage of Mikado and Homura traveling across landscape with long motion trail; discreet Aera silhouette follows far behind.",
+        "dialogue": "ナレーション「徒歩なら半日の道を、二人は瞬く間に踏破した」",
+        "emotion": "speed and hidden pursuit"
+      },
+      {
+        "visual": "At cave mouth Mikado offers cloth purification mask to Homura; she beams.",
+        "dialogue": "ミカド「マスク、いるか？」／ホムラ「おっ、サンキュー！」",
+        "emotion": "considerate warmth"
+      },
+      {
+        "visual": "They enter huge gloomy cave; broken shields and abandoned armor show danger, no corpses detail.",
+        "dialogue": "ミカド「進むほど、気配が強まるな」",
+        "emotion": "building tension"
+      },
+      {
+        "visual": "From darkness a horned winged armored archdemon towers amid lesser shadow demons.",
+        "dialogue": "大悪魔「また愚かな人間が迷い込んだか！」",
+        "emotion": "menace"
+      }
+    ]
+  },
+  {
+    "page": 29,
+    "title": "最高の剣",
+    "refs": [
+      "C000161",
+      "C000129"
+    ],
+    "panels": [
+      {
+        "visual": "Archdemon has black full fantasy armor, goatlike horns, bat wings, original design; lesser demons behind. Heroes remain much smaller.",
+        "dialogue": "大悪魔「我はサタニア様の力を授かりし、大悪魔ぞ！」",
+        "emotion": "arrogant threat"
+      },
+      {
+        "visual": "Mikado side-eyes dramatic armor and turns to Homura, half-smile.",
+        "dialogue": "ミカド「……大げさな格好だな。ホムラ、任せていいか？」",
+        "emotion": "dry humor"
+      },
+      {
+        "visual": "Homura shows teeth in eager grin, fire ignites round fist; right eyepatch unmistakable.",
+        "dialogue": "ホムラ「任せとけ！ 三分で丸焦げにしてやる！」",
+        "emotion": "battle hunger"
+      },
+      {
+        "visual": "Lesser demons rush down from archdemon hand gesture, silhouette action.",
+        "dialogue": "大悪魔「行け、眷属ども！ 八つ裂きにしろ！」",
+        "emotion": "fury"
+      }
+    ]
+  },
+  {
+    "page": 30,
+    "title": "灼熱神域",
+    "refs": [
+      "C000161",
+      "C000129"
+    ],
+    "panels": [
+      {
+        "visual": "Tall dominant panel Homura stands in blazing circular domain, tiny demons dissolve into dark smoke and sparks, no injury detail.",
+        "dialogue": "ホムラ「燃えカスも残さねぇ！ 灼熱神域――ムスペルヘイム！」",
+        "emotion": "overwhelming fury"
+      },
+      {
+        "visual": "Close archdemon recoils with widened eyes, armor reflects blaze.",
+        "dialogue": "大悪魔「馬鹿な……貴様、ただの人間ではないな！？」",
+        "emotion": "fear"
+      },
+      {
+        "visual": "Homura walks forward with fearless grin; Mikado behind safe transparent shield calmly observing.",
+        "dialogue": "ホムラ「アタシはミカドに仕える、最高の剣だ！」",
+        "emotion": "pride and devotion"
+      }
+    ]
+  },
+  {
+    "page": 31,
+    "title": "炎と黒炎",
+    "refs": [
+      "C000129"
+    ],
+    "panels": [
+      {
+        "visual": "Archdemon gathers massive black flame sphere between armored hands.",
+        "dialogue": "大悪魔「黒死の業火――ヘルフレイム！」",
+        "emotion": "desperation"
+      },
+      {
+        "visual": "Homura faces black flame without retreat, huge sword of white flame in hands.",
+        "dialogue": "ホムラ「その程度の炎で、アタシを飲めるかよ！」",
+        "emotion": "defiant exhilaration"
+      },
+      {
+        "visual": "Large diagonal action clash white-hot sword against black fire, cave rocks shake, sparks, strong controlled screentones.",
+        "dialogue": "ホムラ「炎神剣――スルト！」／効果音「ゴオォッ！」",
+        "emotion": "maximal release"
+      },
+      {
+        "visual": "Archdemon pushed back into smoke, Homura still standing certain.",
+        "dialogue": "ホムラ「借り物の力で、調子に乗ってんじゃねぇ！」",
+        "emotion": "victory pressure"
+      }
+    ]
+  },
+  {
+    "page": 32,
+    "title": "討伐証明",
+    "refs": [
+      "C000161",
+      "C000129"
+    ],
+    "panels": [
+      {
+        "visual": "Archdemon retreating smoke-stained armor, no burned flesh visible; Mikado approaches with luminous hand edge.",
+        "dialogue": "ミカド「討伐証明に、その角と装具をいただく」",
+        "emotion": "cold finality"
+      },
+      {
+        "visual": "Decisive stroke shown entirely as black silhouette against white flash, no severed body parts or blood.",
+        "dialogue": "ミカド「……終わりだ」",
+        "emotion": "precision"
+      },
+      {
+        "visual": "Archdemon now dissolves into ash, intact detached fantasy horn and armor relic on ground, Mikado picks up relic.",
+        "dialogue": "ナレーション「魔王種の脅威は、灰へと消えた」",
+        "emotion": "release"
+      },
+      {
+        "visual": "Homura happily runs to Mikado, he gently touches top of her head.",
+        "dialogue": "ミカド「怪我はないか？」／ホムラ「全然！ 準備運動にもならなかったぜ！」",
+        "emotion": "warm victorious relief"
+      }
+    ]
+  },
+  {
+    "page": 33,
+    "title": "朝の暗殺者",
+    "refs": [
+      "C000161",
+      "C000129",
+      "C000225"
+    ],
+    "panels": [
+      {
+        "visual": "Mikado pauses with relic pouch, hears footsteps from cave shadow; Homura turns ready.",
+        "dialogue": "ミカド「……この気配。朝の暗殺者か」",
+        "emotion": "alert recognition"
+      },
+      {
+        "visual": "Aera steps out with hands clear of sheathed dagger, composed face betrays slight blush.",
+        "dialogue": "アエラ「……規格外だな。ずっと見ていた」",
+        "emotion": "awe"
+      },
+      {
+        "visual": "Homura angry interposes, Mikado stops her with open palm.",
+        "dialogue": "ホムラ「ミカドを暗殺だと！？」／ミカド「今度は仕掛けてこないんだな」",
+        "emotion": "anger checked by calm"
+      },
+      {
+        "visual": "Aera looks straight at Mikado, unsparing honest line in closeup.",
+        "dialogue": "アエラ「……あなたの顔を見ていたら、殺すのが惜しくなった」",
+        "emotion": "sincere romantic absurdity"
+      }
+    ]
+  },
+  {
+    "page": 34,
+    "title": "光のそばへ",
+    "refs": [
+      "C000161",
+      "C000129",
+      "C000225"
+    ],
+    "panels": [
+      {
+        "visual": "Mikado has flat disbelieving expression, Homura explosive manga anger at side.",
+        "dialogue": "ミカド心中「……この世界の奴らはどうなっているんだ」",
+        "emotion": "deadpan"
+      },
+      {
+        "visual": "Mikado lowers guard, Aera startled hopeful.",
+        "dialogue": "ミカド「……まあいい。その言葉、信じるよ」",
+        "emotion": "acceptance"
+      },
+      {
+        "visual": "Aera takes a small step closer, eyes quietly determined, nonsexual.",
+        "dialogue": "アエラ「私は影。邪魔はしない。ただ、あなたの近くにいたい」",
+        "emotion": "earnest longing"
+      },
+      {
+        "visual": "Mikado gives formal assignment while Homura points in sarcastic triumph.",
+        "dialogue": "ミカド「なら、ヤミの配下につけ。後で連絡する」／アエラ「……分かった。私の主は、あなただけ」",
+        "emotion": "reluctance to commitment"
+      }
+    ]
+  },
+  {
+    "page": 35,
+    "title": "闇軍団へ",
+    "refs": [
+      "C000161",
+      "C000225",
+      "C000160",
+      "C000152"
+    ],
+    "panels": [
+      {
+        "visual": "Evening capital square, Aera waiting at fountain rejoins Mikado. Ayame appears with little bells, mischievous grin.",
+        "dialogue": "アヤメ「みーかどお兄さん！ また迷子ですかぁ？」",
+        "emotion": "teasing arrival"
+      },
+      {
+        "visual": "Mikado gestures toward Aera explaining assignment; Ayame peers with impish curiosity.",
+        "dialogue": "ミカド「ちょうどいい。この女をパレスへ。ヤミの配下につけてくれ」",
+        "emotion": "practical"
+      },
+      {
+        "visual": "Shino steps into view holding structurally complete Japanese parasol with continuous canopy ribs shaft handle and gripping hand.",
+        "dialogue": "シノ「闇軍団副官として、わっちがお預かりしんす」",
+        "emotion": "elegant menace"
+      },
+      {
+        "visual": "Aera walks through portal with Ayame and Shino, looks back once at Mikado. Max three main figures in this panel.",
+        "dialogue": "ミカド「シノ、お前も注視してくれると助かる」／シノ「承知いたしんした」",
+        "emotion": "handover and wary hope"
+      }
+    ]
+  },
+  {
+    "page": 36,
+    "title": "祝勝会",
+    "refs": [
+      "C000161",
+      "C000129"
+    ],
+    "panels": [
+      {
+        "visual": "After Aera departs, Mikado turns to disgruntled Homura on sunset street.",
+        "dialogue": "ミカド「戻る前に、最後に行きたいところはないか？」",
+        "emotion": "consideration"
+      },
+      {
+        "visual": "Homura lights up and holds his arm nonsexually.",
+        "dialogue": "ホムラ「美味い酒！ 王都で一番のやつ！」",
+        "emotion": "unrestrained joy"
+      },
+      {
+        "visual": "Tavern table with empty mugs, Homura boastful then suddenly asleep in comic beat; Mikado has water glass. No erotic emphasis.",
+        "dialogue": "ホムラ「まだまだ飲めるぜぇ……ぐぅ」",
+        "emotion": "boast turns into comic defeat"
+      },
+      {
+        "visual": "Mikado carries sleeping Homura safely on back down quiet street, her armored cape draped securely.",
+        "dialogue": "ミカド「……世話の焼ける奴だ」",
+        "emotion": "affectionate exasperation"
+      }
+    ]
+  },
+  {
+    "page": 37,
+    "title": "お前に預ける",
+    "refs": [
+      "C000161",
+      "C000136"
+    ],
+    "panels": [
+      {
+        "visual": "After putting sleeping Homura safely to bed, Mikado visits Yami office at night to discuss Aera; Yami presses fingertips to desk, shadow deepens behind her.",
+        "dialogue": "ナレーション「夜、闇軍団執務室」／ヤミ「ミカド様の影は、私一人で十分です」",
+        "emotion": "possessive resentment"
+      },
+      {
+        "visual": "Mikado meets eyes firmly, not mocking.",
+        "dialogue": "ミカド「隠密の腕は立つ。パレスの戦力になると思ったんだ」",
+        "emotion": "reasoned trust"
+      },
+      {
+        "visual": "Mikado reaches to lightly pat Yami head, she blushes at trust.",
+        "dialogue": "ミカド「だから、お前に預けた。頼むぞ」",
+        "emotion": "reassurance"
+      },
+      {
+        "visual": "Yami bows formally, fierce commitment under composed face.",
+        "dialogue": "ヤミ「……御意に。期待に応えてみせます」",
+        "emotion": "jealousy transforms into pride"
+      }
+    ]
+  },
+  {
+    "page": 38,
+    "title": "おやすみの口づけ",
+    "refs": [
+      "C000161",
+      "C000136"
+    ],
+    "panels": [
+      {
+        "visual": "Yami lightly catches Mikado coat hem as he turns to leave, shy expression, both fully dressed, upright normal pose.",
+        "dialogue": "ヤミ「……もう、お帰りになるのですか？」",
+        "emotion": "reluctance"
+      },
+      {
+        "visual": "Tender close-up of brief ordinary closed-mouth goodbye kiss, faces and shoulders only, no erotic styling, fully clothed; manga blush.",
+        "dialogue": "ミカド「今日はこれで許してくれ。流石に疲れた」",
+        "emotion": "gentle affection"
+      },
+      {
+        "visual": "Yami touches lips with a fingertip, sweet stunned smile, no arousal cues.",
+        "dialogue": "ヤミ「……三日は眠れそうにありません」",
+        "emotion": "romantic wonder"
+      },
+      {
+        "visual": "Mikado at doorway deadpan, Yami behind flustered.",
+        "dialogue": "ミカド「仕事に支障が出るぞ。ちゃんと休めよ」",
+        "emotion": "light comic release"
+      }
+    ]
+  },
+  {
+    "page": 39,
+    "title": "私の光",
+    "refs": [
+      "C000161",
+      "C000225"
+    ],
+    "panels": [
+      {
+        "visual": "Mikado knocks and waits for reply then enters Aera modest new room; Aera seated fully clothed, training bandage on forearm only.",
+        "dialogue": "ミカド「入ってもいいか？」／アエラ「……どうぞ、主」",
+        "emotion": "cautious intimacy"
+      },
+      {
+        "visual": "Mikado sits on spare chair at normal distance, asks directly.",
+        "dialogue": "ミカド「今更だが、なぜ従う気になった？」",
+        "emotion": "searching"
+      },
+      {
+        "visual": "Aera looks down at hands then up, serious backstory illustrated by vague alley memory silhouettes.",
+        "dialogue": "アエラ「血と泥しか知らなかった。でも、あなたは違った」",
+        "emotion": "vulnerability"
+      },
+      {
+        "visual": "Close Aera eyes with clear highlights, slight blush, Mikado listens offscreen.",
+        "dialogue": "アエラ「この光のそばにいたい。あなたが光であるために、私が影になる」",
+        "emotion": "heartfelt resolve"
+      }
+    ]
+  },
+  {
+    "page": 40,
+    "title": "翌日の生徒会室",
+    "refs": [
+      "C000161",
+      "C000142",
+      "C000143"
+    ],
+    "panels": [
+      {
+        "visual": "Next day afternoon school corridor, Mikado now in established black uniform walking under curious whispers.",
+        "dialogue": "ナレーション「翌日、放課後」／ミカド心中「さて、面倒なお小言の始まりか」",
+        "emotion": "resigned"
+      },
+      {
+        "visual": "Council office Charle behind paperwork desk, Ashe by open window with unlit cigarette held low; tidy sparse interior.",
+        "dialogue": "シャルル「昨日の呼び出し、忘れたわけではないでしょうね？」",
+        "emotion": "stern"
+      },
+      {
+        "visual": "Mikado shrugs politely in front of their desk.",
+        "dialogue": "ミカド「すみません。少々、立て込んでいまして」",
+        "emotion": "unrepentant"
+      },
+      {
+        "visual": "Charle leans forward, concern more than anger.",
+        "dialogue": "シャルル「輝龍の共闘討伐だけでも、国を揺るがす事件なのよ」",
+        "emotion": "serious alarm"
+      }
+    ]
+  },
+  {
+    "page": 41,
+    "title": "ついでに片付けた",
+    "refs": [
+      "C000161",
+      "C000142",
+      "C000143"
+    ],
+    "panels": [
+      {
+        "visual": "Charle lowers voice, Ashe now listening intently.",
+        "dialogue": "シャルル「今朝、大悪魔討伐の通達があったわ。まさか、これも？」",
+        "emotion": "suspicion"
+      },
+      {
+        "visual": "Mikado pulls black horn and detached empty armor relic from small magic space onto council table, no body parts beyond fantasy horn.",
+        "dialogue": "ミカド「ギルドで依頼を受けたので。ついでに片付けてきました」",
+        "emotion": "casual"
+      },
+      {
+        "visual": "Big reaction panel Charle springs up pale, Ashe almost drops unlit cigarette from hand.",
+        "dialogue": "シャルル「ついで！？」／アッシェ「魔王種だぞ……お前、一体何者だ？」",
+        "emotion": "maximal disbelief"
+      },
+      {
+        "visual": "Mikado turns toward door, calm face.",
+        "dialogue": "ミカド「さーて、これで用は済みましたか？」",
+        "emotion": "dry audacity"
+      }
+    ]
+  },
+  {
+    "page": 42,
+    "title": "武神祭の約束",
+    "refs": [
+      "C000161",
+      "C000142",
+      "C000143"
+    ],
+    "panels": [
+      {
+        "visual": "Charle stops him verbally while Ashe steps near doorway with challenging grin, no blocking coercion.",
+        "dialogue": "シャルル「済んだわけないでしょう！」",
+        "emotion": "exasperation"
+      },
+      {
+        "visual": "Close Ashe flexes one fist, sharp competitive smile.",
+        "dialogue": "アッシェ「来月の武神祭、出るよな？ このアタシが確かめてやる」",
+        "emotion": "challenge"
+      },
+      {
+        "visual": "Mikado answers with confident half-smile over shoulder, very long hair trailing.",
+        "dialogue": "ミカド「その時は相手します。では」",
+        "emotion": "accepting challenge"
+      },
+      {
+        "visual": "Mikado exits, door closes, Charle rubs brow while Ashe grins.",
+        "dialogue": "アッシェ「……面白ぇ一年が入ったな」",
+        "emotion": "future anticipation"
+      }
+    ]
+  },
+  {
+    "page": 43,
+    "title": "新人、修練中",
+    "refs": [
+      "C000161",
+      "C000225",
+      "C000152"
+    ],
+    "panels": [
+      {
+        "visual": "Underground training hall shadow corps, Shino with closed complete parasol sparring with Aera, no blood or torn exposure.",
+        "dialogue": "ナレーション「オルタパレス・闇軍団修練場」",
+        "emotion": "discipline"
+      },
+      {
+        "visual": "Mikado enters, Aera halts with sweat and surprise; Shino bows elegantly.",
+        "dialogue": "ミカド「アエラは、もう昇進か？」",
+        "emotion": "interest"
+      },
+      {
+        "visual": "Shino gestures at Aera with closed intact parasol shaft, not fan.",
+        "dialogue": "シノ「基礎はできておりんす。上級兵の技を教えているところで」",
+        "emotion": "professional assessment"
+      },
+      {
+        "visual": "Aera eyes dart to Mikado blushing, wipes brow quickly.",
+        "dialogue": "アエラ心中「見られてる……汗、変な匂いしないかな」",
+        "emotion": "comic self-consciousness"
+      }
+    ]
+  },
+  {
+    "page": 44,
+    "title": "報酬はツーショット",
+    "refs": [
+      "C000161",
+      "C000225",
+      "C000152"
+    ],
+    "panels": [
+      {
+        "visual": "Mikado rolls wrist, invites sparring; Aera still tired.",
+        "dialogue": "ナレーション「手合わせは、中庭へ――」／ミカド「俺から一本取ったら、ツーショットを撮ってやろう」",
+        "emotion": "mischievous encouragement"
+      },
+      {
+        "visual": "Aera instantly becomes intensely focused, large shocked hopeful eyes, black hair highlights.",
+        "dialogue": "アエラ「……ツーショット！」",
+        "emotion": "fatigue vanishes into determination"
+      },
+      {
+        "visual": "Aera launches diagonal fast attack, purple-like energy rendered hatching around dagger.",
+        "dialogue": "アエラ「絶対に、取る――影刃！」",
+        "emotion": "fierce motivation"
+      },
+      {
+        "visual": "Mikado evades by tiny step, Shino quietly observes holding parasol vertically.",
+        "dialogue": "ミカド心中「餌が大きすぎたか」",
+        "emotion": "amused respect"
+      }
+    ]
+  },
+  {
+    "page": 45,
+    "title": "姉の監督",
+    "refs": [
+      "C000161",
+      "C000225",
+      "C000160",
+      "C000136"
+    ],
+    "panels": [
+      {
+        "visual": "During paused spar, Ayame darts toward Mikado from rear with mischievous grin, Aera in background glares.",
+        "dialogue": "アヤメ「ミカドお兄さん！ あたしも混ざっていいですかぁ？」",
+        "emotion": "playful interruption"
+      },
+      {
+        "visual": "Yami emerges from shadow and catches Ayame by back of collar safely, feet near ground, no neck grabbing.",
+        "dialogue": "ヤミ「……アヤメ。訓練の邪魔をしない」",
+        "emotion": "icy authority"
+      },
+      {
+        "visual": "Ayame sulks with folded arms beside Yami at wall; two people only.",
+        "dialogue": "アヤメ「お姉ちゃんのけち……」",
+        "emotion": "comic frustration"
+      },
+      {
+        "visual": "Aera and Mikado resume focused battle, Yami offscreen; no four figures crammed.",
+        "dialogue": "アエラ「……主とのツーショットは、私のもの！」",
+        "emotion": "unyielding drive"
+      }
+    ]
+  },
+  {
+    "page": 46,
+    "title": "三つの影",
+    "refs": [
+      "C000161",
+      "C000225"
+    ],
+    "panels": [
+      {
+        "visual": "Fast Aera dagger slash just misses Mikado shoulder, clear body motion.",
+        "dialogue": "ミカド「うおっと。やはり速いな」",
+        "emotion": "genuine appreciation"
+      },
+      {
+        "visual": "He parries lightly, gives technical advice; Aera takes step back.",
+        "dialogue": "ミカド「直線が多い。もっと影を使え」",
+        "emotion": "instructive"
+      },
+      {
+        "visual": "Large action panel: exactly THREE Aera figures, one real and two shadow doubles, approach Mikado from three angles. Four figures total.",
+        "dialogue": "アエラ「……これで、逃がさない！」",
+        "emotion": "breakthrough"
+      },
+      {
+        "visual": "Close Mikado eye notices flicker at real Aera foot shadow.",
+        "dialogue": "ミカド心中「本物の影が、わずかに揺れた」",
+        "emotion": "analytical concentration"
+      }
+    ]
+  },
+  {
+    "page": 47,
+    "title": "努力賞",
+    "refs": [
+      "C000161",
+      "C000225",
+      "C000136",
+      "C000152"
+    ],
+    "panels": [
+      {
+        "visual": "Mikado deflects real dagger cleanly into air, two shadow doubles vanish into smoke; impact not injury.",
+        "dialogue": "ミカド「そこだ」／効果音「キィン！」",
+        "emotion": "decisive"
+      },
+      {
+        "visual": "Mikado stops open hand safely short of Aera face, she freezes then slumps disappointed.",
+        "dialogue": "ミカド「残念だったな。俺の勝ちだ」／アエラ「ツーショット……」",
+        "emotion": "defeat"
+      },
+      {
+        "visual": "Mikado smiles and shows small photo on comm device, Aera perks up with starry eyes.",
+        "dialogue": "ミカド「想像以上だ。努力賞に、俺の顔写真くらいはくれてやろう」",
+        "emotion": "kind recognition"
+      },
+      {
+        "visual": "Mikado addresses Yami and Shino, Aera at edge as fourth person max; Shino closed parasol intact.",
+        "dialogue": "ミカド「もっと昇格させていい。あっという間にナンバースリーになるぞ」",
+        "emotion": "future potential"
+      }
+    ]
+  },
+  {
+    "page": 48,
+    "title": "静かな医務室",
+    "refs": [
+      "C000161",
+      "C000155"
+    ],
+    "panels": [
+      {
+        "visual": "Mikado leaves loud training wing, opens bright clean clinic door; Keto with long white hair and white military physician uniform, no glasses looks up warmly.",
+        "dialogue": "ミカド心中「少し、静かな場所で休むか」",
+        "emotion": "fatigue"
+      },
+      {
+        "visual": "Keto stands beside examination bed, concerned face.",
+        "dialogue": "ケト「どこか、お怪我でも？」／ミカド「いや。少し休ませてくれ」",
+        "emotion": "concern to relief"
+      },
+      {
+        "visual": "Keto seated beside bed invites innocent lap pillow; normal fully clothed figures, frame faces hands shoulders, no chest emphasis.",
+        "dialogue": "ケト「では、私の膝でゆっくりどうぞ」",
+        "emotion": "maternal warmth"
+      },
+      {
+        "visual": "Mikado rests head on her lap, wide side view peaceful, Keto surprised shy smile, no glasses.",
+        "dialogue": "ミカド「……ああ。じゃあ遠慮なく」／ケト「ほ、本当に……？」",
+        "emotion": "unexpected trust"
+      }
+    ]
+  },
+  {
+    "page": 49,
+    "title": "休息の代償",
+    "refs": [
+      "C000161",
+      "C000155"
+    ],
+    "panels": [
+      {
+        "visual": "Close peaceful Mikado looking up at Keto long hair as she gently strokes his silver hair; faces only.",
+        "dialogue": "ミカド「お前の髪、綺麗だな」",
+        "emotion": "unguarded sincerity"
+      },
+      {
+        "visual": "Keto blushes and freezes, hand hovering, long white hair gleams softly.",
+        "dialogue": "ケト「急に褒めるなんて……ずるいですよ」",
+        "emotion": "flustered happiness"
+      },
+      {
+        "visual": "Later Keto has dozed seated and head tilts onto Mikado HEAD/shoulder, blankets bunched; comic trapped hairstyle, absolutely no chest pressing or sexual contact.",
+        "dialogue": "ミカド心中「……お前も疲れていたのか」",
+        "emotion": "gentle surprise"
+      },
+      {
+        "visual": "Mikado carefully supports her shoulder and lays pillow behind her head then leaves, Keto peaceful.",
+        "dialogue": "ミカド「ちゃんと休めよ。……次のホムラとの約束もあるしな」",
+        "emotion": "quiet care"
+      }
+    ]
+  },
+  {
+    "page": 50,
+    "title": "光を追う影",
+    "refs": [
+      "C000225",
+      "C000161"
+    ],
+    "panels": [
+      {
+        "visual": "Night Aera new plain room, she sits on bed fully clothed holding small printed headshot of Mikado with both hands, lovingly careful.",
+        "dialogue": "アエラ「……主。私の、光」",
+        "emotion": "tender devotion"
+      },
+      {
+        "visual": "Close hands trace PHOTO edge, not body; small remembered inset of Mikado giving effort award.",
+        "dialogue": "アエラ「特訓も全部、耐え抜く。もっと強くなる」",
+        "emotion": "resolve"
+      },
+      {
+        "visual": "Large final panel Aera face half in moon shadow with clear bright eyes and faint unsettling smile, framed by window, no sexual arousal. Her reflection and photo form strong composition.",
+        "dialogue": "アエラ「あなたが光であるために――私が影になる」／締め「光を追う影　了」",
+        "emotion": "love edged with dangerous obsession"
+      }
+    ]
+  }
+]

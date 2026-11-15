@@ -1,0 +1,80 @@
+[
+  {
+    "ref": "C000129",
+    "file": "references/C000129.png",
+    "sha256": "0cc27274fcba1440548862d4d93c0b74ed484fcae08b2b1dd0ebc1f48b669a70",
+    "source": "noctalith-comic-reference-20261115-113743.zip"
+  },
+  {
+    "ref": "C000136",
+    "file": "references/C000136.png",
+    "sha256": "9c961e48de982373dd5caf5680f9b363c9680edc1ac7a9536025e281396d3798",
+    "source": "noctalith-comic-reference-20261115-113743.zip"
+  },
+  {
+    "ref": "C000137",
+    "file": "references/C000137.png",
+    "sha256": "7efe99e0e175027be24d8b4d90496f030b5e6555345919d8b7199195699a5cbb",
+    "source": "noctalith-comic-reference-20261115-113743.zip"
+  },
+  {
+    "ref": "C000138",
+    "file": "references/C000138.png",
+    "sha256": "60c75a0e0f21591c04aae2ea5643c47856d3892327d7ce7a01c7c33016e5546d",
+    "source": "noctalith-comic-reference-20261115-113743.zip"
+  },
+  {
+    "ref": "C000142",
+    "file": "references/C000142.png",
+    "sha256": "cb21bc539d00beece819264622b626d0e18dc9408e4496c41e0c6ea753731370",
+    "source": "noctalith-comic-reference-20261115-113743.zip"
+  },
+  {
+    "ref": "C000143",
+    "file": "references/C000143.png",
+    "sha256": "0f93ed52297a24c17062e5f5fbc2d9db85401470b7255d2fd27b3ca90a2c7006",
+    "source": "noctalith-comic-reference-20261115-113743.zip"
+  },
+  {
+    "ref": "C000152",
+    "file": "references/C000152.png",
+    "sha256": "6a08ef74060698a0c6ee0612d1dd447befd33cc352cc4a564d9b3aaf77baedfd",
+    "source": "noctalith-comic-reference-20261115-113743.zip"
+  },
+  {
+    "ref": "C000155",
+    "file": "references/C000155.png",
+    "sha256": "be0ab8bdace06ec72fce2a72df6b886fb31b43d57a37432f40ed6799872a831a",
+    "source": "noctalith-comic-reference-20261115-113743.zip"
+  },
+  {
+    "ref": "C000158",
+    "file": "references/C000158.png",
+    "sha256": "1e1013a707fdca5fde7bbd924b3d793af6dd22c5ab6a6f5f4faaa755000ff8b5",
+    "source": "noctalith-comic-reference-20261115-113743.zip"
+  },
+  {
+    "ref": "C000160",
+    "file": "references/C000160.png",
+    "sha256": "05f7024240c70e154efd4c13c94a3efa035b29abcd1b9d407dc9b15e5bf9e8b8",
+    "source": "noctalith-comic-reference-20261115-113743.zip"
+  },
+  {
+    "ref": "C000161",
+    "file": "references/C000161.png",
+    "sha256": "a18dcf7d4e17b00e9ba5e94b9184f1fc5aa550384761ba7fd897b3ae54dfe591",
+    "source": "noctalith-comic-reference-20261115-113743.zip"
+  },
+  {
+    "ref": "C000225",
+    "file": "references/C000225.png",
+    "sha256": "4b4878bf7fc8e50f7cf08c425bb0672877a6d789e8d56f516f3d1b89dbaa47ce",
+    "source": "noctalith-comic-reference-20261115-113743.zip"
+  },
+  {
+    "ref": "C000226",
+    "file": "references/C000226.png",
+    "sha256": "6e38159dca3074bf594c40455b9c6e45a8ec65c0788a0bd793b80614f02d2fb0",
+    "source": "noctalith-comic-reference-20261115-113743.zip"
+  }
+]
