@@ -1,0 +1,89 @@
+{
+  "date": "2026-11-15",
+  "viewpoint": "ミカドの一人称視点",
+  "restriction": "食事・飲み物なし",
+  "count": 9,
+  "images": [
+    {
+      "name": "アヤメ",
+      "character_id": "C000160",
+      "file": "01-ayame.png",
+      "scene": "灯りの並ぶ広場で手品",
+      "width": 1199,
+      "height": 1312,
+      "sha256": "b2dbde2933d8b90efbd4617ec975c18a794198b0c78cc6396f05ca0a54b40c92"
+    },
+    {
+      "name": "ミコト",
+      "character_id": "C000141",
+      "file": "02-mikoto.png",
+      "scene": "アクセサリー選び",
+      "width": 1199,
+      "height": 1312,
+      "sha256": "122c63b51a963f4ae9b98e52189cfa65c66dfa93f66ac0384c5e4d0c7f30ce47"
+    },
+    {
+      "name": "メディ",
+      "character_id": "C000153",
+      "file": "03-medi.png",
+      "scene": "美術館で古い品を鑑賞",
+      "width": 1086,
+      "height": 1448,
+      "sha256": "b929ce97d0b28f22f67b68ce3e8f557aeba8633b7b433caaf73395ac906a8ad2"
+    },
+    {
+      "name": "セナ",
+      "character_id": "C000154",
+      "file": "04-sena.png",
+      "scene": "プラネタリウムで星を見る",
+      "width": 1199,
+      "height": 1312,
+      "sha256": "52359d00630c83d2fe79608b91a8701d287d5fcecf2dfc73d26e63d9b97caf10"
+    },
+    {
+      "name": "ケト",
+      "character_id": "C000155",
+      "file": "05-keto.png",
+      "scene": "朝の海辺で貝殻を贈る",
+      "width": 1199,
+      "height": 1312,
+      "sha256": "2aa2c8ef28dbb8731b75abc2c1473de460bd73561197ede29ab7658121a338d9"
+    },
+    {
+      "name": "ワイズ",
+      "character_id": "C000156",
+      "file": "06-wise.png",
+      "scene": "古書店で本探し",
+      "width": 1086,
+      "height": 1448,
+      "sha256": "16a71c8f89ecf4bad1d7f2aed51d3a08703ca4f844863ae761e4b90f67be0f7d"
+    },
+    {
+      "name": "シズ",
+      "character_id": "C000157",
+      "file": "07-shizu.png",
+      "scene": "夕暮れの鐘楼で談笑",
+      "width": 1199,
+      "height": 1312,
+      "sha256": "39ec81c810360c3fc11168ce093391239c8587ed091474f672f1bf4c1183e261"
+    },
+    {
+      "name": "シュミール",
+      "character_id": "C000158",
+      "file": "08-schmiel.png",
+      "scene": "工房でからくり鳥を披露",
+      "width": 1199,
+      "height": 1312,
+      "sha256": "8a61b1c64ff65049c7c55516e01c4bbde82cb172bb56d426e7f4ff3ea4e08d22"
+    },
+    {
+      "name": "ミゼル",
+      "character_id": "C000159",
+      "file": "09-mizel.png",
+      "scene": "天文台で星空観察",
+      "width": 1086,
+      "height": 1448,
+      "sha256": "5d2c0991c10208bbc43a7427af86baaba93822cdf29891057e51a2a8b05b451d"
+    }
+  ]
+}
