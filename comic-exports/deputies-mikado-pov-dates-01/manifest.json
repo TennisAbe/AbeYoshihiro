@@ -1,0 +1,80 @@
+{
+  "date": "2026-11-15",
+  "viewpoint": "ミカドの一人称視点",
+  "restriction": "食事・飲み物なし",
+  "count": 8,
+  "images": [
+    {
+      "name": "シュカ",
+      "character_id": "C000145",
+      "file": "01-shuka.png",
+      "scene": "夕暮れの庭園でチェス",
+      "width": 1199,
+      "height": 1312,
+      "sha256": "a9e1effb82a2b468dbea1b53bbb7f7dd1aa308189b3252813009c801570aac2d"
+    },
+    {
+      "name": "セイラ",
+      "character_id": "C000146",
+      "file": "02-seira-v2.png",
+      "scene": "植物園の温室で花を観察",
+      "width": 1199,
+      "height": 1312,
+      "sha256": "928051e00cf63f2fc61f86f0645204e90f5e5aa7e7ee9ebd58f4ab6f1f6f19f7"
+    },
+    {
+      "name": "パラム",
+      "character_id": "C000147",
+      "file": "03-param.png",
+      "scene": "湖畔で紙の風車を贈る",
+      "width": 1199,
+      "height": 1312,
+      "sha256": "d0a4b0587a060a595352ba6ce6a333e9ad599e8707cd661229e4ac0dc841d9aa"
+    },
+    {
+      "name": "ルア",
+      "character_id": "C000148",
+      "file": "04-lua.png",
+      "scene": "夕暮れの遊園地",
+      "width": 1086,
+      "height": 1448,
+      "sha256": "fefe5f0bb0bc71d7317c5817b0bed653f12c03afcae4efb982a042c974948818"
+    },
+    {
+      "name": "クイナ",
+      "character_id": "C000149",
+      "file": "05-quina.png",
+      "scene": "木陰のベンチでひと休み",
+      "width": 1199,
+      "height": 1312,
+      "sha256": "d13c8c85598c089af7b035cd88f76233d5b570832ac423b4053c2dfa19d84a56"
+    },
+    {
+      "name": "ソルベ",
+      "character_id": "C000150",
+      "file": "06-sorbet-v2.png",
+      "scene": "イルミネーションのスケートリンク",
+      "width": 1086,
+      "height": 1448,
+      "sha256": "549d07507976ed46066b1e8bad03c717a846a813ccc96539275c6f5567907e5c"
+    },
+    {
+      "name": "ルミ",
+      "character_id": "C000151",
+      "file": "07-rumi.png",
+      "scene": "ブティックで服選び",
+      "width": 1199,
+      "height": 1312,
+      "sha256": "99d73104523d14920a6df40223db18001811f1cccca7400ff7c17fd2539244b2"
+    },
+    {
+      "name": "シノ",
+      "character_id": "C000152",
+      "file": "08-shino.png",
+      "scene": "雨の参道で相合傘",
+      "width": 1199,
+      "height": 1312,
+      "sha256": "f44672f0914382574bea7b712a9a45feed10433408816bcfbb1ed2e3e3d7a8f6"
+    }
+  ]
+}
