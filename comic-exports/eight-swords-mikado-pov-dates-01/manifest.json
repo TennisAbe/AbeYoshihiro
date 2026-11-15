@@ -10,7 +10,9 @@
       "scene": "夕暮れの街でパンを差し出す",
       "width": 1024,
       "height": 1536,
-      "sha256": "634f081a63ceac99d8094cdfe995fec8a90c02e74f51842c35ffb3b9cce354d4"
+      "sha256": "71717d17e2e9b1b508d1c9bee468179ec1961922281443efae50616f92ab50ce",
+      "revision": "腕の接続を修正。右手でパンを差し出し左手を膝へ置く。",
+      "previous_file": "previous-versions/01-homura-before-arm-fix.png"
     },
     {
       "name": "スイ",
