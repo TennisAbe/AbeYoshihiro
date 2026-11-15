@@ -1,0 +1,283 @@
+{
+  "source_parts": [
+    "100kano-kyusai-all.zip.001",
+    "100kano-kyusai-all.zip.002"
+  ],
+  "received_date": "2026-11-15",
+  "purpose": [
+    "character_single_illustration_style_reference",
+    "manga_style_reference"
+  ],
+  "image_count": 38,
+  "zip_crc_verified": true,
+  "all_images_decode_verified": true,
+  "original_bytes_preserved": true,
+  "images": [
+    {
+      "file": "kyusai01-artwork.png",
+      "bytes": 1225656,
+      "width": 820,
+      "height": 1220,
+      "sha256": "f564d46554049289325159d3b237e66fd424367fd48ebe291d50954a9034cdcc"
+    },
+    {
+      "file": "kyusai02-artwork.png",
+      "bytes": 1483233,
+      "width": 820,
+      "height": 1220,
+      "sha256": "080ee4e9f9d7c1db9e29817ec6683ab74ff485983dfd54bd6376f2cec199f41d"
+    },
+    {
+      "file": "kyusai03-artwork.png",
+      "bytes": 1047651,
+      "width": 680,
+      "height": 1008,
+      "sha256": "f40279a6dd8c07d93e23cb8a98ead340f8973d58523cb93bea7064b96ac8e5d6"
+    },
+    {
+      "file": "kyusai04-artwork.png",
+      "bytes": 1278265,
+      "width": 820,
+      "height": 1220,
+      "sha256": "29da4b7bb4eb7759026326b58061730feb44953322d74bc5b055d01562902fb5"
+    },
+    {
+      "file": "kyusai05-artwork.png",
+      "bytes": 991761,
+      "width": 680,
+      "height": 1008,
+      "sha256": "0a28043ea0edc8dc368f799ce00c08d1636b0c90a07b89b9df98d38771db5618"
+    },
+    {
+      "file": "kyusai06-artwork.png",
+      "bytes": 1004587,
+      "width": 680,
+      "height": 1008,
+      "sha256": "22eefd418768ead370a1987c4821c7cf8c6606f32a03b1fc27f3a1073ba7f5a5"
+    },
+    {
+      "file": "kyusai07-artwork.png",
+      "bytes": 988041,
+      "width": 680,
+      "height": 1008,
+      "sha256": "32431eb2eb3ba573cec8b9e8308935c7f1c73e3fcc20b8a8331ee1ea68bd1c01"
+    },
+    {
+      "file": "kyusai08-artwork.png",
+      "bytes": 1009831,
+      "width": 678,
+      "height": 1012,
+      "sha256": "1fc0d94324874aaec5a27d0e52a34472a8042b7fe7226aa6ccbcf92bbe14ab66"
+    },
+    {
+      "file": "kyusai09-artwork.png",
+      "bytes": 957118,
+      "width": 681,
+      "height": 1014,
+      "sha256": "f1321cd7165c22d8537562c052a5649ee814234a3dcde2e3eaa0c8e8a42e4ebb"
+    },
+    {
+      "file": "kyusai10-artwork.png",
+      "bytes": 1081562,
+      "width": 668,
+      "height": 999,
+      "sha256": "a593307b260704c96950c97773144a0eabef717fc38931553e2bca0915ae8c36"
+    },
+    {
+      "file": "kyusai11-artwork.png",
+      "bytes": 1100249,
+      "width": 672,
+      "height": 1004,
+      "sha256": "31fdd14b6a3ea4e1a25f64513f13940a2db2c2cbb2c4784616d250ff0c5c8945"
+    },
+    {
+      "file": "kyusai12-artwork.png",
+      "bytes": 840249,
+      "width": 668,
+      "height": 1005,
+      "sha256": "218fbb04b46e105c7a74dd2a9a97b7d5241ba0286bc7edb0ae4bf9296f3a1b43"
+    },
+    {
+      "file": "kyusai13-artwork.png",
+      "bytes": 1029239,
+      "width": 672,
+      "height": 1004,
+      "sha256": "a97f9e9b4b3b8a3c448dd1083983a8091dcba259c269203aa87f0f2f99f9573b"
+    },
+    {
+      "file": "kyusai14-artwork.png",
+      "bytes": 1025923,
+      "width": 680,
+      "height": 1008,
+      "sha256": "1543a5fbd332a2177d14c1c5dc619af956f8468b5fa304ac8bcbab960b06488a"
+    },
+    {
+      "file": "kyusai15-artwork.png",
+      "bytes": 989129,
+      "width": 680,
+      "height": 1008,
+      "sha256": "2cc4d1bb1bc7663ce1a5e90199e3400cbec2386c5ff2ce9da60c332cc1d2a8cb"
+    },
+    {
+      "file": "kyusai16-artwork.png",
+      "bytes": 980589,
+      "width": 678,
+      "height": 1012,
+      "sha256": "548d75a6a38207429488189772fbef291960da505cb99a279f16bafeb5bf9987"
+    },
+    {
+      "file": "kyusai17-artwork.png",
+      "bytes": 1027250,
+      "width": 680,
+      "height": 1008,
+      "sha256": "3a47b59e0bd95ef653a9ba3009ee24fae23c3357db5a3a6b4b655cc7cc7a7542"
+    },
+    {
+      "file": "kyusai18-artwork.png",
+      "bytes": 1000905,
+      "width": 680,
+      "height": 1008,
+      "sha256": "aabae46a88988b1ebb3edde8ae0ea98074d20ad70c91003b3f1f0009cb97a152"
+    },
+    {
+      "file": "kyusai19-artwork.png",
+      "bytes": 1122455,
+      "width": 680,
+      "height": 1008,
+      "sha256": "4c6d924fe6afce3849971ff08485a4dafc3130d421f36d53292500632e462088"
+    },
+    {
+      "file": "kyusai20-artwork.png",
+      "bytes": 1143447,
+      "width": 679,
+      "height": 1012,
+      "sha256": "2fa1e72269e9e3e62b68caa7c1eaca4da12817ab3daa99a9c0f0f1036c37e009"
+    },
+    {
+      "file": "kyusai21-artwork.png",
+      "bytes": 1291897,
+      "width": 680,
+      "height": 1010,
+      "sha256": "7af56af6071df2666ee36991c8ec4f879b97cc0cb9435f1ea0c796492bfd380e"
+    },
+    {
+      "file": "kyusai22-artwork.png",
+      "bytes": 960772,
+      "width": 674,
+      "height": 1004,
+      "sha256": "f21e66cb632e37937b023fc540cc4d466ac89f1894a2250ce38038bfa25f48be"
+    },
+    {
+      "file": "kyusai23-artwork.png",
+      "bytes": 1483100,
+      "width": 680,
+      "height": 1008,
+      "sha256": "b684a6a686851ba90d694c2781cc06cc90ececdbe8ab721a91c46c87f970fc66"
+    },
+    {
+      "file": "kyusai24-artwork.png",
+      "bytes": 953463,
+      "width": 679,
+      "height": 1010,
+      "sha256": "e08a72cb5ca4194b45118e96c9afb5bc96fd30466c902948653910d8ea91fd70"
+    },
+    {
+      "file": "kyusai25-artwork.png",
+      "bytes": 1173300,
+      "width": 678,
+      "height": 1006,
+      "sha256": "b431dd163212d49d0039a4b8ecca6c9904c91302f1aff0389dee7f49a46d4568"
+    },
+    {
+      "file": "kyusai26-artwork.png",
+      "bytes": 820766,
+      "width": 674,
+      "height": 1003,
+      "sha256": "351113d0087326ac33637736e4850cdcf5ca298d7eb7509643a5ca46ddfa8913"
+    },
+    {
+      "file": "kyusai27-artwork.png",
+      "bytes": 1317657,
+      "width": 672,
+      "height": 1003,
+      "sha256": "832a2ecfebb3b200c5846a9d72c9e4002792f4a288bf1cf7a831967c272a9523"
+    },
+    {
+      "file": "kyusai28-artwork.png",
+      "bytes": 1408892,
+      "width": 685,
+      "height": 1010,
+      "sha256": "a8748857d1f3067d4dc7731866b33543885b9a380c6222fe020e6e509c098227"
+    },
+    {
+      "file": "kyusai29-artwork.png",
+      "bytes": 1081624,
+      "width": 675,
+      "height": 1004,
+      "sha256": "5ad04bf89ba4794612dca06a17ba392948c9385a20af93b673550b1ef6453e5c"
+    },
+    {
+      "file": "kyusai30-artwork.png",
+      "bytes": 1266028,
+      "width": 668,
+      "height": 999,
+      "sha256": "1174d27c92adbd5a73daebb4351b20cf3d315c8526e1742576ed9cbc8dec993f"
+    },
+    {
+      "file": "kyusai31-artwork.png",
+      "bytes": 1298712,
+      "width": 678,
+      "height": 1003,
+      "sha256": "09622bafa1dcdb7d6e8ef7165f61f2cb5c7af622b5f09ea9243dad1331f6a136"
+    },
+    {
+      "file": "kyusai32-artwork.png",
+      "bytes": 1313663,
+      "width": 673,
+      "height": 1006,
+      "sha256": "e73e3f855d07808f0070e47c94fd185355629dd5580e7e4e7f172dc2dde61aec"
+    },
+    {
+      "file": "kyusai33-artwork.png",
+      "bytes": 1098790,
+      "width": 679,
+      "height": 1014,
+      "sha256": "c03a5adfd2c582e87f235532acba3e7c77b476c59df54aab015c662375faff5c"
+    },
+    {
+      "file": "kyusai34-artwork.png",
+      "bytes": 1022852,
+      "width": 681,
+      "height": 1014,
+      "sha256": "80cf03c0a0f3437d178ec50661f6e115bde48af71361823a08d0a69161708752"
+    },
+    {
+      "file": "kyusai35-artwork.png",
+      "bytes": 1206650,
+      "width": 666,
+      "height": 999,
+      "sha256": "6a5b8b758f0e4c12f328cdf63c37af4436016fac0287414434c42aecb47e712c"
+    },
+    {
+      "file": "kyusai36-artwork.png",
+      "bytes": 806720,
+      "width": 678,
+      "height": 994,
+      "sha256": "222749b675a0f0f189e59337431b1645176b7592c069b44a8d9fc1b93060ab94"
+    },
+    {
+      "file": "kyusai37-artwork.png",
+      "bytes": 1265059,
+      "width": 678,
+      "height": 1012,
+      "sha256": "86293b607a5c6062218c323a8db397976318a5dee3af01ffe05939253f8d4164"
+    },
+    {
+      "file": "kyusai38-artwork.png",
+      "bytes": 1064456,
+      "width": 670,
+      "height": 1004,
+      "sha256": "9f193277b38116fa07b8b6ba824d437c248e55b9ba5ebbfaba978e9bcfaccc37"
+    }
+  ]
+}
