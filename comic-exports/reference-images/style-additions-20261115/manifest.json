@@ -1,0 +1,144 @@
+{
+  "date": "2026-11-15",
+  "source": "user_inline_chat_images",
+  "presented_images": 12,
+  "visually_distinct_images": 11,
+  "saved_original_images": 0,
+  "status": "observations_saved_original_files_pending",
+  "images": [
+    {
+      "id": "A01",
+      "message_group": 1,
+      "position": 1,
+      "observed_in_chat": true,
+      "original_saved": false,
+      "original_file": null,
+      "original_filename": null,
+      "sha256": null,
+      "dimensions": null
+    },
+    {
+      "id": "A02",
+      "message_group": 1,
+      "position": 2,
+      "observed_in_chat": true,
+      "original_saved": false,
+      "original_file": null,
+      "original_filename": null,
+      "sha256": null,
+      "dimensions": null
+    },
+    {
+      "id": "A03",
+      "message_group": 1,
+      "position": 3,
+      "observed_in_chat": true,
+      "original_saved": false,
+      "original_file": null,
+      "original_filename": null,
+      "sha256": null,
+      "dimensions": null
+    },
+    {
+      "id": "A04",
+      "message_group": 1,
+      "position": 4,
+      "observed_in_chat": true,
+      "original_saved": false,
+      "original_file": null,
+      "original_filename": null,
+      "sha256": null,
+      "dimensions": null
+    },
+    {
+      "id": "A05",
+      "message_group": 1,
+      "position": 5,
+      "observed_in_chat": true,
+      "original_saved": false,
+      "original_file": null,
+      "original_filename": null,
+      "sha256": null,
+      "dimensions": null
+    },
+    {
+      "id": "A06",
+      "message_group": 1,
+      "position": 6,
+      "observed_in_chat": true,
+      "original_saved": false,
+      "original_file": null,
+      "original_filename": null,
+      "sha256": null,
+      "dimensions": null
+    },
+    {
+      "id": "A07",
+      "message_group": 1,
+      "position": 7,
+      "observed_in_chat": true,
+      "original_saved": false,
+      "original_file": null,
+      "original_filename": null,
+      "sha256": null,
+      "dimensions": null
+    },
+    {
+      "id": "A08",
+      "message_group": 1,
+      "position": 8,
+      "observed_in_chat": true,
+      "original_saved": false,
+      "original_file": null,
+      "original_filename": null,
+      "sha256": null,
+      "dimensions": null,
+      "visually_matches": "A07",
+      "byte_identity_verified": false
+    },
+    {
+      "id": "B01",
+      "message_group": 2,
+      "position": 1,
+      "observed_in_chat": true,
+      "original_saved": false,
+      "original_file": null,
+      "original_filename": null,
+      "sha256": null,
+      "dimensions": null
+    },
+    {
+      "id": "B02",
+      "message_group": 2,
+      "position": 2,
+      "observed_in_chat": true,
+      "original_saved": false,
+      "original_file": null,
+      "original_filename": null,
+      "sha256": null,
+      "dimensions": null
+    },
+    {
+      "id": "B03",
+      "message_group": 2,
+      "position": 3,
+      "observed_in_chat": true,
+      "original_saved": false,
+      "original_file": null,
+      "original_filename": null,
+      "sha256": null,
+      "dimensions": null
+    },
+    {
+      "id": "B04",
+      "message_group": 2,
+      "position": 4,
+      "observed_in_chat": true,
+      "original_saved": false,
+      "original_file": null,
+      "original_filename": null,
+      "sha256": null,
+      "dimensions": null
+    }
+  ]
+}
