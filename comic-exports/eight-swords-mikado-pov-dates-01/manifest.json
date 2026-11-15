@@ -1,0 +1,79 @@
+{
+  "date": "2026-11-15",
+  "viewpoint": "ミカドの一人称視点",
+  "count": 8,
+  "images": [
+    {
+      "name": "ホムラ",
+      "character_id": "C000129",
+      "file": "01-homura.png",
+      "scene": "夕暮れの街でパンを差し出す",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "634f081a63ceac99d8094cdfe995fec8a90c02e74f51842c35ffb3b9cce354d4"
+    },
+    {
+      "name": "スイ",
+      "character_id": "C000130",
+      "file": "02-sui.png",
+      "scene": "書店カフェで紅茶",
+      "width": 1086,
+      "height": 1448,
+      "sha256": "8fb251566ad067afee93e2d29e401dde1a71125bc25823c7f634eca096725601"
+    },
+    {
+      "name": "フウ",
+      "character_id": "C000131",
+      "file": "03-fuu.png",
+      "scene": "公園で手を差し伸べる",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "93cbd551a87da1529f8321ebafb6df6ce442c4a7364fc4eed39be98e0bdb8bb8"
+    },
+    {
+      "name": "ライ",
+      "character_id": "C000132",
+      "file": "04-rai.png",
+      "scene": "ゲームセンターで景品をプレゼント",
+      "width": 1086,
+      "height": 1448,
+      "sha256": "8802ca786ea8036e806479172179cf610d55a27e5c4d6bf2cdd8ba741c128b77"
+    },
+    {
+      "name": "チカ",
+      "character_id": "C000133",
+      "file": "05-chika.png",
+      "scene": "庭園の茶席で和菓子",
+      "width": 1086,
+      "height": 1448,
+      "sha256": "12fa8a0cc790a76c50d5609cdba84d43bcb3052a55dc497c1c6be6c08f80c651"
+    },
+    {
+      "name": "ユキ",
+      "character_id": "C000134",
+      "file": "06-yuki.png",
+      "scene": "猫カフェで静かなひととき",
+      "width": 1086,
+      "height": 1448,
+      "sha256": "34ccaa400fef6634c59d5d6b60d2bedb4cb37f94fc0fcf795148502c5543c833"
+    },
+    {
+      "name": "ヒカリ",
+      "character_id": "C000135",
+      "file": "07-hikari.png",
+      "scene": "花園で小さな花束",
+      "width": 1024,
+      "height": 1536,
+      "sha256": "8fdc415f28850c2fd6a2248e850c09ab9b19a00a7bfe763b999ed2a82fd43b0f"
+    },
+    {
+      "name": "ヤミ",
+      "character_id": "C000136",
+      "file": "08-yami.png",
+      "scene": "夜の水族館でクラゲを鑑賞",
+      "width": 1086,
+      "height": 1448,
+      "sha256": "8248648730a41c1dc654bca5e0ed694e7085d19a2b8b704d43ec6b9f1e49c4f5"
+    }
+  ]
+}
