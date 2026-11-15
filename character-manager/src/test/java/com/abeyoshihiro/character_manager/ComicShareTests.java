@@ -97,4 +97,44 @@ class ComicShareTests {
         var modern=save("Modern",CharacterWorld.MODERN_WORLD,"Y");var a=save("Palace A",CharacterWorld.ALTER_PALACE,"A");var b=save("Palace B",CharacterWorld.ALTER_PALACE,"B");ordering.save(CharacterWorld.ALTER_PALACE,List.of("B","A"),List.of(1,2));
         String doc=text(unpack(share.exportAll()),"01_ALL_CHARACTERS.md");assertTrue(doc.indexOf("## ["+ref(b.getId())+"]")<doc.indexOf("## ["+ref(a.getId())+"]"));assertTrue(doc.indexOf("## ["+ref(a.getId())+"]")<doc.indexOf("## ["+ref(modern.getId())+"]"));
     }
+    @Test void selectedUpdateIncludesOnlyChosenProfilesImagesAndIncidentRelationships() throws Exception {
+        var a=save("同名",CharacterWorld.ALTER_PALACE,"宮殿");
+        var b=save("同名",CharacterWorld.OTHER_WORLD,"騎士団");
+        var c=save("未選択",CharacterWorld.MODERN_WORLD,"");
+        b.setBasicSettings("UNSELECTED_PRIVATE_SETTINGS");characters.save(b);
+        gallery.upload(a.getId(),new MockMultipartFile("image",png(0xff0000)),"選択画像");
+        gallery.upload(b.getId(),new MockMultipartFile("image",png(0x0000ff)),"未選択画像");
+        var ab=new CharacterRelation();ab.setSource(b);ab.setTarget(a);ab.setRelationType("友人");ab.setDescription("対象にかかわる関係");relations.save(ab);
+        var bc=new CharacterRelation();bc.setSource(b);bc.setTarget(c);bc.setRelationType("仲間");bc.setDescription("UNSELECTED_RELATION");relations.save(bc);
+        String page=new String(get("/share").body(),StandardCharsets.UTF_8);
+        assertTrue(page.contains("選択キャラの差分共有ZIPを保存"));assertTrue(page.contains("name=\"characterIds\""));assertTrue(page.contains(ref(a.getId())));
+        var response=get("/share/download?selected=true&characterIds="+a.getId()+"&characterIds="+a.getId());
+        assertEquals(200,response.statusCode());assertTrue(response.headers().firstValue("content-disposition").orElseThrow().contains("update-"));
+        var zip=unpack(response.body());
+        assertEquals(1,zip.keySet().stream().filter(k->k.startsWith("characters/")).count());
+        assertTrue(zip.containsKey("characters/"+ref(a.getId())+".md"));
+        assertTrue(zip.keySet().stream().filter(k->k.startsWith("images/")).allMatch(k->k.startsWith("images/"+ref(a.getId())+"/")));
+        String doc=text(zip,"01_ALL_CHARACTERS.md");assertTrue(doc.contains("対象にかかわる関係"));assertTrue(doc.contains(ref(b.getId())));
+        assertFalse(doc.contains("UNSELECTED_PRIVATE_SETTINGS"));assertFalse(doc.contains("UNSELECTED_RELATION"));
+        assertFalse(text(zip,"02_IMAGE_INDEX.csv").contains("未選択画像"));assertFalse(text(zip,"05_DISPLAY_COLORS.csv").contains(ref(b.getId())));
+        assertTrue(text(zip,"00_START_HERE.md").contains(ref(a.getId())));assertTrue(text(zip,"03_CHATGPT_PROMPT.txt").contains("今回の一覧にない画像"));
+        assertTrue(text(zip,"03_CHATGPT_PROMPT.txt").contains("以前の資料を保持"));
+        assertFalse(text(zip,"04_RELATIONSHIPS.svg").contains("UNSELECTED_RELATION"));
+        assertEquals(3,unpack(share.exportAll(List.of(a.getId()))).keySet().stream().filter(k->k.startsWith("characters/")).count());
+        Files.delete(gallery.path(gallery.list(b.getId()).get(0).getStorageName()));
+        assertDoesNotThrow(()->share.exportSelected(List.of(a.getId()),100));
+        assertThrows(IllegalArgumentException.class,share::exportAll);
+    }
+    @Test void selectedUpdateRejectsEmptyOrUnknownSelectionsAndSupportsMultipleCharacters() throws Exception {
+        var a=save("A",CharacterWorld.ALTER_PALACE,"");var b=save("B",CharacterWorld.PROTAGONIST,"");
+        assertThrows(IllegalArgumentException.class,()->share.exportSelected(null,100));
+        assertThrows(IllegalArgumentException.class,()->share.exportSelected(List.of(),100));
+        assertThrows(IllegalArgumentException.class,()->share.exportSelected(List.of(a.getId(),Long.MAX_VALUE),100));
+        assertEquals(302,get("/share/download?selected=true").statusCode());
+        assertEquals(302,get("/share/download?selected=true&characterIds="+Long.MAX_VALUE).statusCode());
+        var zip=unpack(share.exportSelected(List.of(a.getId(),b.getId()),100));
+        assertEquals(2,zip.keySet().stream().filter(k->k.startsWith("characters/")).count());
+        assertEquals(0,pictures.count());assertEquals(0,revisions.count());
+    }
+
 }

@@ -28,6 +28,17 @@ public class ComicShareService {
             ZIPの画像を実際に確認できない場合は、その旨と直接添付が必要な画像を教えてください。
             今回は資料の読み込みだけを行い、漫画の制作は次の指示を待ってください。
             """;
+    public static final String UPDATE_PROMPT = """
+            添付したNOCTALITHのZIPは、選択キャラクターだけの差分共有資料です。
+            00_START_HERE.mdの更新対象を参照IDで照合してください。同名でも別IDの人物は区別してください。
+            対象キャラクターのプロフィール・画像一覧・画像説明・代表画像・表示色を、このZIPの最新情報で置き換えてください。
+            対象の古い画像や空欄になった設定は引き継がず、今回の一覧にない画像は対象の参照から外してください。
+            対象キャラクターに直接かかわる関係も今回の一覧で置き換え、記載されなくなった関係は削除してください。
+            選択していないキャラクターのプロフィール・画像と、対象にかかわらない関係は以前の資料を保持してください。
+            このZIPに含まれないキャラクターを削除しないでください。相関図は対象に直接かかわる関係の部分図です。
+            初めての参照IDは新しいキャラクターとして追加してください。過去の資料がない場合は、このZIPの人物だけを読み込んでください。
+            変更項目だけの比較ではなく、選択キャラクター単位で最新資料を差し替える方式です。
+            """ + PROMPT.replace("全キャラクターを把握", "今回の対象キャラクターを把握");
     private final AffiliationOrderingService ordering;
     private final RelationRepository relations;
     private final GalleryService gallery;
@@ -81,6 +92,14 @@ public class ComicShareService {
     public byte[] exportAll(List<Long> ids) throws IOException { return exportAll(ids, 100); }
     @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
     public byte[] exportAll(List<Long> ids, int spacing) throws IOException {
+        return export(ids, spacing, null);
+    }
+    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
+    public byte[] exportSelected(List<Long> characterIds, int spacing) throws IOException {
+        if (characterIds == null || characterIds.isEmpty()) throw new IllegalArgumentException("共有するキャラクターを1人以上選択してください。");
+        return export(characterIds, spacing, new HashSet<>(characterIds));
+    }
+    private byte[] export(List<Long> ids, int spacing, Set<Long> selected) throws IOException {
         RelationshipDiagramService.validateSpacing(spacing);
         synchronized (gallery) {
             List<OriginalCharacter> roster = ordering.roster();
@@ -89,6 +108,17 @@ public class ComicShareService {
             List<CharacterRelation> connections = relations.findAll();
             if (connections.size() > 20000) throw new IllegalArgumentException("関係の件数が共有上限を超えています。");
             var diagram = diagrams.select(roster, connections, ids);
+            if (selected != null) {
+                roster = roster.stream().filter(c -> selected.contains(c.getId())).toList();
+                connections = diagram.relations();
+                Set<Long> visible = new HashSet<>(selected);
+                for (CharacterRelation relation : connections) {
+                    visible.add(relation.getSource().getId());
+                    visible.add(relation.getTarget().getId());
+                }
+                diagram = new RelationshipDiagramService.Diagram(
+                        diagram.characters().stream().filter(c -> visible.contains(c.getId())).toList(), connections);
+            }
             Map<Long, List<CharacterRelation>> byCharacter = new HashMap<>();
             for (CharacterRelation relation : connections) {
                 byCharacter.computeIfAbsent(relation.getSource().getId(), key -> new ArrayList<>()).add(relation);
@@ -114,7 +144,7 @@ public class ComicShareService {
                 images.put(c.getId(), references);
             }
             String timestamp = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss 'JST'").withZone(ZoneId.of("Asia/Tokyo")).format(Instant.now());
-            StringBuilder all = new StringBuilder("# NOCTALITH 全キャラクター・漫画制作参照資料\n\n作成日時：" + timestamp + "\n\n");
+            StringBuilder all = new StringBuilder("# NOCTALITH " + (selected == null ? "全キャラクター" : "選択キャラクター差分共有") + "・漫画制作参照資料\n\n作成日時：" + timestamp + "\n\n");
             all.append("参照ID（Cから始まる番号）でキャラを区別します。一覧画面の表示NO.とは異なります。以下は現在の設定だけです。\n\n## キャラクター一覧\n\n");
             for (OriginalCharacter c : roster) all.append("- [").append(ref(c.getId())).append("] ").append(markdown(c.getName())).append(" / ").append(c.getWorld().getLabel()).append(" / 所属：").append(markdown(c.getAffiliation())).append("\n");
             all.append("\n---\n\n");
@@ -157,12 +187,18 @@ public class ComicShareService {
                     この資料は参照を助けるもので、画像生成や会話の一貫性を保証するものではありません。
                     内容は作成時点のコピーです。設定や画像を更新したら新しいパックを作成して共有し直します。
                     """;
+            String prompt = selected == null ? PROMPT : UPDATE_PROMPT;
+            if (selected != null) {
+                StringBuilder scope = new StringBuilder("# 選択キャラクター差分共有パック\n\n作成日時：" + timestamp + "\n\n## 更新対象（この参照IDだけを差し替え）\n\n");
+                for (OriginalCharacter c : roster) scope.append("- [").append(ref(c.getId())).append("] ").append(markdown(c.getName())).append("\n");
+                guide = scope + "\n" + UPDATE_PROMPT + "\n## ファイル\n\n01_ALL_CHARACTERS.md と characters/ は選択キャラクターだけの最新設定です。\n02_IMAGE_INDEX.csv と images/ は対象の現在の全画像、05_DISPLAY_COLORS.csv は対象の表示色です。\n04_RELATIONSHIPS.svg は対象に直接かかわる関係の部分図です。関係の相手の名前・参照IDを含みますが、未選択の相手の設定・画像は含みません。\n03_CHATGPT_PROMPT.txt を同じ会話に送ってください。バックアップ復元用ではありません。\n";
+            }
             LimitedOutput output = new LimitedOutput();
             try (ZipOutputStream zip = new ZipOutputStream(output, StandardCharsets.UTF_8)) {
                 total = text(zip, "00_START_HERE.md", guide, total);
                 total = text(zip, "01_ALL_CHARACTERS.md", all.toString(), total);
                 total = text(zip, "02_IMAGE_INDEX.csv", index.toString(), total);
-                total = text(zip, "03_CHATGPT_PROMPT.txt", PROMPT, total);
+                total = text(zip, "03_CHATGPT_PROMPT.txt", prompt, total);
                 total = text(zip, "04_RELATIONSHIPS.svg", diagrams.render(diagram.characters(), diagram.relations(), spacing), total);
                 StringBuilder colors = new StringBuilder("character_ref,character_name,card_color_rgb_hex\r\n");
                 for (OriginalCharacter c : roster) colors.append(String.join(",", csv(ref(c.getId())), csv(c.getName()), csv(c.getCardColor()))).append("\r\n");

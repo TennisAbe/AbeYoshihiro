@@ -279,3 +279,7 @@ button.secondary { background: transparent; border-color: #65556f; color: var(--
 .relationship-diagram { max-height: 75vh; overscroll-behavior: contain; }
 .relationship-diagram img { width: auto; min-width: 0; max-width: none; height: auto; }
 .relationship-diagram:focus-visible { outline: 2px solid #c5a876; outline-offset: 4px; }
+
+#selected-share-form fieldset { border: 1px solid #47404f; padding: 16px; margin: 20px 0; }
+.share-character-option { padding: 8px 0; }
+.share-character-option label { flex-wrap: wrap; font-size: 14px; line-height: 1.7; cursor: pointer; }
