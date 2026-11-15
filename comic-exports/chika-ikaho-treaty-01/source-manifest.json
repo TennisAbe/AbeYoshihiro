@@ -1,0 +1,29 @@
+{
+  "source_script_sha256": "34895fc109b128213504badfd2c436668b8b5639333e78b6bc6cbd1f0fcbeb06",
+  "references": [
+    {
+      "file": "../reference-images/characters/C000133/I000040.png",
+      "sha256": "e9fed6b62624d6b7cc1d0bd04c5f84010b8b05868574301a97dbbc57340cefa3"
+    },
+    {
+      "file": "../reference-images/characters/C000161/I000097.png",
+      "sha256": "a18dcf7d4e17b00e9ba5e94b9184f1fc5aa550384761ba7fd897b3ae54dfe591"
+    },
+    {
+      "file": "../reference-images/characters/C000156/I000063.png",
+      "sha256": "20ff1785e828e48b0e171703bc8f6f56f7158366484b9e1ff98db48d4c5b5741"
+    },
+    {
+      "file": "../reference-images/style-originals/05-sports-date.png",
+      "sha256": "94ef85f6438ece1555aed0cd5c04e9588e4edac7741d931b4232da2d6d0955f0"
+    },
+    {
+      "file": "../reference-images/style-originals/09-action-comedy-spread.png",
+      "sha256": "b7366d3835ecf0ecdc7a112c670cf82728386eda3dab304819baa27c9d907641"
+    },
+    {
+      "file": "../reference-images/100kano-kyusai-all/kyusai38-artwork.png",
+      "sha256": "9f193277b38116fa07b8b6ba824d437c248e55b9ba5ebbfaba978e9bcfaccc37"
+    }
+  ]
+}
