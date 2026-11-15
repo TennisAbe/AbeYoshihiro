@@ -6,13 +6,14 @@
     {
       "name": "ホムラ",
       "character_id": "C000129",
-      "file": "01-homura.png",
+      "file": "01-homura-v2.png",
       "scene": "夕暮れの街でパンを差し出す",
       "width": 1024,
       "height": 1536,
       "sha256": "71717d17e2e9b1b508d1c9bee468179ec1961922281443efae50616f92ab50ce",
       "revision": "腕の接続を修正。右手でパンを差し出し左手を膝へ置く。",
-      "previous_file": "previous-versions/01-homura-before-arm-fix.png"
+      "previous_file": "previous-versions/01-homura-before-arm-fix.png",
+      "compatibility_copy": "01-homura.png"
     },
     {
       "name": "スイ",
