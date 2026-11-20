@@ -1,0 +1,264 @@
+{
+  "title": "炎軍団、火力ひかえめ。",
+  "reading_direction": "right-to-left",
+  "pages": [
+    {
+      "page": 1,
+      "file": "page-01.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3817597,
+      "sha256": "460421285c58d4a0fc6680e35ae7611a15130e5ace116fa6eb58a1d8144cf71e"
+    },
+    {
+      "page": 2,
+      "file": "page-02.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3602853,
+      "sha256": "6ac96437563c5df558a4afbc48124194f48fa1e384fd339bdfccc22ce503635b"
+    },
+    {
+      "page": 3,
+      "file": "page-03.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3563151,
+      "sha256": "06c64f5c03c1c8addf82fd10c815caf3148e578db7c793b6194396a73333bfd8"
+    },
+    {
+      "page": 4,
+      "file": "page-04.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3643967,
+      "sha256": "76f203665f08d5ae3a49cfaab98061c8228beac3c84e438f2f71c4d30bab79e7"
+    },
+    {
+      "page": 5,
+      "file": "page-05.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3617652,
+      "sha256": "16ec9e01f5d353601f3671412187f51b92dcf017ae5abf919a6c8c64a126c611"
+    },
+    {
+      "page": 6,
+      "file": "page-06.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3711925,
+      "sha256": "421ddea9c420aae1eebdecb2fa6685fc98dac3429d46218f551f8cd5145571ad"
+    },
+    {
+      "page": 7,
+      "file": "page-07.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3645390,
+      "sha256": "60047167008c6f0c4576b11b24de3a8f48fbeac8d7238e957800b7183b991abd"
+    },
+    {
+      "page": 8,
+      "file": "page-08.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3313144,
+      "sha256": "8c29e1a670ff6e629de67546165b3abd67a52c96b9e2132e399fb8f56941181f"
+    },
+    {
+      "page": 9,
+      "file": "page-09.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3540683,
+      "sha256": "b00766aabcd282ba9470acb09a5e838498fc3f94bc02df4d131050320d2bae58"
+    },
+    {
+      "page": 10,
+      "file": "page-10.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3559532,
+      "sha256": "a1c073e708e52d3a6cb605afab8d06dc23f3826e8fd50c780f39e1472a5d03f5"
+    },
+    {
+      "page": 11,
+      "file": "page-11.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3435723,
+      "sha256": "da4af6597e900e00893b668f709206dffb756688f69c94eb1f9c3532bfd0c949"
+    },
+    {
+      "page": 12,
+      "file": "page-12.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3683125,
+      "sha256": "efd570956d88dec0d13008eb22be1ca4bceb20bd707f5edcae3752689161526a"
+    },
+    {
+      "page": 13,
+      "file": "page-13.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3478644,
+      "sha256": "06a12490ce0c81959b2a1a2a2abafb875bf5c9530351b253ba3f60a6b78bf247"
+    },
+    {
+      "page": 14,
+      "file": "page-14.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3807973,
+      "sha256": "ef859f24b0b97c8c925ddb5e432f5dddacd0101be189ea95cead95a4e37c64f7"
+    },
+    {
+      "page": 15,
+      "file": "page-15.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3637480,
+      "sha256": "4c613f01349b9ae67c631c753788f6eb0603da10c01959b655f6b64756f64efe"
+    },
+    {
+      "page": 16,
+      "file": "page-16.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3797540,
+      "sha256": "50c314f1e9283b1c024e3c6bd8268dd0b0a2a0b9d62f2468d213f2fcd7f94514"
+    },
+    {
+      "page": 17,
+      "file": "page-17.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3494085,
+      "sha256": "eb36fb8a7a826aa40bc2d19efa2c8d0cffdb760ad39c9ca15f910c8b10586dd3"
+    },
+    {
+      "page": 18,
+      "file": "page-18.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3586632,
+      "sha256": "3a972fe60bde491472651bcbd4aecc123726ce8398cd70c2acd612c33ec29ff8"
+    },
+    {
+      "page": 19,
+      "file": "page-19.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3327661,
+      "sha256": "64d60db2f2b4fe07e4c65c47adeebef835239a161944f043700fcd749b714305"
+    },
+    {
+      "page": 20,
+      "file": "page-20.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3608382,
+      "sha256": "47c8207653a2b38d9175276287503fdcd8be53a1a5f0ac1cdef24480b9b46839"
+    },
+    {
+      "page": 21,
+      "file": "page-21.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3582996,
+      "sha256": "c092e7572c594c448532eb2ac7561b92aa7b8e4ece485d810b96a0c65a8abe57"
+    },
+    {
+      "page": 22,
+      "file": "page-22.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3661527,
+      "sha256": "9b4cafb509f678de6ba26dcdc679e9ff3c24edde652143e481b7f26a8cf71d57"
+    },
+    {
+      "page": 23,
+      "file": "page-23.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3771760,
+      "sha256": "3261735057bfbe8fcb470ae57c7d1ecb47e06e12ba7f6f5e384ec90f1688150f"
+    },
+    {
+      "page": 24,
+      "file": "page-24.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3679491,
+      "sha256": "c492f66f8eb118a85a746016578b9ae40653eab59334d9c215b81a6282f4cb63"
+    },
+    {
+      "page": 25,
+      "file": "page-25.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3487311,
+      "sha256": "4b2870757e2ff8bae01c45900906d094e62f9fdda02a7c295e9b72f8edbf7fd2"
+    },
+    {
+      "page": 26,
+      "file": "page-26.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3929379,
+      "sha256": "0bfaa181a69ae01086cd0d1e752771515cbe3cf90b2213fef9547a684f26e241"
+    },
+    {
+      "page": 27,
+      "file": "page-27.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3487082,
+      "sha256": "c4648380164f0aece0981207a9e67d991fa5910e24c76e1e0b29f6deccfa22c7"
+    },
+    {
+      "page": 28,
+      "file": "page-28.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3767063,
+      "sha256": "c59c45b181d8144e85bea40051e1dddaa0d898849c961efd7d01bbcfa4ca1dcb"
+    },
+    {
+      "page": 29,
+      "file": "page-29.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3536375,
+      "sha256": "5df9799f5768a66532ecea5faf5212b3d2882a2f362f2d2560be32b280e35013"
+    },
+    {
+      "page": 30,
+      "file": "page-30.png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3602462,
+      "sha256": "f7fa0e7b9610bd5590033d87a4099a2b0f19c186d98c75617ce036dd58efa73f"
+    }
+  ],
+  "pdfs": [
+    {
+      "file": "NOCTALITH-flame-legion-easy-on-the-fire-part-1-pages-01-15.pdf",
+      "start": 1,
+      "end": 15,
+      "pages": 15,
+      "bytes": 48303892,
+      "sha256": "7c938bd006736926ffaef731039107cbace2b4307b6b5077bdf122f45f4bcd5c"
+    },
+    {
+      "file": "NOCTALITH-flame-legion-easy-on-the-fire-part-2-pages-16-30.pdf",
+      "start": 16,
+      "end": 30,
+      "pages": 15,
+      "bytes": 48655801,
+      "sha256": "a3e34256951b5308e10838aa932ef46994f2bd274a8a77727535b2cecc116949"
+    }
+  ]
+}
