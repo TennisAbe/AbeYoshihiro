@@ -1,5 +1,7 @@
 # 漫画制作の引き継ぎ
 
+
+最新の漫画画風参考（2026-11-20）：ユーザー提供の `comic_gafu_list.zip` の画像23枚を [画風参考一覧](comic-exports/reference-images/style-comic-20261120/README.md) に収録。以後の漫画制作では、この画像集を画風・描き込み・背景・キャラの線の主な参照先として、場面に合う実画像を開いて使う。
 このリポジトリでNOCTALITHの漫画を制作・出力する場合は、作業前に `comic-exports/制作引き継ぎ.md` を読むこと。
 
 最新のキャラクター設定・索引は `comic-exports/reference-images/updates-20261108/`（全40人）。先に同フォルダのREADMEを確認すること。七天魔王7人のPNGは new_char.zip で追加受領し、全7枚を実際に開いて確認済み。原画像は `reference-images/characters/C000193/`〜`C000199/`、視認メモは最新版フォルダの `new-character-visual-notes.md`。既存33枚は旧版画像で、新版PNGとの同一性は未照合。この33枚まで新版照合済みと誤認しない。
