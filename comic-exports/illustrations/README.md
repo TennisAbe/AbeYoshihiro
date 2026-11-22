@@ -2,6 +2,7 @@
 
 ミカド目線の人物イラストと、八星剣の技イラスト。
 
+- [海とプール ― ミカド目線の一枚絵41人](all-heroines-mikado-pov-summer-01/)
 - [ミカド目線のデート一枚絵41人・改訂版](all-heroines-mikado-pov-dates-02/)
 - [all-heroines-mikado-pov-20261122](all-heroines-mikado-pov-20261122/)
 - [deputies-mikado-pov-dates-01](deputies-mikado-pov-dates-01/)
