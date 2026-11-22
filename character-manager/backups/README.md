@@ -17,3 +17,15 @@ ZIPをダウンロードし、アプリの「バックアップ・復元」画�
 ```text
 java -Dfile.encoding=UTF-8 -Dloader.main=org.h2.tools.RunScript -cp target/character-manager-0.0.1-SNAPSHOT.jar org.springframework.boot.loader.launch.PropertiesLauncher -url "jdbc:h2:file:./data/characters;IFEXISTS=TRUE" -user "" -password "" -script backups/add-relationships-20261122.sql
 ```
+
+## パレス内の全600方向に詳細を追加する
+
+[パレス関係一覧（CSV）](palace-relationships-20261122.csv)では、25人それぞれから他の24人への呼び方・接し方・関係・具体的な付き合いを確認できます。資料に明記されている呼び方と、今回の補完案を表示しています。作中での具体的な付き合いは設定集に追記するための案です。
+
+前節のSQLをまだ実行していない場合は、先に実行してミカドと異世界の関係も反映してください。続いて、アプリを終了した状態で、同じフォルダから次を実行します。
+
+```text
+java -Dfile.encoding=UTF-8 -Dloader.main=org.h2.tools.RunScript -cp target/character-manager-0.0.1-SNAPSHOT.jar org.springframework.boot.loader.launch.PropertiesLauncher -url "jdbc:h2:file:./data/characters;IFEXISTS=TRUE" -user "" -password "" -script backups/expand-palace-relationships-20261122.sql
+```
+
+すでにある関係は種類と元の説明を保ち、詳細を追記します。新しい方向にだけ関係を追加します。同じSQLを再実行しても追記は重複しません。共有バックアップをもとに前節とこの節を実行すると、全体で42人・673件になります。各方向の長文はキャラクター詳細の「キャラクター同士の関係」欄に表示されます。
