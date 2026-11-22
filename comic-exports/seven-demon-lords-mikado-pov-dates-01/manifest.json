@@ -1,0 +1,65 @@
+[
+  {
+    "name": "ルシフェリア",
+    "filename": "luciferia.png",
+    "characterRef": "C000193",
+    "imageRef": "I000130",
+    "width": 1024,
+    "height": 1536,
+    "sha256": "1ec7a417b92619c762efe2c8ff1953fa68f86d2ca89b07d8705bf23fa33ae648"
+  },
+  {
+    "name": "レヴィアナ",
+    "filename": "leviana.png",
+    "characterRef": "C000194",
+    "imageRef": "I000131",
+    "width": 1024,
+    "height": 1536,
+    "sha256": "45bea2f9bddc19af8fdec258d4a0a9f3a183580105d7e243998eeddf50f3ab86"
+  },
+  {
+    "name": "サタニア",
+    "filename": "satania.png",
+    "characterRef": "C000195",
+    "imageRef": "I000132",
+    "width": 1024,
+    "height": 1536,
+    "sha256": "4fdba0d1990fa2332125ad9118c0f17fb9b276783c6c20ac7314bd8794117e8b"
+  },
+  {
+    "name": "フィナ",
+    "filename": "fina.png",
+    "characterRef": "C000196",
+    "imageRef": "I000133",
+    "width": 1024,
+    "height": 1536,
+    "sha256": "a292400142d6f5403003bf24e736477a8e3b8e8fa5a617137619d8d1960b0d77"
+  },
+  {
+    "name": "モニカ",
+    "filename": "monica.png",
+    "characterRef": "C000197",
+    "imageRef": "I000134",
+    "width": 1024,
+    "height": 1536,
+    "sha256": "77e348e77bdda1b41cfc8324ca522649d283543b769a5c08d917daf3dbe15e79"
+  },
+  {
+    "name": "ベル",
+    "filename": "bel.png",
+    "characterRef": "C000198",
+    "imageRef": "I000138",
+    "width": 1024,
+    "height": 1536,
+    "sha256": "b1e6920de899d4c4e866cea08f98cf49401ce2bf437c046cb660ff5363051491"
+  },
+  {
+    "name": "アスティリア",
+    "filename": "astilia.png",
+    "characterRef": "C000199",
+    "imageRef": "I000137",
+    "width": 1024,
+    "height": 1536,
+    "sha256": "807ddb5e706015491189bf2f7599b0a69af5b7af9b6ebc300a8cc0da4ee79916"
+  }
+]
