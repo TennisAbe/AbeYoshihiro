@@ -2,6 +2,7 @@
 
 ミカド目線の人物イラストと、八星剣の技イラスト。
 
+- [ミカド目線のデート一枚絵41人・改訂版](all-heroines-mikado-pov-dates-02/)
 - [all-heroines-mikado-pov-20261122](all-heroines-mikado-pov-20261122/)
 - [deputies-mikado-pov-dates-01](deputies-mikado-pov-dates-01/)
 - [eight-swords-mikado-pov-dates-01](eight-swords-mikado-pov-dates-01/)
