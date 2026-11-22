@@ -22,10 +22,10 @@ java -Dfile.encoding=UTF-8 -Dloader.main=org.h2.tools.RunScript -cp target/chara
 
 [パレス関係一覧（CSV）](palace-relationships-20261122.csv)に、パレス25人の全600方向と、ホムラからミカドへの関係を掲載しています。呼び方・接し方・具体的な付き合いの順で記載しています。休日の過ごし方など、今回追加した場面は設定集に追記するための補完案です。
 
-前節のSQLをまだ実行していない場合は、先に実行してミカドと異世界の関係も反映してください。続いて、アプリを終了し、\`character-manager\` フォルダで次のコマンドを実行します。以前にパレスの追加SQLを実行した環境にも使えます。
+前節のSQLをまだ実行していない場合は、先に実行してミカドと異世界の関係も反映してください。続いて、アプリを終了し、`character-manager` フォルダで次のコマンドを実行します。以前にパレスの追加SQLを実行した環境にも使えます。
 
 ~~~text
 java -Dfile.encoding=UTF-8 -Dloader.main=org.h2.tools.RunScript -cp target/character-manager-0.0.1-SNAPSHOT.jar org.springframework.boot.loader.launch.PropertiesLauncher -url "jdbc:h2:file:./data/characters;IFEXISTS=TRUE" -user "" -password "" -script backups/format-palace-relationships-20261122.sql
 ~~~
 
-アプリを起動し、キャラクター詳細の「キャラクター同士の関係」で確認します。共有バックアップをもとに復元した環境では、相関図は42人・673件になります。以前のパレス用SQL（\`expand-palace-relationships-20261122.sql\`）をすでに実行済みでも、関係は重複しません。
+アプリを起動し、キャラクター詳細の「キャラクター同士の関係」で確認します。共有バックアップをもとに復元した環境では、相関図は42人・673件になります。以前のパレス用SQL（`expand-palace-relationships-20261122.sql`）をすでに実行済みでも、関係は重複しません。
